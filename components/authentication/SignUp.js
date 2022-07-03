@@ -9,6 +9,7 @@ import {
 } from "react-native";
 import { useState } from "react";
 import usersStore from "../../stores/usersStore";
+import { ExtraBigButton } from "../../constants";
 
 export default function SignUp({ navigation }) {
   const [user, setUser] = useState({
@@ -22,7 +23,7 @@ export default function SignUp({ navigation }) {
       username: "",
       password: "",
     });
-    navigation.navigate("Profile");
+    navigation.navigate("MainProfile");
   };
 
   return (
@@ -49,10 +50,11 @@ export default function SignUp({ navigation }) {
           onChangeText={(password) => setUser({ ...user, password })}
         />
       </View>
-      <TouchableOpacity style={styles.submitButton} onPress={signup}>
-        <Text style={styles.submitButtonText}> Sign up </Text>
-      </TouchableOpacity>
-      <Text>already have an account?</Text>
+      <ExtraBigButton onPress={signup} text={"Sign up"} />
+
+      <Text style={{ fontSize: 22, fontWeight: "bold" }}>
+        already have an account?
+      </Text>
       <Button
         title="sign in!"
         onPress={() => {
