@@ -19,9 +19,17 @@ export default function SignUpStackNavigator() {
       screenOptions={{
         tabBarActiveTintColor: "black",
         headerShown: true,
+        headerTitleAlign: "center",
       }}
     >
-      <Screen name="Main" component={MainScreen} />
+      <Screen
+        name="Main"
+        //need to uncomment this at some point
+        options={{
+          headerShown: false,
+        }}
+        component={MainScreen}
+      />
       <Screen
         name="ImageBrowser"
         component={ImageBrowserScreen}

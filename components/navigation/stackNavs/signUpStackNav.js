@@ -13,7 +13,14 @@ const { Navigator, Screen } = createStackNavigator();
 
 export default function SignUpStackNavigator() {
   return (
-    <Navigator initialRouteName="SignUp">
+    <Navigator
+      initialRouteName="BottomNav"
+      screenOptions={{
+        tabBarActiveTintColor: "black",
+        headerTitleAlign: "center",
+        //headerShown: false,
+      }}
+    >
       <Screen
         name="SignUp"
         component={SignUp}
@@ -29,11 +36,11 @@ export default function SignUpStackNavigator() {
         }}
       />
       <Screen
-        name="MainProfile"
+        name="BottomNav"
         //it will be a stack nav? or a bottom one
         component={bottomNav}
         options={{
-          title: "Journal",
+          headerShown: false,
         }}
       />
 
@@ -43,6 +50,7 @@ export default function SignUpStackNavigator() {
         optionscd
         dev={{
           title: "Selected 0 files",
+          headerShown: false,
         }}
       />
     </Navigator>

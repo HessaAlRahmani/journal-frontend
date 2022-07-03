@@ -2,6 +2,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import { Fontisto } from "@expo/vector-icons";
 import { observer } from "mobx-react-lite";
+import { NavIcon } from "../../constants";
 
 // stack navigators
 import imgPickStackNav from "./stackNavs/imgPickStackNav";
@@ -12,11 +13,30 @@ function bottomTab() {
   return (
     <Navigator
       initialRouteName="Journal"
-      screenOptions={{
+      screenOptions={({ route }) => ({
+        tabBarIcon: ({ focused }) => {
+          let iconName;
+          if (route.name === "Journal") {
+            iconName = focused ? "journal-colored" : "journal";
+          } else if (route.name === "Calendar") {
+            iconName = focused ? "calendar-colored" : "calendar";
+          } else if (route.name === "Map") {
+            iconName = focused ? "map-colored" : "map";
+          } else if (route.name === "Notifications") {
+            iconName = focused ? "notifications-colored" : "notifications";
+          } else if (route.name === "Profile") {
+            iconName = focused ? "user-colored" : "user";
+          }
+          return <NavIcon name={iconName} size={24} color="#D1D1D1" />;
+        },
         tabBarActiveTintColor: "black",
-        // tabBarActiveBackgroundColor: "#547AA5",
-        headerShown: false,
-      }}
+        headerTitleAlign: "center",
+        tabBarLabelStyle: {
+          fontWeight: "bold",
+          color: "black",
+          paddingBottom: 3,
+        },
+      })}
     >
       <Screen
         name="Journal"
@@ -24,9 +44,6 @@ function bottomTab() {
         component={imgPickStackNav}
         options={{
           tabBarLabel: "Journal",
-          tabBarIcon: () => (
-            <Fontisto name="compass" size={24} color="#D1D1D1" />
-          ),
         }}
       />
 
@@ -35,13 +52,6 @@ function bottomTab() {
         component={imgPickStackNav}
         options={{
           tabBarLabel: "Calendar",
-          tabBarIcon: () => (
-            <MaterialCommunityIcons
-              name="book-account-outline"
-              size={24}
-              color="#D1D1D1"
-            />
-          ),
           //tabBarBadge: 3,
         }}
       />
@@ -51,13 +61,6 @@ function bottomTab() {
         component={imgPickStackNav}
         options={{
           tabBarLabel: "Map",
-          tabBarIcon: () => (
-            <MaterialCommunityIcons
-              name="book-account-outline"
-              size={24}
-              color="#D1D1D1"
-            />
-          ),
           //tabBarBadge: 3,
         }}
       />
@@ -67,25 +70,16 @@ function bottomTab() {
         component={imgPickStackNav}
         options={{
           tabBarLabel: "Notifications",
-          tabBarIcon: () => (
-            <MaterialCommunityIcons
-              name="book-account-outline"
-              size={24}
-              color="#D1D1D1"
-            />
-          ),
+
           //tabBarBadge: 3,
         }}
       />
 
       <Screen
-        name="MainProfile"
+        name="Profile"
         component={imgPickStackNav}
         options={{
           tabBarLabel: "Profile",
-          tabBarIcon: ({ color, size }) => (
-            <MaterialCommunityIcons name="account" size={24} color="#D1D1D1" />
-          ),
         }}
       />
     </Navigator>

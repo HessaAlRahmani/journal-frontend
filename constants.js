@@ -16,6 +16,7 @@ export const theme = {
   primary: "yellow",
   danger: "#EB7070",
   success: "#2FA83B",
+
   bigLabel: {
     size: "24",
   },
@@ -42,10 +43,20 @@ export const theme = {
   },
 };
 
+export const NavIcon = ({ name, size, color }) => {
+  return (
+    <Image
+      name
+      style={styles.bottomTab}
+      source={require(`./assets/BottomNavIcons/${name}.png`)}
+    />
+  );
+};
+
 export const ExtraBigButton = ({ onPress, text }) => {
   return (
     <TouchableOpacity style={styles.ExtraBigButton} onPress={onPress}>
-      <Text style={styles.ExtraBigButtonText}> {text} </Text>
+      <Text style={styles.ExtraBigButtonText}>{text}</Text>
     </TouchableOpacity>
   );
 };
@@ -53,7 +64,7 @@ export const ExtraBigButton = ({ onPress, text }) => {
 export const BigButton = ({ onPress, text }) => {
   return (
     <TouchableOpacity style={styles.BigButton} onPress={onPress}>
-      <Text style={styles.BigButtonText}> {text} </Text>
+      <Text style={styles.BigButtonText}>{text}</Text>
     </TouchableOpacity>
   );
 };
@@ -61,21 +72,76 @@ export const BigButton = ({ onPress, text }) => {
 export const SmallButton = ({ onPress, text }) => {
   return (
     <TouchableOpacity style={styles.SmallButton} onPress={onPress}>
-      <Text style={styles.SmallButtonText}> {text} </Text>
+      <Text style={styles.SmallButtonText}>{text}</Text>
     </TouchableOpacity>
   );
 };
 
-export const RoundButton = ({ onPress, imgSrc }) => {
+export const RoundButton = ({ onPress }) => {
   return (
     <TouchableOpacity style={styles.roundButton} onPress={onPress}>
-      <Image style={styles.plusIcon} source={imgSrc} />
+      <Image style={styles.plusIcon} source={require("./assets/plus.png")} />
     </TouchableOpacity>
   );
 };
+
+export const Dot = ({ id, stepNum }) => {
+  let color;
+  if (id > stepNum) {
+    color = theme.grey;
+  } else {
+    color = theme.darkGrey;
+  }
+  return (
+    <View
+      style={{
+        borderRadius: 50,
+        backgroundColor: color,
+        width: 10,
+        height: 10,
+        marginRight: 10,
+      }}
+    ></View>
+  );
+};
+
+//component call <Steps stepNum={stepNum}/>
+export function Steps({ stepNum }) {
+  return (
+    <View
+      style={{
+        display: "flex",
+        flexDirection: "row",
+        justifyContent: "center",
+      }}
+    >
+      <Dot id={1} stepNum={stepNum} />
+      <Dot id={2} stepNum={stepNum} />
+      <Dot id={3} stepNum={stepNum} />
+      <Dot id={4} stepNum={stepNum} />
+      <Dot id={5} stepNum={stepNum} />
+    </View>
+  );
+}
+
+export function ProfileImg({ width, height }) {
+  return (
+    <View>
+      <View
+        style={{
+          width: width,
+          height: height,
+          backgroundColor: theme.grey,
+          borderRadius: 50,
+        }}
+      ></View>
+    </View>
+  );
+}
 
 const styles = StyleSheet.create({
   roundButton: {
+    margin: 15,
     alignItems: "center",
     justifyContent: "center",
     backgroundColor: theme.grey,
@@ -94,6 +160,11 @@ const styles = StyleSheet.create({
   plusIcon: {
     width: 30,
     height: 30,
+  },
+
+  bottomTab: {
+    width: 22,
+    height: 22,
   },
 
   ExtraBigButton: {
@@ -130,12 +201,11 @@ const styles = StyleSheet.create({
       width: 0,
       height: 3,
     },
-},
-
     shadowOpacity: 0.29,
     shadowRadius: 4.65,
     //elevation: 7,
-  
+  },
+
   BigButtonText: {
     fontSize: 12,
     textAlign: "center",
@@ -162,63 +232,5 @@ const styles = StyleSheet.create({
     fontSize: 12,
     textAlign: "center",
     color: "white",
-  },}
-);
-
-
-
-//component call <Steps stepnum={stepnum}/>
-export  function Steps({stepnum}) {
-    let view;
-    if (stepnum ==1){
-        view=<View style={{display:"flex",flexDirection:"row",justifyContent:"center"}}>
-        <View style={{borderRadius:50,backgroundColor:theme.darkGrey,width:10,height:10,marginRight:10}}></View>
-        <View style={{borderRadius:50,backgroundColor:theme.grey,width:10,height:10,marginRight:10}}></View>
-        <View style={{borderRadius:50,backgroundColor:theme.grey,width:10,height:10,marginRight:10}}></View>
-        <View style={{borderRadius:50,backgroundColor:theme.grey,width:10,height:10,marginRight:10}}></View>
-        <View style={{borderRadius:50,backgroundColor:theme.grey,width:10,height:10,marginRight:10}}></View>
-        </View>;
-    }
-    else if(stepnum==2){ view=<View style={{display:"flex",flexDirection:"row",justifyContent:"center"}}>
-    <View style={{borderRadius:50,backgroundColor:theme.grey,width:10,height:10,marginRight:10}}></View>
-    <View style={{borderRadius:50,backgroundColor:theme.darkGrey,width:10,height:10,marginRight:10}}></View>
-    <View style={{borderRadius:50,backgroundColor:theme.grey,width:10,height:10,marginRight:10}}></View>
-    <View style={{borderRadius:50,backgroundColor:theme.grey,width:10,height:10,marginRight:10}}></View>
-    <View style={{borderRadius:50,backgroundColor:theme.grey,width:10,height:10,marginRight:10}}></View>
-    </View>;}
-    else if(stepnum==3){ view=<View style={{display:"flex",flexDirection:"row",justifyContent:"center"}}>
-    <View style={{borderRadius:50,backgroundColor:theme.grey,width:10,height:10,marginRight:10}}></View>
-    <View style={{borderRadius:50,backgroundColor:theme.grey,width:10,height:10,marginRight:10}}></View>
-    <View style={{borderRadius:50,backgroundColor:theme.darkGrey,width:10,height:10,marginRight:10}}></View>
-    <View style={{borderRadius:50,backgroundColor:theme.grey,width:10,height:10,marginRight:10}}></View>
-    <View style={{borderRadius:50,backgroundColor:theme.grey,width:10,height:10,marginRight:10}}></View>
-    </View>;}
-    else if(stepnum==4){ view=<View style={{display:"flex",flexDirection:"row",justifyContent:"center"}}>
-    <View style={{borderRadius:50,backgroundColor:theme.grey,width:10,height:10,marginRight:10}}></View>
-    <View style={{borderRadius:50,backgroundColor:theme.grey,width:10,height:10,marginRight:10}}></View>
-    <View style={{borderRadius:50,backgroundColor:theme.grey,width:10,height:10,marginRight:10}}></View>
-    <View style={{borderRadius:50,backgroundColor:theme.darkGrey,width:10,height:10,marginRight:10}}></View>
-    <View style={{borderRadius:50,backgroundColor:theme.grey,width:10,height:10,marginRight:10}}></View>
-    </View>;}
-    else if(stepnum==5) { view=<View style={{display:"flex",flexDirection:"row",justifyContent:"center"}}>
-    <View style={{borderRadius:50,backgroundColor:theme.grey,width:10,height:10,marginRight:10}}></View>
-    <View style={{borderRadius:50,backgroundColor:theme.grey,width:10,height:10,marginRight:10}}></View>
-    <View style={{borderRadius:50,backgroundColor:theme.grey,width:10,height:10,marginRight:10}}></View>
-    <View style={{borderRadius:50,backgroundColor:theme.grey,width:10,height:10,marginRight:10}}></View>
-    <View style={{borderRadius:50,backgroundColor:theme.darkGrey,width:10,height:10,marginRight:10}}></View>
-    </View>;}
-  return (
-    <View>
-        {view}
-    </View>
-  )
-}
-
-
-export function ProfileImg({width,height}) {
-  return (
-    <View>
-      <View style={{width:width,height:height,backgroundColor:theme.grey,borderRadius:50}}></View>
-    </View>
-  )
-}
+  },
+});
