@@ -29,7 +29,7 @@ export default function SignUpStackNavigator() {
         }}
       />
       <Screen
-        name="MainScreen"
+        name="MainProfile"
         //it will be a stack nav? or a bottom one
         component={bottomNav}
         options={{
