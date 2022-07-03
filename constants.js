@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   TextInput,
   Button,
+  Image,
 } from "react-native";
 
 export const theme = {
@@ -43,18 +44,45 @@ export const theme = {
 
 export const ExtraBigButton = ({ onPress, text }) => {
   return (
-    <TouchableOpacity style={styles.submitButton} onPress={onPress}>
-      <Text style={styles.submitButtonText}> {text} </Text>
+    <TouchableOpacity style={styles.ExtraBigButton} onPress={onPress}>
+      <Text style={styles.ExtraBigButtonText}> {text} </Text>
     </TouchableOpacity>
   );
 };
+
+export const BigButton = ({ onPress, text }) => {
+  return (
+    <TouchableOpacity style={styles.BigButton} onPress={onPress}>
+      <Text style={styles.BigButtonText}> {text} </Text>
+    </TouchableOpacity>
+  );
+};
+
+export const SmallButton = ({ onPress, text }) => {
+  return (
+    <TouchableOpacity style={styles.SmallButton} onPress={onPress}>
+      <Text style={styles.SmallButtonText}> {text} </Text>
+    </TouchableOpacity>
+  );
+};
+
+export const RoundButton = ({ onPress, imgSrc }) => {
+  return (
+    <TouchableOpacity style={styles.roundButton} onPress={onPress}>
+      <Image style={styles.plusIcon} source={imgSrc} />
+    </TouchableOpacity>
+  );
+};
+
 const styles = StyleSheet.create({
-  submitButton: {
+  roundButton: {
+    alignItems: "center",
+    justifyContent: "center",
     backgroundColor: theme.grey,
     padding: 10,
-    margin: 15,
-    height: 40,
-    borderRadius: 12,
+    borderRadius: "50%",
+    width: 60,
+    height: 60,
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
@@ -62,13 +90,75 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.29,
     shadowRadius: 4.65,
-
-    elevation: 7,
+  },
+  plusIcon: {
+    width: 30,
+    height: 30,
   },
 
-  submitButtonText: {
-    //color: "white",
+  ExtraBigButton: {
+    justifyContent: "center",
+    backgroundColor: theme.grey,
+    padding: 10,
+    margin: 15,
+    height: 60,
+    borderRadius: 10,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 3,
+    },
+    shadowOpacity: 0.29,
+    shadowRadius: 4.65,
+  },
+  ExtraBigButtonText: {
     textAlign: "center",
     fontWeight: "bold",
+    fontSize: 16,
+  },
+
+  BigButton: {
+    justifyContent: "center",
+    backgroundColor: theme.grey,
+    padding: 5,
+    margin: 15,
+    width: 113,
+    height: 28,
+    borderRadius: 6,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 3,
+    },
+    shadowOpacity: 0.29,
+    shadowRadius: 4.65,
+    //elevation: 7,
+  },
+  BigButtonText: {
+    fontSize: 12,
+    textAlign: "center",
+  },
+
+  SmallButton: {
+    justifyContent: "center",
+    backgroundColor: theme.darkGrey,
+    padding: 5,
+    margin: 15,
+    width: 79,
+    height: 28,
+    borderRadius: 6,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 3,
+    },
+    shadowOpacity: 0.29,
+    shadowRadius: 4.65,
+    //elevation: 7,
+  },
+  SmallButtonText: {
+    fontSize: 12,
+    textAlign: "center",
+    color: "white",
   },
 });
