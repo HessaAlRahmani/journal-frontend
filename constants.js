@@ -43,7 +43,7 @@ export const theme = {
   },
 };
 
-export const NavIcon = ({ name, size, color }) => {
+export const NavIcon = ({ name }) => {
   return (
     <Image
       name

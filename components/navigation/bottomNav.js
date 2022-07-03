@@ -15,19 +15,9 @@ function bottomTab() {
       initialRouteName="Journal"
       screenOptions={({ route }) => ({
         tabBarIcon: ({ focused }) => {
-          let iconName;
-          if (route.name === "Journal") {
-            iconName = focused ? "journal-colored" : "journal";
-          } else if (route.name === "Calendar") {
-            iconName = focused ? "calendar-colored" : "calendar";
-          } else if (route.name === "Map") {
-            iconName = focused ? "map-colored" : "map";
-          } else if (route.name === "Notifications") {
-            iconName = focused ? "notifications-colored" : "notifications";
-          } else if (route.name === "Profile") {
-            iconName = focused ? "user-colored" : "user";
-          }
-          return <NavIcon name={iconName} size={24} color="#D1D1D1" />;
+          const iconName = route.name.toLowerCase();
+          const fullIconName = focused ? `${iconName}-colored` : `${iconName}`;
+          return <NavIcon name={fullIconName} />;
         },
         tabBarActiveTintColor: "black",
         headerTitleAlign: "center",
