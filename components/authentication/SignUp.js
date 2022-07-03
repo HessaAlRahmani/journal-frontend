@@ -9,6 +9,12 @@ import {
 } from "react-native";
 import { useState } from "react";
 import usersStore from "../../stores/usersStore";
+import {
+  ExtraBigButton,
+  RoundButton,
+  BigButton,
+  SmallButton,
+} from "../../constants";
 
 export default function SignUp({ navigation }) {
   const [user, setUser] = useState({
@@ -22,7 +28,7 @@ export default function SignUp({ navigation }) {
       username: "",
       password: "",
     });
-    navigation.navigate("Profile");
+    navigation.navigate("MainProfile");
   };
 
   return (
@@ -49,10 +55,13 @@ export default function SignUp({ navigation }) {
           onChangeText={(password) => setUser({ ...user, password })}
         />
       </View>
-      <TouchableOpacity style={styles.submitButton} onPress={signup}>
-        <Text style={styles.submitButtonText}> Sign up </Text>
-      </TouchableOpacity>
-      <Text>already have an account?</Text>
+      <ExtraBigButton onPress={signup} text={"Sign up"} />
+      <BigButton onPress={signup} text={"Sign up"} />
+      <SmallButton onPress={signup} text={"Sign up"} />
+      <RoundButton onPress={signup} imgSrc={require("../../assets/plus.png")} />
+      <Text style={{ fontSize: 22, fontWeight: "bold" }}>
+        already have an account?
+      </Text>
       <Button
         title="sign in!"
         onPress={() => {
@@ -85,28 +94,7 @@ const styles = StyleSheet.create({
     shadowRadius: 4.65,
     elevation: 7,
   },
-  submitButton: {
-    backgroundColor: "#547AA5",
-    padding: 10,
-    margin: 15,
-    height: 40,
-    borderRadius: 12,
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 3,
-    },
-    shadowOpacity: 0.29,
-    shadowRadius: 4.65,
 
-    elevation: 7,
-  },
-
-  submitButtonText: {
-    color: "white",
-    textAlign: "center",
-    fontWeight: "bold",
-  },
   welcome: {
     textAlign: "center",
     fontWeight: "bold",
