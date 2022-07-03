@@ -2,13 +2,8 @@ import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 
 //screens
-import SignIn from "../../authentication/SignIn";
-import SignUp from "../../authentication/SignUp";
-import ImageBrowserScreen from "../../../screens/ImageBrowserScreen";
-import MainScreen from "../../../screens/MainScreen";
-
-//nav
-import bottomNav from "../bottomNav";
+import ImageBrowserScreen from "../../imagePicker/ImageBrowserScreen";
+import MainScreen from "../../imagePicker/MainScreen";
 
 const { Navigator, Screen } = createStackNavigator();
 

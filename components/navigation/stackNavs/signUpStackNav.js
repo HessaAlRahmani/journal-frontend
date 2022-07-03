@@ -4,7 +4,6 @@ import { createStackNavigator } from "@react-navigation/stack";
 //screens
 import SignIn from "../../authentication/SignIn";
 import SignUp from "../../authentication/SignUp";
-import ImageBrowserScreen from "../../../screens/ImageBrowserScreen";
 
 //nav
 import bottomNav from "../bottomNav";
@@ -14,7 +13,7 @@ const { Navigator, Screen } = createStackNavigator();
 export default function SignUpStackNavigator() {
   return (
     <Navigator
-      initialRouteName="SignUp"
+      initialRouteName="BottomNav"
       screenOptions={{
         tabBarActiveTintColor: "black",
         headerTitleAlign: "center",
@@ -44,7 +43,7 @@ export default function SignUpStackNavigator() {
         }}
       />
 
-      <Screen
+      {/* <Screen
         name="ImageBrowser"
         component={ImageBrowserScreen}
         optionscd
@@ -52,7 +51,7 @@ export default function SignUpStackNavigator() {
           title: "Selected 0 files",
           headerShown: false,
         }}
-      />
+      /> */}
     </Navigator>
   );
 }

@@ -9,7 +9,7 @@ import {
 } from "react-native";
 import * as ImageManipulator from "expo-image-manipulator";
 import { ImageBrowser } from "expo-image-picker-multiple";
-import usersStore from "../stores/usersStore";
+import usersStore from "../../stores/usersStore";
 
 export default class ImageBrowserScreen extends Component {
   _getHeaderLoader = () => <ActivityIndicator size="small" color={"#0580FF"} />;

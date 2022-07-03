@@ -1,6 +1,4 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
-import { Fontisto } from "@expo/vector-icons";
 import { observer } from "mobx-react-lite";
 import { NavIcon } from "../../constants";
 

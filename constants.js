@@ -1,3 +1,4 @@
+import { Row } from "native-base";
 import {
   Text,
   View,
@@ -141,11 +142,12 @@ export function ProfileImg({ width, height }) {
 
 const styles = StyleSheet.create({
   roundButton: {
-    margin: 15,
+    margin: 20,
     alignItems: "center",
     justifyContent: "center",
     backgroundColor: theme.grey,
     padding: 10,
+    marginLeft: 335,
     borderRadius: "50%",
     width: 60,
     height: 60,
