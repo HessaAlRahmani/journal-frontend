@@ -42,13 +42,22 @@ export default function SignUp({ navigation }) {
         />
       </View>
       <ExtraBigButton onPress={signup} text={"Sign up"} />
-      <Text>already have an account?</Text>
-      <SmallButton
-        onPress={() => {
-          navigation.navigate("SignIn");
+      <View
+        style={{
+          flex: 1,
+          flexDirection: "row",
+          alignItems: "center",
+          justifyContent: "center",
         }}
-        text={"Sign in!"}
-      />
+      >
+        <Text style={{ width: "auto" }}>already have an account?</Text>
+        <SmallButton
+          onPress={() => {
+            navigation.navigate("SignIn");
+          }}
+          text={"Sign in!"}
+        />
+      </View>
     </SafeAreaView>
   );
 }
