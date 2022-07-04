@@ -20,9 +20,6 @@ export default class ImageBrowserScreen extends Component {
       headerRight: () => this._getHeaderLoader(),
     });
 
-    const user = { username: "doha", password: "doha" };
-    usersStore.signin(user);
-
     callback
       .then(async (photos) => {
         const cPhotos = [];

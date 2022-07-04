@@ -4,13 +4,14 @@ import { NavIcon } from "../../constants";
 
 // stack navigators
 import imgPickStackNav from "./stackNavs/imgPickStackNav";
+import profileStackNav from "./stackNavs/profileStackNav";
 
 const { Navigator, Screen } = createBottomTabNavigator();
 
 function bottomTab() {
   return (
     <Navigator
-      initialRouteName="Journal"
+      initialRouteName="Profile"
       screenOptions={({ route }) => ({
         tabBarIcon: ({ focused }) => {
           const iconName = route.name.toLowerCase();
@@ -24,33 +25,38 @@ function bottomTab() {
           color: "black",
           paddingBottom: 3,
         },
+        tabBarStyle: { height: 64 },
       })}
     >
       <Screen
         name="Journal"
         //change to journal stack  nav
         component={imgPickStackNav}
-        options={{
-          tabBarLabel: "Journal",
-        }}
+        options={
+          {
+            //tabBarLabel: "Journal",
+          }
+        }
       />
 
       <Screen
         name="Calendar"
         component={imgPickStackNav}
-        options={{
-          tabBarLabel: "Calendar",
-          //tabBarBadge: 3,
-        }}
+        options={
+          {
+            //tabBarLabel: "Calendar",
+          }
+        }
       />
 
       <Screen
         name="Map"
         component={imgPickStackNav}
-        options={{
-          tabBarLabel: "Map",
-          //tabBarBadge: 3,
-        }}
+        options={
+          {
+            //tabBarLabel: "Map",
+          }
+        }
       />
 
       <Screen
@@ -58,16 +64,16 @@ function bottomTab() {
         component={imgPickStackNav}
         options={{
           tabBarLabel: "Notifications",
-
           //tabBarBadge: 3,
         }}
       />
 
       <Screen
         name="Profile"
-        component={imgPickStackNav}
+        component={profileStackNav}
         options={{
-          tabBarLabel: "Profile",
+          //tabBarLabel: "Profile",
+          headerShown: false,
         }}
       />
     </Navigator>

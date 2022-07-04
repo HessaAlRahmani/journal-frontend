@@ -1,4 +1,3 @@
-import { Row } from "native-base";
 import {
   Text,
   View,
@@ -17,31 +16,6 @@ export const theme = {
   primary: "yellow",
   danger: "#EB7070",
   success: "#2FA83B",
-
-  bigLabel: {
-    size: "24",
-  },
-  BoldBigLabel: {
-    size: "24",
-    weight: "bold",
-  },
-  Label: {
-    size: "18",
-  },
-  BoldLabel: {
-    size: "18",
-    weight: "bold",
-  },
-  smlLabel: {
-    size: "16",
-  },
-  smlLabel: {
-    size: "16",
-    weight: "bold",
-  },
-  xsmlLabel: {
-    size: "14",
-  },
 };
 
 export const NavIcon = ({ name }) => {
@@ -127,18 +101,92 @@ export function Steps({ stepNum }) {
 
 export function ProfileImg({ width, height }) {
   return (
-    <View>
-      <View
-        style={{
-          width: width,
-          height: height,
-          backgroundColor: theme.grey,
-          borderRadius: 50,
-        }}
-      ></View>
-    </View>
+    <View
+      style={{
+        width: width,
+        height: height,
+        backgroundColor: theme.grey,
+        borderRadius: 50,
+        zIndex: 100,
+        borderColor: "white",
+        borderWidth: 4,
+      }}
+    ></View>
   );
 }
+
+export const Profile = ({ displayName, username, num, bio, onPress }) => {
+  return (
+    <View
+      style={{
+        padding: 10,
+        flex: 1,
+        position: "absolute",
+        marginTop: 70,
+        marginLeft: 10,
+      }}
+    >
+      <ProfileImg width={100} height={100} />
+
+      <View
+        style={{
+          flex: 1,
+          flexDirection: "row",
+          alignItems: "center",
+          justifyContent: "space-between",
+        }}
+      >
+        <BoldBigLabel text={displayName} />
+        <SmallButton text={"edit profile"} onPress={onPress} />
+      </View>
+      <XsmlLabel text={"@" + username} />
+      <NumOfFriends num={num} />
+      <XsmlLabel text={bio} />
+    </View>
+  );
+};
+
+export const NumOfFriends = ({ num }) => {
+  return (
+    <View
+      style={{
+        flex: 1,
+        flexDirection: "row",
+        alignItems: "center",
+        marginTop: 10,
+        borderBottomColor: theme.grey,
+        borderBottomWidth: 1,
+        marginBottom: 15,
+      }}
+    >
+      <BoldLabel text={num} />
+      <Text> Friends</Text>
+    </View>
+  );
+};
+
+export const BoldBigLabel = ({ text }) => {
+  return <Text style={styles.BoldBigLabel}>{text}</Text>;
+};
+
+export const BoldLabel = ({ text }) => {
+  return <Text style={styles.BoldLabel}>{text}</Text>;
+};
+
+export const XsmlLabel = ({ text }) => {
+  return <Text style={styles.XsmlLabel}>{text}</Text>;
+};
+
+export const Header = () => {
+  return (
+    <View
+      style={{
+        height: 136,
+        backgroundColor: theme.darkGrey,
+      }}
+    ></View>
+  );
+};
 
 const styles = StyleSheet.create({
   roundButton: {
@@ -147,7 +195,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     backgroundColor: theme.grey,
     padding: 10,
-    marginLeft: 335,
     borderRadius: "50%",
     width: 60,
     height: 60,
@@ -158,15 +205,18 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.29,
     shadowRadius: 4.65,
+    zIndex: 100,
+    alignSelf: "flex-end",
   },
+
   plusIcon: {
     width: 30,
     height: 30,
   },
 
   bottomTab: {
-    width: 22,
-    height: 22,
+    width: 25,
+    height: 25,
   },
 
   ExtraBigButton: {
@@ -207,7 +257,6 @@ const styles = StyleSheet.create({
     shadowRadius: 4.65,
     //elevation: 7,
   },
-
   BigButtonText: {
     fontSize: 12,
     textAlign: "center",
@@ -217,7 +266,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     backgroundColor: theme.darkGrey,
     padding: 5,
-    margin: 15,
+    margin: 7,
     width: 79,
     height: 28,
     borderRadius: 6,
@@ -234,5 +283,34 @@ const styles = StyleSheet.create({
     fontSize: 12,
     textAlign: "center",
     color: "white",
+  },
+
+  BigLabel: {
+    fontSize: 24,
+  },
+
+  BoldBigLabel: {
+    fontSize: 24,
+    fontWeight: "bold",
+  },
+
+  Label: {
+    fontSize: 18,
+  },
+
+  BoldLabel: {
+    fontSize: 18,
+    fontWeight: "bold",
+  },
+
+  SmlLabel: {
+    fontSize: 16,
+    fontWeight: "bold",
+  },
+
+  XsmlLabel: {
+    fontSize: 14,
+    color: theme.darkGrey,
+    width: "auto",
   },
 });
