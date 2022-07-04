@@ -71,4 +71,76 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontWeight: "bold",
   },
+  input: {
+    margin: 15,
+    padding: 7,
+    height: 60,
+    backgroundColor: theme.lightGrey,
+    borderWidth: 1,
+    borderRadius: 10,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 3,
+    },
+    shadowOpacity: 0.29,
+    shadowRadius: 4.65,
+    elevation: 7,
+  },
+  bigInput: {
+    margin: 15,
+    padding: 7,
+    height: 160,
+    backgroundColor: theme.lightGrey,
+    borderWidth: 1,
+    borderRadius: 10,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 3,
+    },
+    shadowOpacity: 0.29,
+    shadowRadius: 4.65,
+    elevation: 7,
+  },
 });
+
+export const InputField = ({
+  text,
+  value,
+  label,
+  placeholder,
+  onChangeTexts,
+}) => {
+  return (
+    <TextInput
+      style={styles.input}
+      underlineColorAndroid="transparent"
+      placeholder={placeholder}
+      label={label}
+      value={value}
+      autoCapitalize="none"
+      onChangeText={onChangeTexts}
+    />
+  );
+};
+
+export const BigInputField = ({ value, label, placeholder, onChangeTexts }) => {
+  return (
+    <TextInput
+      style={styles.bigInput}
+      underlineColorAndroid="transparent"
+      placeholder={placeholder}
+      label={label}
+      value={value}
+      autoCapitalize="none"
+      onChangeText={onChangeTexts}
+      multiline={true}
+      maxLength={300}
+    />
+  );
+};
+
+export const EmojiContainer = () => {
+  return <View style={styles.input} />;
+};
