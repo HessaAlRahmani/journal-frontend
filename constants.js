@@ -149,43 +149,44 @@ const styles = StyleSheet.create({
     width: 79,
     height: 28,
     borderRadius: 6,
-    input: {
-      margin: 15,
-      padding: 7,
-      height: 60,
-      backgroundColor: theme.lightGrey,
-      borderWidth: 1,
-      borderRadius: 10,
-      shadowColor: "#000",
-      shadowOffset: {
-        width: 0,
-        height: 3,
-      },
-      shadowOpacity: 0.29,
-      shadowRadius: 4.65,
-      elevation: 7,
+  },
+  input: {
+    margin: 15,
+    padding: 7,
+    height: 60,
+    //   backgroundColor: theme.lightGrey,
+    borderColor: "#D1D1D1",
+    borderWidth: 1,
+    borderRadius: 10,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 3,
     },
-    bigInput: {
-      margin: 15,
-      padding: 7,
-      height: 160,
-      backgroundColor: theme.lightGrey,
-      borderWidth: 1,
-      borderRadius: 10,
-      shadowColor: "#000",
-      shadowOffset: {
-        width: 0,
-        height: 3,
-      },
-      shadowOpacity: 0.29,
-      shadowRadius: 4.65,
-      elevation: 7,
+    shadowOpacity: 0.29,
+    shadowRadius: 4.65,
+    elevation: 7,
+  },
+  bigInput: {
+    margin: 15,
+    padding: 7,
+    height: 160,
+    //   backgroundColor: theme.lightGrey,
+    borderWidth: 1,
+    borderRadius: 10,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 3,
     },
-    SmallButtonText: {
-      fontSize: 12,
-      textAlign: "center",
-      color: "white",
-    },
+    shadowOpacity: 0.29,
+    shadowRadius: 4.65,
+    elevation: 7,
+  },
+  SmallButtonText: {
+    fontSize: 12,
+    textAlign: "center",
+    color: "white",
   },
 });
 
@@ -490,13 +491,7 @@ export function ProfileImg({ width, height }) {
     </View>
   );
 }
-export const InputField = ({
-  text,
-  value,
-  label,
-  placeholder,
-  onChangeTexts,
-}) => {
+export const InputField = ({ placeholder, label, value, onChangeText }) => {
   return (
     <TextInput
       style={styles.input}
@@ -505,12 +500,12 @@ export const InputField = ({
       label={label}
       value={value}
       autoCapitalize="none"
-      onChangeText={onChangeTexts}
+      onChangeText={onChangeText}
     />
   );
 };
 
-export const BigInputField = ({ value, label, placeholder, onChangeTexts }) => {
+export const BigInputField = ({ placeholder, label, value, onChangeText }) => {
   return (
     <TextInput
       style={styles.bigInput}
@@ -519,7 +514,7 @@ export const BigInputField = ({ value, label, placeholder, onChangeTexts }) => {
       label={label}
       value={value}
       autoCapitalize="none"
-      onChangeText={onChangeTexts}
+      onChangeText={onChangeText}
       multiline={true}
       maxLength={300}
     />

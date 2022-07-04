@@ -8,19 +8,19 @@ import { StyleSheet } from "react-native";
 import { NativeBaseProvider } from "native-base";
 import { configure } from "mobx";
 import SignUpStackNavigator from "./components/navigation/stackNavs/signUpStackNav";
-import {Steps,ProfileImg} from "./constants";
-
+import { Steps, ProfileImg } from "./constants";
+import AgendaScreen from "./screens/Calender";
 
 export default () => {
-  let stepnum=5;
+  let stepnum = 5;
   // let width=15;
   // let height=15;
   return (
     <NativeBaseProvider>
       <NavigationContainer>
         <SignUpStackNavigator />
-        <Steps stepnum={stepnum}/>
-        <ProfileImg width={100} height={100}/>
+        <Steps stepnum={stepnum} />
+        <ProfileImg width={100} height={100} />
       </NavigationContainer>
     </NativeBaseProvider>
   );

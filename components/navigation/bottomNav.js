@@ -6,6 +6,8 @@ import { observer } from "mobx-react-lite";
 // stack navigators
 import imgPickStackNav from "./stackNavs/imgPickStackNav";
 
+import AgendaScreen from "../../screens/Calender";
+
 const { Navigator, Screen } = createBottomTabNavigator();
 
 function bottomTab() {
@@ -32,7 +34,7 @@ function bottomTab() {
 
       <Screen
         name="Calendar"
-        component={imgPickStackNav}
+        component={AgendaScreen}
         options={{
           tabBarLabel: "Calendar",
           tabBarIcon: () => (
