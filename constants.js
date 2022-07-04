@@ -6,8 +6,10 @@ import {
   TouchableOpacity,
   TextInput,
   Button,
-  Image,
+  //Image,
 } from "react-native";
+import { Image } from "native-base";
+import { baseURL } from "./instance";
 
 export const theme = {
   lightGrey: "#F6F6F6",
@@ -16,36 +18,24 @@ export const theme = {
   primary: "yellow",
   danger: "#EB7070",
   success: "#2FA83B",
-  bigLabel: {
-    size: "24",
-  },
-  BoldBigLabel: {
-    size: "24",
-    weight: "bold",
-  },
-  Label: {
-    size: "18",
-  },
-  BoldLabel: {
-    size: "18",
-    weight: "bold",
-  },
-  smlLabel: {
-    size: "16",
-  },
-  smlLabel: {
-    size: "16",
-    weight: "bold",
-  },
-  xsmlLabel: {
-    size: "14",
-  },
+};
+
+export const NavIcon = ({ name }) => {
+  return (
+    <Image
+      style={styles.bottomTab}
+      source={{
+        uri: `${baseURL}media/BottomNavIcons/${name}.png`,
+      }}
+      alt={`${name}`}
+    />
+  );
 };
 
 export const ExtraBigButton = ({ onPress, text }) => {
   return (
     <TouchableOpacity style={styles.ExtraBigButton} onPress={onPress}>
-      <Text style={styles.ExtraBigButtonText}> {text} </Text>
+      <Text style={styles.ExtraBigButtonText}>{text}</Text>
     </TouchableOpacity>
   );
 };
@@ -53,7 +43,7 @@ export const ExtraBigButton = ({ onPress, text }) => {
 export const BigButton = ({ onPress, text }) => {
   return (
     <TouchableOpacity style={styles.BigButton} onPress={onPress}>
-      <Text style={styles.BigButtonText}> {text} </Text>
+      <Text style={styles.BigButtonText}>{text}</Text>
     </TouchableOpacity>
   );
 };
@@ -61,435 +51,155 @@ export const BigButton = ({ onPress, text }) => {
 export const SmallButton = ({ onPress, text }) => {
   return (
     <TouchableOpacity style={styles.SmallButton} onPress={onPress}>
-      <Text style={styles.SmallButtonText}> {text} </Text>
+      <Text style={styles.SmallButtonText}>{text}</Text>
     </TouchableOpacity>
   );
 };
 
-export const RoundButton = ({ onPress, imgSrc }) => {
+export const RoundButton = ({ onPress }) => {
   return (
     <TouchableOpacity style={styles.roundButton} onPress={onPress}>
-      <Image style={styles.plusIcon} source={imgSrc} />
+      <Image
+        style={styles.plusIcon}
+        source={require("./assets/plus.png")}
+        alt={"plus button"}
+      />
     </TouchableOpacity>
   );
 };
 
-const styles = StyleSheet.create({
-  roundButton: {
-    alignItems: "center",
-    justifyContent: "center",
-    backgroundColor: theme.grey,
-    padding: 10,
-    borderRadius: "50%",
-    width: 60,
-    height: 60,
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 3,
-    },
-    shadowOpacity: 0.29,
-    shadowRadius: 4.65,
-  },
-  plusIcon: {
-    width: 30,
-    height: 30,
-  },
-
-  ExtraBigButton: {
-    justifyContent: "center",
-    backgroundColor: theme.grey,
-    padding: 10,
-    margin: 15,
-    height: 60,
-    borderRadius: 10,
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 3,
-    },
-    shadowOpacity: 0.29,
-    shadowRadius: 4.65,
-  },
-  ExtraBigButtonText: {
-    textAlign: "center",
-    fontWeight: "bold",
-    fontSize: 16,
-  },
-
-  BigButton: {
-    justifyContent: "center",
-    backgroundColor: theme.grey,
-    padding: 5,
-    margin: 15,
-    width: 113,
-    height: 28,
-    borderRadius: 6,
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 3,
-    },
-  },
-
-  shadowOpacity: 0.29,
-  shadowRadius: 4.65,
-  //elevation: 7,
-
-  BigButtonText: {
-    fontSize: 12,
-    textAlign: "center",
-  },
-
-  SmallButton: {
-    justifyContent: "center",
-    backgroundColor: theme.darkGrey,
-    padding: 5,
-    margin: 15,
-    width: 79,
-    height: 28,
-    borderRadius: 6,
-    input: {
-      margin: 15,
-      padding: 7,
-      height: 60,
-      backgroundColor: theme.lightGrey,
-      borderWidth: 1,
-      borderRadius: 10,
-      shadowColor: "#000",
-      shadowOffset: {
-        width: 0,
-        height: 3,
-      },
-      shadowOpacity: 0.29,
-      shadowRadius: 4.65,
-      elevation: 7,
-    },
-    bigInput: {
-      margin: 15,
-      padding: 7,
-      height: 160,
-      backgroundColor: theme.lightGrey,
-      borderWidth: 1,
-      borderRadius: 10,
-      shadowColor: "#000",
-      shadowOffset: {
-        width: 0,
-        height: 3,
-      },
-      shadowOpacity: 0.29,
-      shadowRadius: 4.65,
-      elevation: 7,
-    },
-    SmallButtonText: {
-      fontSize: 12,
-      textAlign: "center",
-      color: "white",
-    },
-  },
-});
-
-//component call <Steps stepnum={stepnum}/>
-export function Steps({ stepnum }) {
-  let view;
-  if (stepnum == 1) {
-    view = (
-      <View
-        style={{
-          display: "flex",
-          flexDirection: "row",
-          justifyContent: "center",
-        }}
-      >
-        <View
-          style={{
-            borderRadius: 50,
-            backgroundColor: theme.darkGrey,
-            width: 10,
-            height: 10,
-            marginRight: 10,
-          }}
-        ></View>
-        <View
-          style={{
-            borderRadius: 50,
-            backgroundColor: theme.grey,
-            width: 10,
-            height: 10,
-            marginRight: 10,
-          }}
-        ></View>
-        <View
-          style={{
-            borderRadius: 50,
-            backgroundColor: theme.grey,
-            width: 10,
-            height: 10,
-            marginRight: 10,
-          }}
-        ></View>
-        <View
-          style={{
-            borderRadius: 50,
-            backgroundColor: theme.grey,
-            width: 10,
-            height: 10,
-            marginRight: 10,
-          }}
-        ></View>
-        <View
-          style={{
-            borderRadius: 50,
-            backgroundColor: theme.grey,
-            width: 10,
-            height: 10,
-            marginRight: 10,
-          }}
-        ></View>
-      </View>
-    );
-  } else if (stepnum == 2) {
-    view = (
-      <View
-        style={{
-          display: "flex",
-          flexDirection: "row",
-          justifyContent: "center",
-        }}
-      >
-        <View
-          style={{
-            borderRadius: 50,
-            backgroundColor: theme.grey,
-            width: 10,
-            height: 10,
-            marginRight: 10,
-          }}
-        ></View>
-        <View
-          style={{
-            borderRadius: 50,
-            backgroundColor: theme.darkGrey,
-            width: 10,
-            height: 10,
-            marginRight: 10,
-          }}
-        ></View>
-        <View
-          style={{
-            borderRadius: 50,
-            backgroundColor: theme.grey,
-            width: 10,
-            height: 10,
-            marginRight: 10,
-          }}
-        ></View>
-        <View
-          style={{
-            borderRadius: 50,
-            backgroundColor: theme.grey,
-            width: 10,
-            height: 10,
-            marginRight: 10,
-          }}
-        ></View>
-        <View
-          style={{
-            borderRadius: 50,
-            backgroundColor: theme.grey,
-            width: 10,
-            height: 10,
-            marginRight: 10,
-          }}
-        ></View>
-      </View>
-    );
-  } else if (stepnum == 3) {
-    view = (
-      <View
-        style={{
-          display: "flex",
-          flexDirection: "row",
-          justifyContent: "center",
-        }}
-      >
-        <View
-          style={{
-            borderRadius: 50,
-            backgroundColor: theme.grey,
-            width: 10,
-            height: 10,
-            marginRight: 10,
-          }}
-        ></View>
-        <View
-          style={{
-            borderRadius: 50,
-            backgroundColor: theme.grey,
-            width: 10,
-            height: 10,
-            marginRight: 10,
-          }}
-        ></View>
-        <View
-          style={{
-            borderRadius: 50,
-            backgroundColor: theme.darkGrey,
-            width: 10,
-            height: 10,
-            marginRight: 10,
-          }}
-        ></View>
-        <View
-          style={{
-            borderRadius: 50,
-            backgroundColor: theme.grey,
-            width: 10,
-            height: 10,
-            marginRight: 10,
-          }}
-        ></View>
-        <View
-          style={{
-            borderRadius: 50,
-            backgroundColor: theme.grey,
-            width: 10,
-            height: 10,
-            marginRight: 10,
-          }}
-        ></View>
-      </View>
-    );
-  } else if (stepnum == 4) {
-    view = (
-      <View
-        style={{
-          display: "flex",
-          flexDirection: "row",
-          justifyContent: "center",
-        }}
-      >
-        <View
-          style={{
-            borderRadius: 50,
-            backgroundColor: theme.grey,
-            width: 10,
-            height: 10,
-            marginRight: 10,
-          }}
-        ></View>
-        <View
-          style={{
-            borderRadius: 50,
-            backgroundColor: theme.grey,
-            width: 10,
-            height: 10,
-            marginRight: 10,
-          }}
-        ></View>
-        <View
-          style={{
-            borderRadius: 50,
-            backgroundColor: theme.grey,
-            width: 10,
-            height: 10,
-            marginRight: 10,
-          }}
-        ></View>
-        <View
-          style={{
-            borderRadius: 50,
-            backgroundColor: theme.darkGrey,
-            width: 10,
-            height: 10,
-            marginRight: 10,
-          }}
-        ></View>
-        <View
-          style={{
-            borderRadius: 50,
-            backgroundColor: theme.grey,
-            width: 10,
-            height: 10,
-            marginRight: 10,
-          }}
-        ></View>
-      </View>
-    );
-  } else if (stepnum == 5) {
-    view = (
-      <View
-        style={{
-          display: "flex",
-          flexDirection: "row",
-          justifyContent: "center",
-        }}
-      >
-        <View
-          style={{
-            borderRadius: 50,
-            backgroundColor: theme.grey,
-            width: 10,
-            height: 10,
-            marginRight: 10,
-          }}
-        ></View>
-        <View
-          style={{
-            borderRadius: 50,
-            backgroundColor: theme.grey,
-            width: 10,
-            height: 10,
-            marginRight: 10,
-          }}
-        ></View>
-        <View
-          style={{
-            borderRadius: 50,
-            backgroundColor: theme.grey,
-            width: 10,
-            height: 10,
-            marginRight: 10,
-          }}
-        ></View>
-        <View
-          style={{
-            borderRadius: 50,
-            backgroundColor: theme.grey,
-            width: 10,
-            height: 10,
-            marginRight: 10,
-          }}
-        ></View>
-        <View
-          style={{
-            borderRadius: 50,
-            backgroundColor: theme.darkGrey,
-            width: 10,
-            height: 10,
-            marginRight: 10,
-          }}
-        ></View>
-      </View>
-    );
+export const Dot = ({ id, stepNum }) => {
+  let color;
+  if (id > stepNum) {
+    color = theme.grey;
+  } else {
+    color = theme.darkGrey;
   }
-  return <View>{view}</View>;
+  return (
+    <View
+      style={{
+        borderRadius: 50,
+        backgroundColor: color,
+        width: 10,
+        height: 10,
+        marginRight: 10,
+      }}
+    ></View>
+  );
+};
+
+//component call <Steps stepNum={stepNum}/>
+export function Steps({ stepNum }) {
+  return (
+    <View
+      style={{
+        display: "flex",
+        flexDirection: "row",
+        justifyContent: "center",
+      }}
+    >
+      <Dot id={1} stepNum={stepNum} />
+      <Dot id={2} stepNum={stepNum} />
+      <Dot id={3} stepNum={stepNum} />
+      <Dot id={4} stepNum={stepNum} />
+      <Dot id={5} stepNum={stepNum} />
+    </View>
+  );
 }
 
 export function ProfileImg({ width, height }) {
   return (
-    <View>
-      <View
-        style={{
-          width: width,
-          height: height,
-          backgroundColor: theme.grey,
-          borderRadius: 50,
-        }}
-      ></View>
-    </View>
+    <Image
+      style={{
+        width: width,
+        height: height,
+        backgroundColor: theme.grey,
+        borderRadius: 50,
+        zIndex: 100,
+        borderColor: "white",
+        borderWidth: 4,
+      }}
+      source={{
+        uri: `${baseURL}media/BottomNavIcons/map-colored.png`,
+      }}
+      alt={"profile pic"}
+    />
   );
 }
+
+export const Profile = ({ displayName, username, num, bio, onPress }) => {
+  return (
+    <View
+      style={{
+        padding: 10,
+        flex: 1,
+        position: "absolute",
+        marginTop: 70,
+        marginLeft: 10,
+      }}
+    >
+      <ProfileImg width={100} height={100} />
+
+      <View
+        style={{
+          flex: 1,
+          flexDirection: "row",
+          alignItems: "center",
+          justifyContent: "space-between",
+        }}
+      >
+        <BoldBigLabel text={displayName} />
+        <SmallButton text={"edit profile"} onPress={onPress} />
+      </View>
+      <XsmlLabel text={"@" + username} />
+      <NumOfFriends num={num} />
+      <XsmlLabel text={bio} />
+    </View>
+  );
+};
+
+export const NumOfFriends = ({ num }) => {
+  return (
+    <View
+      style={{
+        flex: 1,
+        flexDirection: "row",
+        alignItems: "center",
+        marginTop: 10,
+        borderBottomColor: theme.grey,
+        borderBottomWidth: 1,
+        marginBottom: 15,
+      }}
+    >
+      <BoldLabel text={num} />
+      <Text> Friends</Text>
+    </View>
+  );
+};
+
+export const BoldBigLabel = ({ text }) => {
+  return <Text style={styles.BoldBigLabel}>{text}</Text>;
+};
+
+export const BoldLabel = ({ text }) => {
+  return <Text style={styles.BoldLabel}>{text}</Text>;
+};
+
+export const XsmlLabel = ({ text }) => {
+  return <Text style={styles.XsmlLabel}>{text}</Text>;
+};
+
+export const Header = () => {
+  return (
+    <View
+      style={{
+        height: 136,
+        backgroundColor: theme.darkGrey,
+      }}
+    ></View>
+  );
+};
+
 export const InputField = ({
   text,
   value,
@@ -529,3 +239,159 @@ export const BigInputField = ({ value, label, placeholder, onChangeTexts }) => {
 export const EmojiContainer = () => {
   return <View style={styles.input} />;
 };
+
+const styles = StyleSheet.create({
+  roundButton: {
+    margin: 20,
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: theme.grey,
+    padding: 10,
+    borderRadius: "50%",
+    width: 60,
+    height: 60,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 3,
+    },
+    shadowOpacity: 0.29,
+    shadowRadius: 4.65,
+    zIndex: 100,
+    alignSelf: "flex-end",
+  },
+
+  plusIcon: {
+    width: 30,
+    height: 30,
+  },
+
+  bottomTab: {
+    width: 25,
+    height: 25,
+  },
+
+  ExtraBigButton: {
+    justifyContent: "center",
+    backgroundColor: theme.grey,
+    padding: 10,
+    margin: 15,
+    height: 60,
+    borderRadius: 10,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 3,
+    },
+    shadowOpacity: 0.29,
+    shadowRadius: 4.65,
+  },
+  ExtraBigButtonText: {
+    textAlign: "center",
+    fontWeight: "bold",
+    fontSize: 16,
+  },
+
+  BigButton: {
+    justifyContent: "center",
+    backgroundColor: theme.grey,
+    padding: 5,
+    margin: 15,
+    width: 113,
+    height: 28,
+    borderRadius: 6,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 3,
+    },
+    shadowOpacity: 0.29,
+    shadowRadius: 4.65,
+    //elevation: 7,
+  },
+  BigButtonText: {
+    fontSize: 12,
+    textAlign: "center",
+  },
+
+  input: {
+    margin: 15,
+    padding: 7,
+    height: 60,
+    backgroundColor: theme.lightGrey,
+    borderRadius: 10,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 3,
+    },
+    shadowOpacity: 0.29,
+    shadowRadius: 4.65,
+    elevation: 7,
+  },
+
+  SmallButton: {
+    justifyContent: "center",
+    backgroundColor: theme.darkGrey,
+    padding: 5,
+    margin: 7,
+    width: 79,
+    height: 28,
+    borderRadius: 6,
+  },
+
+  bigInput: {
+    margin: 15,
+    padding: 7,
+    height: 160,
+    backgroundColor: theme.lightGrey,
+    borderRadius: 10,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 3,
+    },
+    shadowOpacity: 0.29,
+    shadowRadius: 4.65,
+    elevation: 7,
+  },
+  SmallButtonText: {
+    fontSize: 12,
+    textAlign: "center",
+    color: "white",
+  },
+  SmallButtonText: {
+    fontSize: 12,
+    textAlign: "center",
+    color: "white",
+  },
+
+  BigLabel: {
+    fontSize: 24,
+  },
+
+  BoldBigLabel: {
+    fontSize: 24,
+    fontWeight: "bold",
+  },
+
+  Label: {
+    fontSize: 18,
+  },
+
+  BoldLabel: {
+    fontSize: 18,
+    fontWeight: "bold",
+  },
+
+  SmlLabel: {
+    fontSize: 16,
+    fontWeight: "bold",
+  },
+
+  XsmlLabel: {
+    fontSize: 14,
+    color: theme.darkGrey,
+    width: "auto",
+  },
+});
