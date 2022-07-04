@@ -1,12 +1,9 @@
 import {
   Text,
   View,
-  SafeAreaView,
   StyleSheet,
   TouchableOpacity,
   TextInput,
-  Button,
-  //Image,
 } from "react-native";
 import { Image } from "native-base";
 import { baseURL } from "./instance";
@@ -136,13 +133,14 @@ export const Profile = ({ displayName, username, num, bio, onPress }) => {
         position: "absolute",
         marginTop: 70,
         marginLeft: 10,
+        marginRight: 10,
+        alignItems: "stretch",
       }}
     >
       <ProfileImg width={100} height={100} />
 
       <View
         style={{
-          flex: 1,
           flexDirection: "row",
           alignItems: "center",
           justifyContent: "space-between",
@@ -189,6 +187,10 @@ export const XsmlLabel = ({ text }) => {
   return <Text style={styles.XsmlLabel}>{text}</Text>;
 };
 
+export const SmlLabel = ({ text }) => {
+  return <Text style={styles.SmlLabel}>{text}</Text>;
+};
+
 export const Header = () => {
   return (
     <View
@@ -201,15 +203,16 @@ export const Header = () => {
 };
 
 export const InputField = ({
-  text,
   value,
   label,
   placeholder,
-  onChangeTexts,
+  onChangeText,
+  secureTextEntry,
 }) => {
   return (
     <TextInput
       style={styles.input}
+      secureTextEntry={secureTextEntry}
       underlineColorAndroid="transparent"
       placeholder={placeholder}
       label={label}
@@ -336,8 +339,21 @@ const styles = StyleSheet.create({
     padding: 5,
     margin: 7,
     width: 79,
-    height: 28,
+    height: 30,
     borderRadius: 6,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 3,
+    },
+    shadowOpacity: 0.29,
+    shadowRadius: 4.65,
+    elevation: 7,
+  },
+  SmallButtonText: {
+    fontSize: 12,
+    textAlign: "center",
+    color: "white",
   },
 
   bigInput: {
@@ -354,16 +370,6 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.29,
     shadowRadius: 4.65,
     elevation: 7,
-  },
-  SmallButtonText: {
-    fontSize: 12,
-    textAlign: "center",
-    color: "white",
-  },
-  SmallButtonText: {
-    fontSize: 12,
-    textAlign: "center",
-    color: "white",
   },
 
   BigLabel: {
@@ -386,7 +392,7 @@ const styles = StyleSheet.create({
 
   SmlLabel: {
     fontSize: 16,
-    fontWeight: "bold",
+    //fontWeight: "bold",
   },
 
   XsmlLabel: {

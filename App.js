@@ -11,12 +11,10 @@ import AgendaScreen from "./screens/Calender";
 
 export default () => {
   return (
-    <SafeAreaView>
-      <NativeBaseProvider>
-        <NavigationContainer>
-          <SignUpStackNavigator />
-        </NavigationContainer>
-      </NativeBaseProvider>
-    </SafeAreaView>
+    <NativeBaseProvider>
+      <NavigationContainer>
+        <SignUpStackNavigator />
+      </NavigationContainer>
+    </NativeBaseProvider>
   );
 };
