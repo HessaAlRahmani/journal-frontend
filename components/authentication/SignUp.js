@@ -14,6 +14,7 @@ import {
   RoundButton,
   BigButton,
   SmallButton,
+  InputField,
 } from "../../constants";
 
 export default function SignUp({ navigation }) {
@@ -34,24 +35,18 @@ export default function SignUp({ navigation }) {
   return (
     <SafeAreaView>
       <View style={styles.container}>
-        <TextInput
-          style={styles.input}
-          underlineColorAndroid="transparent"
+        <InputField
           placeholder="Enter username"
           label="username"
           value={user.username}
-          autoCapitalize="none"
           onChangeText={(username) => setUser({ ...user, username })}
         />
 
-        <TextInput
-          style={styles.input}
-          underlineColorAndroid="transparent"
+        <InputField
           placeholder="Enter password"
           label="password"
           secureTextEntry={true}
           value={user.password}
-          autoCapitalize="none"
           onChangeText={(password) => setUser({ ...user, password })}
         />
       </View>

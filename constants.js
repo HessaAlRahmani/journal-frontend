@@ -130,12 +130,12 @@ const styles = StyleSheet.create({
       width: 0,
       height: 3,
     },
-},
+  },
 
-    shadowOpacity: 0.29,
-    shadowRadius: 4.65,
-    //elevation: 7,
-  
+  shadowOpacity: 0.29,
+  shadowRadius: 4.65,
+  //elevation: 7,
+
   BigButtonText: {
     fontSize: 12,
     textAlign: "center",
@@ -149,76 +149,383 @@ const styles = StyleSheet.create({
     width: 79,
     height: 28,
     borderRadius: 6,
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 3,
+    input: {
+      margin: 15,
+      padding: 7,
+      height: 60,
+      backgroundColor: theme.lightGrey,
+      borderWidth: 1,
+      borderRadius: 10,
+      shadowColor: "#000",
+      shadowOffset: {
+        width: 0,
+        height: 3,
+      },
+      shadowOpacity: 0.29,
+      shadowRadius: 4.65,
+      elevation: 7,
     },
-    shadowOpacity: 0.29,
-    shadowRadius: 4.65,
-    //elevation: 7,
+    bigInput: {
+      margin: 15,
+      padding: 7,
+      height: 160,
+      backgroundColor: theme.lightGrey,
+      borderWidth: 1,
+      borderRadius: 10,
+      shadowColor: "#000",
+      shadowOffset: {
+        width: 0,
+        height: 3,
+      },
+      shadowOpacity: 0.29,
+      shadowRadius: 4.65,
+      elevation: 7,
+    },
+    SmallButtonText: {
+      fontSize: 12,
+      textAlign: "center",
+      color: "white",
+    },
   },
-  SmallButtonText: {
-    fontSize: 12,
-    textAlign: "center",
-    color: "white",
-  },}
-);
-
-
+});
 
 //component call <Steps stepnum={stepnum}/>
-export  function Steps({stepnum}) {
-    let view;
-    if (stepnum ==1){
-        view=<View style={{display:"flex",flexDirection:"row",justifyContent:"center"}}>
-        <View style={{borderRadius:50,backgroundColor:theme.darkGrey,width:10,height:10,marginRight:10}}></View>
-        <View style={{borderRadius:50,backgroundColor:theme.grey,width:10,height:10,marginRight:10}}></View>
-        <View style={{borderRadius:50,backgroundColor:theme.grey,width:10,height:10,marginRight:10}}></View>
-        <View style={{borderRadius:50,backgroundColor:theme.grey,width:10,height:10,marginRight:10}}></View>
-        <View style={{borderRadius:50,backgroundColor:theme.grey,width:10,height:10,marginRight:10}}></View>
-        </View>;
-    }
-    else if(stepnum==2){ view=<View style={{display:"flex",flexDirection:"row",justifyContent:"center"}}>
-    <View style={{borderRadius:50,backgroundColor:theme.grey,width:10,height:10,marginRight:10}}></View>
-    <View style={{borderRadius:50,backgroundColor:theme.darkGrey,width:10,height:10,marginRight:10}}></View>
-    <View style={{borderRadius:50,backgroundColor:theme.grey,width:10,height:10,marginRight:10}}></View>
-    <View style={{borderRadius:50,backgroundColor:theme.grey,width:10,height:10,marginRight:10}}></View>
-    <View style={{borderRadius:50,backgroundColor:theme.grey,width:10,height:10,marginRight:10}}></View>
-    </View>;}
-    else if(stepnum==3){ view=<View style={{display:"flex",flexDirection:"row",justifyContent:"center"}}>
-    <View style={{borderRadius:50,backgroundColor:theme.grey,width:10,height:10,marginRight:10}}></View>
-    <View style={{borderRadius:50,backgroundColor:theme.grey,width:10,height:10,marginRight:10}}></View>
-    <View style={{borderRadius:50,backgroundColor:theme.darkGrey,width:10,height:10,marginRight:10}}></View>
-    <View style={{borderRadius:50,backgroundColor:theme.grey,width:10,height:10,marginRight:10}}></View>
-    <View style={{borderRadius:50,backgroundColor:theme.grey,width:10,height:10,marginRight:10}}></View>
-    </View>;}
-    else if(stepnum==4){ view=<View style={{display:"flex",flexDirection:"row",justifyContent:"center"}}>
-    <View style={{borderRadius:50,backgroundColor:theme.grey,width:10,height:10,marginRight:10}}></View>
-    <View style={{borderRadius:50,backgroundColor:theme.grey,width:10,height:10,marginRight:10}}></View>
-    <View style={{borderRadius:50,backgroundColor:theme.grey,width:10,height:10,marginRight:10}}></View>
-    <View style={{borderRadius:50,backgroundColor:theme.darkGrey,width:10,height:10,marginRight:10}}></View>
-    <View style={{borderRadius:50,backgroundColor:theme.grey,width:10,height:10,marginRight:10}}></View>
-    </View>;}
-    else if(stepnum==5) { view=<View style={{display:"flex",flexDirection:"row",justifyContent:"center"}}>
-    <View style={{borderRadius:50,backgroundColor:theme.grey,width:10,height:10,marginRight:10}}></View>
-    <View style={{borderRadius:50,backgroundColor:theme.grey,width:10,height:10,marginRight:10}}></View>
-    <View style={{borderRadius:50,backgroundColor:theme.grey,width:10,height:10,marginRight:10}}></View>
-    <View style={{borderRadius:50,backgroundColor:theme.grey,width:10,height:10,marginRight:10}}></View>
-    <View style={{borderRadius:50,backgroundColor:theme.darkGrey,width:10,height:10,marginRight:10}}></View>
-    </View>;}
-  return (
-    <View>
-        {view}
-    </View>
-  )
+export function Steps({ stepnum }) {
+  let view;
+  if (stepnum == 1) {
+    view = (
+      <View
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "center",
+        }}
+      >
+        <View
+          style={{
+            borderRadius: 50,
+            backgroundColor: theme.darkGrey,
+            width: 10,
+            height: 10,
+            marginRight: 10,
+          }}
+        ></View>
+        <View
+          style={{
+            borderRadius: 50,
+            backgroundColor: theme.grey,
+            width: 10,
+            height: 10,
+            marginRight: 10,
+          }}
+        ></View>
+        <View
+          style={{
+            borderRadius: 50,
+            backgroundColor: theme.grey,
+            width: 10,
+            height: 10,
+            marginRight: 10,
+          }}
+        ></View>
+        <View
+          style={{
+            borderRadius: 50,
+            backgroundColor: theme.grey,
+            width: 10,
+            height: 10,
+            marginRight: 10,
+          }}
+        ></View>
+        <View
+          style={{
+            borderRadius: 50,
+            backgroundColor: theme.grey,
+            width: 10,
+            height: 10,
+            marginRight: 10,
+          }}
+        ></View>
+      </View>
+    );
+  } else if (stepnum == 2) {
+    view = (
+      <View
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "center",
+        }}
+      >
+        <View
+          style={{
+            borderRadius: 50,
+            backgroundColor: theme.grey,
+            width: 10,
+            height: 10,
+            marginRight: 10,
+          }}
+        ></View>
+        <View
+          style={{
+            borderRadius: 50,
+            backgroundColor: theme.darkGrey,
+            width: 10,
+            height: 10,
+            marginRight: 10,
+          }}
+        ></View>
+        <View
+          style={{
+            borderRadius: 50,
+            backgroundColor: theme.grey,
+            width: 10,
+            height: 10,
+            marginRight: 10,
+          }}
+        ></View>
+        <View
+          style={{
+            borderRadius: 50,
+            backgroundColor: theme.grey,
+            width: 10,
+            height: 10,
+            marginRight: 10,
+          }}
+        ></View>
+        <View
+          style={{
+            borderRadius: 50,
+            backgroundColor: theme.grey,
+            width: 10,
+            height: 10,
+            marginRight: 10,
+          }}
+        ></View>
+      </View>
+    );
+  } else if (stepnum == 3) {
+    view = (
+      <View
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "center",
+        }}
+      >
+        <View
+          style={{
+            borderRadius: 50,
+            backgroundColor: theme.grey,
+            width: 10,
+            height: 10,
+            marginRight: 10,
+          }}
+        ></View>
+        <View
+          style={{
+            borderRadius: 50,
+            backgroundColor: theme.grey,
+            width: 10,
+            height: 10,
+            marginRight: 10,
+          }}
+        ></View>
+        <View
+          style={{
+            borderRadius: 50,
+            backgroundColor: theme.darkGrey,
+            width: 10,
+            height: 10,
+            marginRight: 10,
+          }}
+        ></View>
+        <View
+          style={{
+            borderRadius: 50,
+            backgroundColor: theme.grey,
+            width: 10,
+            height: 10,
+            marginRight: 10,
+          }}
+        ></View>
+        <View
+          style={{
+            borderRadius: 50,
+            backgroundColor: theme.grey,
+            width: 10,
+            height: 10,
+            marginRight: 10,
+          }}
+        ></View>
+      </View>
+    );
+  } else if (stepnum == 4) {
+    view = (
+      <View
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "center",
+        }}
+      >
+        <View
+          style={{
+            borderRadius: 50,
+            backgroundColor: theme.grey,
+            width: 10,
+            height: 10,
+            marginRight: 10,
+          }}
+        ></View>
+        <View
+          style={{
+            borderRadius: 50,
+            backgroundColor: theme.grey,
+            width: 10,
+            height: 10,
+            marginRight: 10,
+          }}
+        ></View>
+        <View
+          style={{
+            borderRadius: 50,
+            backgroundColor: theme.grey,
+            width: 10,
+            height: 10,
+            marginRight: 10,
+          }}
+        ></View>
+        <View
+          style={{
+            borderRadius: 50,
+            backgroundColor: theme.darkGrey,
+            width: 10,
+            height: 10,
+            marginRight: 10,
+          }}
+        ></View>
+        <View
+          style={{
+            borderRadius: 50,
+            backgroundColor: theme.grey,
+            width: 10,
+            height: 10,
+            marginRight: 10,
+          }}
+        ></View>
+      </View>
+    );
+  } else if (stepnum == 5) {
+    view = (
+      <View
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "center",
+        }}
+      >
+        <View
+          style={{
+            borderRadius: 50,
+            backgroundColor: theme.grey,
+            width: 10,
+            height: 10,
+            marginRight: 10,
+          }}
+        ></View>
+        <View
+          style={{
+            borderRadius: 50,
+            backgroundColor: theme.grey,
+            width: 10,
+            height: 10,
+            marginRight: 10,
+          }}
+        ></View>
+        <View
+          style={{
+            borderRadius: 50,
+            backgroundColor: theme.grey,
+            width: 10,
+            height: 10,
+            marginRight: 10,
+          }}
+        ></View>
+        <View
+          style={{
+            borderRadius: 50,
+            backgroundColor: theme.grey,
+            width: 10,
+            height: 10,
+            marginRight: 10,
+          }}
+        ></View>
+        <View
+          style={{
+            borderRadius: 50,
+            backgroundColor: theme.darkGrey,
+            width: 10,
+            height: 10,
+            marginRight: 10,
+          }}
+        ></View>
+      </View>
+    );
+  }
+  return <View>{view}</View>;
 }
 
-
-export function ProfileImg({width,height}) {
+export function ProfileImg({ width, height }) {
   return (
     <View>
-      <View style={{width:width,height:height,backgroundColor:theme.grey,borderRadius:50}}></View>
+      <View
+        style={{
+          width: width,
+          height: height,
+          backgroundColor: theme.grey,
+          borderRadius: 50,
+        }}
+      ></View>
     </View>
-  )
+  );
 }
+export const InputField = ({
+  text,
+  value,
+  label,
+  placeholder,
+  onChangeTexts,
+}) => {
+  return (
+    <TextInput
+      style={styles.input}
+      underlineColorAndroid="transparent"
+      placeholder={placeholder}
+      label={label}
+      value={value}
+      autoCapitalize="none"
+      onChangeText={onChangeTexts}
+    />
+  );
+};
+
+export const BigInputField = ({ value, label, placeholder, onChangeTexts }) => {
+  return (
+    <TextInput
+      style={styles.bigInput}
+      underlineColorAndroid="transparent"
+      placeholder={placeholder}
+      label={label}
+      value={value}
+      autoCapitalize="none"
+      onChangeText={onChangeTexts}
+      multiline={true}
+      maxLength={300}
+    />
+  );
+};
+
+export const EmojiContainer = () => {
+  return <View style={styles.input} />;
+};
