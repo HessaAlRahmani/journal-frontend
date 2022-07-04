@@ -7,6 +7,7 @@ import { configure } from "mobx";
 import SignUpStackNavigator from "./components/navigation/stackNavs/signUpStackNav";
 import { Steps, ProfileImg } from "./constants";
 import { SafeAreaView } from "react-native";
+import AgendaScreen from "./screens/Calender";
 
 export default () => {
   return (

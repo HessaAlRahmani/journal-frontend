@@ -215,12 +215,12 @@ export const InputField = ({
       label={label}
       value={value}
       autoCapitalize="none"
-      onChangeText={onChangeTexts}
+      onChangeText={onChangeText}
     />
   );
 };
 
-export const BigInputField = ({ value, label, placeholder, onChangeTexts }) => {
+export const BigInputField = ({ placeholder, label, value, onChangeText }) => {
   return (
     <TextInput
       style={styles.bigInput}
@@ -229,7 +229,7 @@ export const BigInputField = ({ value, label, placeholder, onChangeTexts }) => {
       label={label}
       value={value}
       autoCapitalize="none"
-      onChangeText={onChangeTexts}
+      onChangeText={onChangeText}
       multiline={true}
       maxLength={300}
     />
