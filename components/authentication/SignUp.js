@@ -1,35 +1,20 @@
-import {
-  Text,
-  View,
-  SafeAreaView,
-  StyleSheet,
-  TouchableOpacity,
-  TextInput,
-  Button,
-} from "react-native";
+import { Text, View, SafeAreaView, StyleSheet, TextInput } from "react-native";
 import { useState } from "react";
 import usersStore from "../../stores/usersStore";
-import {
-  ExtraBigButton,
-  RoundButton,
-  BigButton,
-  SmallButton,
-  InputField,
-} from "../../constants";
+import { ExtraBigButton, SmallButton, InputField } from "../../constants";
 
 export default function SignUp({ navigation }) {
-  const [user, setUser] = useState({
+  const initialUser = {
     username: "",
     password: "",
-  });
+  };
+
+  const [user, setUser] = useState(initialUser);
 
   const signup = async () => {
     await usersStore.signup(user);
-    setUser({
-      username: "",
-      password: "",
-    });
-    navigation.navigate("MainProfile");
+    setUser(initialUser);
+    navigation.navigate("BottomNav");
   };
 
   return (
@@ -51,18 +36,22 @@ export default function SignUp({ navigation }) {
         />
       </View>
       <ExtraBigButton onPress={signup} text={"Sign up"} />
-      <BigButton onPress={signup} text={"Sign up"} />
-      <SmallButton onPress={signup} text={"Sign up"} />
-      <RoundButton onPress={signup} imgSrc={require("../../assets/plus.png")} />
-      <Text style={{ fontSize: 22, fontWeight: "bold" }}>
-        already have an account?
-      </Text>
-      <Button
-        title="sign in!"
-        onPress={() => {
-          navigation.navigate("SignIn");
+      <View
+        style={{
+          flex: 1,
+          flexDirection: "row",
+          alignItems: "center",
+          justifyContent: "center",
         }}
-      />
+      >
+        <Text style={{ width: "auto" }}>already have an account?</Text>
+        <SmallButton
+          onPress={() => {
+            navigation.navigate("SignIn");
+          }}
+          text={"Sign in!"}
+        />
+      </View>
     </SafeAreaView>
   );
 }

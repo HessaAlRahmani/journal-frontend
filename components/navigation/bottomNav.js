@@ -1,10 +1,10 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
-import { Fontisto } from "@expo/vector-icons";
 import { observer } from "mobx-react-lite";
+import { NavIcon } from "../../constants";
 
 // stack navigators
 import imgPickStackNav from "./stackNavs/imgPickStackNav";
+import profileStackNav from "./stackNavs/profileStackNav";
 
 import AgendaScreen from "../../screens/Calender";
 
@@ -13,81 +13,69 @@ const { Navigator, Screen } = createBottomTabNavigator();
 function bottomTab() {
   return (
     <Navigator
-      initialRouteName="Journal"
-      screenOptions={{
+      initialRouteName="Profile"
+      screenOptions={({ route }) => ({
+        tabBarIcon: ({ focused }) => {
+          const iconName = route.name.toLowerCase();
+          const fullIconName = focused ? `${iconName}-colored` : `${iconName}`;
+          return <NavIcon name={fullIconName} />;
+        },
         tabBarActiveTintColor: "black",
-        // tabBarActiveBackgroundColor: "#547AA5",
-        headerShown: false,
-      }}
+        headerTitleAlign: "center",
+        tabBarLabelStyle: {
+          fontWeight: "bold",
+          color: "black",
+          paddingBottom: 3,
+        },
+        tabBarStyle: { height: 64 },
+      })}
     >
       <Screen
         name="Journal"
         //change to journal stack  nav
-        component={imgPickStackNav}
-        options={{
-          tabBarLabel: "Journal",
-          tabBarIcon: () => (
-            <Fontisto name="compass" size={24} color="#D1D1D1" />
-          ),
-        }}
+        component={profileStackNav}
+        options={
+          {
+            //tabBarLabel: "Journal",
+          }
+        }
       />
 
       <Screen
         name="Calendar"
         component={AgendaScreen}
-        options={{
-          tabBarLabel: "Calendar",
-          tabBarIcon: () => (
-            <MaterialCommunityIcons
-              name="book-account-outline"
-              size={24}
-              color="#D1D1D1"
-            />
-          ),
-          //tabBarBadge: 3,
-        }}
+        options={
+          {
+            //tabBarLabel: "Calendar",
+          }
+        }
       />
 
       <Screen
         name="Map"
-        component={imgPickStackNav}
-        options={{
-          tabBarLabel: "Map",
-          tabBarIcon: () => (
-            <MaterialCommunityIcons
-              name="book-account-outline"
-              size={24}
-              color="#D1D1D1"
-            />
-          ),
-          //tabBarBadge: 3,
-        }}
+        component={profileStackNav}
+        options={
+          {
+            //tabBarLabel: "Map",
+          }
+        }
       />
 
       <Screen
         name="Notifications"
-        component={imgPickStackNav}
+        component={profileStackNav}
         options={{
           tabBarLabel: "Notifications",
-          tabBarIcon: () => (
-            <MaterialCommunityIcons
-              name="book-account-outline"
-              size={24}
-              color="#D1D1D1"
-            />
-          ),
           //tabBarBadge: 3,
         }}
       />
 
       <Screen
-        name="MainProfile"
-        component={imgPickStackNav}
+        name="Profile"
+        component={profileStackNav}
         options={{
-          tabBarLabel: "Profile",
-          tabBarIcon: ({ color, size }) => (
-            <MaterialCommunityIcons name="account" size={24} color="#D1D1D1" />
-          ),
+          //tabBarLabel: "Profile",
+          headerShown: false,
         }}
       />
     </Navigator>

@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { View, Text, Button, Image, ScrollView } from "react-native";
+import { RoundButton } from "../../constants";
 
 export default class MainScreen extends Component {
   constructor(props) {
@@ -42,6 +43,7 @@ export default class MainScreen extends Component {
         <ScrollView>
           {this.state.photos.map((item, i) => this.renderImage(item, i))}
         </ScrollView>
+        <RoundButton />
       </View>
     );
   }
