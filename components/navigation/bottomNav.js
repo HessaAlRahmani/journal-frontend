@@ -31,7 +31,7 @@ function bottomTab() {
       <Screen
         name="Journal"
         //change to journal stack  nav
-        component={imgPickStackNav}
+        component={profileStackNav}
         options={
           {
             //tabBarLabel: "Journal",
@@ -41,7 +41,7 @@ function bottomTab() {
 
       <Screen
         name="Calendar"
-        component={imgPickStackNav}
+        component={profileStackNav}
         options={
           {
             //tabBarLabel: "Calendar",
@@ -51,7 +51,7 @@ function bottomTab() {
 
       <Screen
         name="Map"
-        component={imgPickStackNav}
+        component={profileStackNav}
         options={
           {
             //tabBarLabel: "Map",
@@ -61,7 +61,7 @@ function bottomTab() {
 
       <Screen
         name="Notifications"
-        component={imgPickStackNav}
+        component={profileStackNav}
         options={{
           tabBarLabel: "Notifications",
           //tabBarBadge: 3,

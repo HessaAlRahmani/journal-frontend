@@ -6,8 +6,10 @@ import {
   TouchableOpacity,
   TextInput,
   Button,
-  Image,
+  //Image,
 } from "react-native";
+import { Image } from "native-base";
+import { baseURL } from "./instance";
 
 export const theme = {
   lightGrey: "#F6F6F6",
@@ -21,9 +23,11 @@ export const theme = {
 export const NavIcon = ({ name }) => {
   return (
     <Image
-      name
       style={styles.bottomTab}
-      source={require(`./assets/BottomNavIcons/${name}.png`)}
+      source={{
+        uri: `${baseURL}media/BottomNavIcons/${name}.png`,
+      }}
+      alt={`${name}`}
     />
   );
 };
@@ -55,7 +59,11 @@ export const SmallButton = ({ onPress, text }) => {
 export const RoundButton = ({ onPress }) => {
   return (
     <TouchableOpacity style={styles.roundButton} onPress={onPress}>
-      <Image style={styles.plusIcon} source={require("./assets/plus.png")} />
+      <Image
+        style={styles.plusIcon}
+        source={require("./assets/plus.png")}
+        alt={"plus button"}
+      />
     </TouchableOpacity>
   );
 };
@@ -101,7 +109,7 @@ export function Steps({ stepNum }) {
 
 export function ProfileImg({ width, height }) {
   return (
-    <View
+    <Image
       style={{
         width: width,
         height: height,
@@ -111,7 +119,11 @@ export function ProfileImg({ width, height }) {
         borderColor: "white",
         borderWidth: 4,
       }}
-    ></View>
+      source={{
+        uri: `${baseURL}media/BottomNavIcons/map-colored.png`,
+      }}
+      alt={"profile pic"}
+    />
   );
 }
 
@@ -188,6 +200,46 @@ export const Header = () => {
   );
 };
 
+export const InputField = ({
+  text,
+  value,
+  label,
+  placeholder,
+  onChangeTexts,
+}) => {
+  return (
+    <TextInput
+      style={styles.input}
+      underlineColorAndroid="transparent"
+      placeholder={placeholder}
+      label={label}
+      value={value}
+      autoCapitalize="none"
+      onChangeText={onChangeTexts}
+    />
+  );
+};
+
+export const BigInputField = ({ value, label, placeholder, onChangeTexts }) => {
+  return (
+    <TextInput
+      style={styles.bigInput}
+      underlineColorAndroid="transparent"
+      placeholder={placeholder}
+      label={label}
+      value={value}
+      autoCapitalize="none"
+      onChangeText={onChangeTexts}
+      multiline={true}
+      maxLength={300}
+    />
+  );
+};
+
+export const EmojiContainer = () => {
+  return <View style={styles.input} />;
+};
+
 const styles = StyleSheet.create({
   roundButton: {
     margin: 20,
@@ -262,6 +314,22 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
 
+  input: {
+    margin: 15,
+    padding: 7,
+    height: 60,
+    backgroundColor: theme.lightGrey,
+    borderRadius: 10,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 3,
+    },
+    shadowOpacity: 0.29,
+    shadowRadius: 4.65,
+    elevation: 7,
+  },
+
   SmallButton: {
     justifyContent: "center",
     backgroundColor: theme.darkGrey,
@@ -270,6 +338,14 @@ const styles = StyleSheet.create({
     width: 79,
     height: 28,
     borderRadius: 6,
+  },
+
+  bigInput: {
+    margin: 15,
+    padding: 7,
+    height: 160,
+    backgroundColor: theme.lightGrey,
+    borderRadius: 10,
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
@@ -277,7 +353,12 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.29,
     shadowRadius: 4.65,
-    //elevation: 7,
+    elevation: 7,
+  },
+  SmallButtonText: {
+    fontSize: 12,
+    textAlign: "center",
+    color: "white",
   },
   SmallButtonText: {
     fontSize: 12,

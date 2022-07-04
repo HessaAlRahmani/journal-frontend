@@ -6,13 +6,16 @@ import { NativeBaseProvider } from "native-base";
 import { configure } from "mobx";
 import SignUpStackNavigator from "./components/navigation/stackNavs/signUpStackNav";
 import { Steps, ProfileImg } from "./constants";
+import { SafeAreaView } from "react-native";
 
 export default () => {
   return (
-    <NativeBaseProvider>
-      <NavigationContainer>
-        <SignUpStackNavigator />
-      </NavigationContainer>
-    </NativeBaseProvider>
+    <SafeAreaView>
+      <NativeBaseProvider>
+        <NavigationContainer>
+          <SignUpStackNavigator />
+        </NavigationContainer>
+      </NativeBaseProvider>
+    </SafeAreaView>
   );
 };
