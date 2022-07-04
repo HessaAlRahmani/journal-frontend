@@ -10,12 +10,10 @@ import { SafeAreaView } from "react-native";
 
 export default () => {
   return (
-    <SafeAreaView>
-      <NativeBaseProvider>
-        <NavigationContainer>
-          <SignUpStackNavigator />
-        </NavigationContainer>
-      </NativeBaseProvider>
-    </SafeAreaView>
+    <NativeBaseProvider>
+      <NavigationContainer>
+        <SignUpStackNavigator />
+      </NavigationContainer>
+    </NativeBaseProvider>
   );
 };

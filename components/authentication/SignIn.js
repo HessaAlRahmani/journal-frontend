@@ -1,20 +1,23 @@
-import {
-  Text,
-  View,
-  SafeAreaView,
-  StyleSheet,
-  TouchableOpacity,
-  TextInput,
-} from "react-native";
+import { View, SafeAreaView, StyleSheet } from "react-native";
 import { useState } from "react";
+import { observer } from "mobx-react";
 import usersStore from "../../stores/usersStore";
-import { ExtraBigButton } from "../../constants";
+import {
+  ExtraBigButton,
+  InputField,
+  SmallButton,
+  SmlLabel,
+} from "../../constants";
 
-export default function SignIn({ navigation }) {
+function SignIn({ navigation }) {
   const [user, setUser] = useState({
     username: "",
     password: "",
   });
+
+  const goToSignUp = () => {
+    navigation.navigate("SignUp");
+  };
 
   const signin = async () => {
     await usersStore.signin(user);
@@ -28,78 +31,40 @@ export default function SignIn({ navigation }) {
   return (
     <SafeAreaView>
       <View style={styles.container}>
-        <TextInput
-          style={styles.input}
-          underlineColorAndroid="transparent"
+        <InputField
           placeholder="Enter username"
           label="username"
           value={user.username}
-          autoCapitalize="none"
           onChangeText={(username) => setUser({ ...user, username })}
         />
 
-        <TextInput
-          style={styles.input}
-          underlineColorAndroid="transparent"
+        <InputField
           placeholder="Enter password"
           label="password"
           secureTextEntry={true}
           value={user.password}
-          autoCapitalize="none"
           onChangeText={(password) => setUser({ ...user, password })}
         />
+
+        <ExtraBigButton onPress={signin} text={"Sign in"} />
+        <View style={styles.signUpContainer}>
+          <SmlLabel text={"Don't have an account?"} />
+          <SmallButton onPress={goToSignUp} text={"Sign up!"} />
+        </View>
       </View>
-      <ExtraBigButton onPress={signin} text={"Sign in"} />
     </SafeAreaView>
   );
 }
 
+export default observer(SignIn);
+
 const styles = StyleSheet.create({
   container: {
-    paddingTop: 23,
-    width: "100%",
+    marginTop: 100,
   },
-  input: {
-    margin: 15,
-    padding: 7,
-    height: 40,
-    borderColor: "#D1D1D1",
-    borderWidth: 1,
-    borderRadius: 12,
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 3,
-    },
-    shadowOpacity: 0.29,
-    shadowRadius: 4.65,
-    elevation: 7,
-  },
-  submitButton: {
-    backgroundColor: "#547AA5",
-    padding: 10,
-    margin: 15,
-    height: 40,
-    borderRadius: 12,
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 3,
-    },
-    shadowOpacity: 0.29,
-    shadowRadius: 4.65,
-
-    elevation: 7,
-  },
-  submitButtonText: {
-    color: "white",
-    textAlign: "center",
-    fontWeight: "bold",
-  },
-  welcome: {
-    textAlign: "center",
-    fontWeight: "bold",
-    marginBottom: 69,
-    fontSize: 30,
+  signUpContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
   },
 });
