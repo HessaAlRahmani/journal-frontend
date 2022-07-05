@@ -7,12 +7,12 @@ import {Button} from 'native-base';
 import { MaterialIcons } from '@expo/vector-icons'; 
 import userStore from '../../stores/usersStore';
 import entries from '../../data/entriesData';
+import { googleMapsKey } from '../../instance';
 
-const key ="AIzaSyAB82YOHpacO5IF2NXyi5IR3wNaCHXuvCQ";
 
 
 export default function MainMap() {
-    Location.setGoogleApiKey(key);
+    Location.setGoogleApiKey(googleMapsKey);
   const r={ region: {
     latitude: 29.267575,
       latitudeDelta: 0.055,
@@ -78,7 +78,7 @@ export default function MainMap() {
      
     }}
     query={{
-      key:key,
+      key:googleMapsKey,
       language: 'en||ar',
       radius:30000
     }}
