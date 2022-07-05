@@ -10,7 +10,7 @@ import entries from '../../data/entriesData';
 import { googleMapsKey } from '../../instance';
 
 
-
+//check the key 
 export default function MainMap() {
     Location.setGoogleApiKey(googleMapsKey);
   const r={ region: {
