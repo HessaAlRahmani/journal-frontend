@@ -1,6 +1,6 @@
 import { useState,useEffect } from 'react';
 import { StyleSheet, Text, View ,Dimensions} from 'react-native';
-import MapView ,{ PROVIDER_GOOGLE ,Marker}from 'react-native-maps';
+import MapView ,{ PROVIDER_GOOGLE ,Marker} from "react-native-maps";
 import * as Location from 'expo-location';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import {Button} from 'native-base';
