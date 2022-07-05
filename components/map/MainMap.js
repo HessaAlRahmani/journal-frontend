@@ -39,7 +39,7 @@ export default function MainMap() {
     SetMarkerloc({latitude:location.coords.latitude,longitude:location.coords.longitude})
 
   })();
-}, []);
+}, [location]);
 
  const drag=async(e)=>{
   const lat=e.nativeEvent.coordinate.latitude.toFixed(6);
