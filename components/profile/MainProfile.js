@@ -1,6 +1,6 @@
 import { View, SafeAreaView } from "react-native";
 import usersStore from "../../stores/usersStore";
-import { BigButton, Profile, Header, XsmlLabel } from "../../constants";
+import { Profile, Header } from "../../constants";
 import { observer } from "mobx-react";
 
 function MainProfile({ navigation }) {
@@ -10,6 +10,7 @@ function MainProfile({ navigation }) {
       <View>
         <Header />
         <Profile
+          navigation={navigation}
           displayName={user.displayname}
           username={user.username}
           num={user.friends.length}
@@ -23,4 +24,4 @@ function MainProfile({ navigation }) {
   );
 }
 
-export default MainProfile;
+export default observer(MainProfile);

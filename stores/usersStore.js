@@ -1,7 +1,8 @@
-import { makeAutoObservable, runInAction } from "mobx";
+import { makeAutoObservable } from "mobx";
 import { instance } from "../instance";
 import jwt_decode from "jwt-decode";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { Platform } from "react-native";
 
 class UserStore {
   constructor() {
@@ -38,7 +39,6 @@ class UserStore {
     try {
       const res = await instance.post("/signin", userData);
       this.setUser(res.data.token);
-      console.log("logged in!!");
     } catch (error) {
       alert("Incorrect username or password");
       console.error(error);
@@ -55,12 +55,38 @@ class UserStore {
     }
   };
 
-  updateUser = async (arrayOfPics) => {
+  updateUser = async (pic) => {
     try {
-      //const response = await instance.put("/updateUser", arrayOfURI);
-      const formData = new FormData();
-      for (const key in arrayOfPics) formData.append(key, arrayOfPics[key]);
-      const res = await instance.put("/updateUser", formData);
+      // const formData = new FormData();
+      // formData.append("profileImage", {
+      //   uri: pic,
+      //   name: "pfp.png",
+      //   type: "image/png",
+      // });
+      //console.log(formData);
+      const res = await instance.put("/updateUser", pic);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  image = async (imgUri) => {
+    const formData = new FormData();
+    formData.append("profileImage", {
+      uri: Platform.OS === "ios" ? imgUri.replace("file://", "") : imgUri,
+      name: new Date() + "pfp",
+      type: "image/jpg",
+    });
+
+    //console.log(formData);
+    try {
+      const res = await instance.post("/image", formData, {
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "multipart/form-data",
+          //authorization: "JWT insert token here"
+        },
+      });
     } catch (error) {
       console.error(error);
     }
