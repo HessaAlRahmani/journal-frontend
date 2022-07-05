@@ -5,7 +5,7 @@ import { NavIcon } from "../../constants";
 // stack navigators
 import imgPickStackNav from "./stackNavs/imgPickStackNav";
 import profileStackNav from "./stackNavs/profileStackNav";
-
+import MainMap from "../map/mainmap";
 import AgendaScreen from "../imagePicker/Calender";
 
 const { Navigator, Screen } = createBottomTabNavigator();
@@ -53,7 +53,7 @@ function bottomTab() {
 
       <Screen
         name="Map"
-        component={profileStackNav}
+        component={MainMap}
         options={
           {
             //tabBarLabel: "Map",
