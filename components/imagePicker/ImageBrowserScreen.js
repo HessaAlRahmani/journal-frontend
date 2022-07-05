@@ -37,8 +37,6 @@ export default class ImageBrowserScreen extends Component {
           });
         }
         //const picsURI = cPhotos.map((pic) => pic.uri.replace("file://", ""));
-        console.log(cPhotos);
-
         usersStore.updateUser(cPhotos);
 
         navigation.navigate("Main", { photos: cPhotos });

@@ -6,7 +6,7 @@ import { NavIcon } from "../../constants";
 import imgPickStackNav from "./stackNavs/imgPickStackNav";
 import profileStackNav from "./stackNavs/profileStackNav";
 
-import AgendaScreen from "../../screens/Calender";
+import AgendaScreen from "../imagePicker/Calender";
 
 const { Navigator, Screen } = createBottomTabNavigator();
 

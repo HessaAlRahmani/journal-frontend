@@ -42,16 +42,6 @@ export default function SignUpStackNavigator() {
           headerShown: false,
         }}
       />
-
-      {/* <Screen
-        name="ImageBrowser"
-        component={ImageBrowserScreen}
-        optionscd
-        dev={{
-          title: "Selected 0 files",
-          headerShown: false,
-        }}
-      /> */}
     </Navigator>
   );
 }

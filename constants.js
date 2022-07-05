@@ -7,6 +7,9 @@ import {
 } from "react-native";
 import { Image } from "native-base";
 import { baseURL } from "./instance";
+import * as ImagePicker from "expo-image-picker";
+import { useState } from "react";
+import usersStore from "./stores/usersStore";
 
 export const theme = {
   lightGrey: "#F6F6F6",
@@ -104,27 +107,49 @@ export function Steps({ stepNum }) {
   );
 }
 
-export function ProfileImg({ width, height }) {
+export function ProfileImg({ width, height, navigation }) {
+  const [img, SetImg] = useState("");
+  const openLibrary = async () => {
+    const result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+    });
+    if (!result.cancelled) {
+      SetImg(result);
+      console.log(img);
+      usersStore.image(img);
+    }
+  };
+
   return (
-    <Image
-      style={{
-        width: width,
-        height: height,
-        backgroundColor: theme.grey,
-        borderRadius: 50,
-        zIndex: 100,
-        borderColor: "white",
-        borderWidth: 4,
-      }}
-      source={{
-        uri: `${baseURL}media/BottomNavIcons/map-colored.png`,
-      }}
-      alt={"profile pic"}
-    />
+    <TouchableOpacity onPress={openLibrary}>
+      <Image
+        style={{
+          width: width,
+          height: height,
+          backgroundColor: theme.grey,
+          borderRadius: 50,
+          zIndex: 100,
+          borderColor: "white",
+          borderWidth: 4,
+        }}
+        source={{
+          uri: `${baseURL}media/BottomNavIcons/map-colored.png`,
+        }}
+        alt={"profile pic"}
+      />
+    </TouchableOpacity>
   );
 }
 
-export const Profile = ({ displayName, username, num, bio, onPress }) => {
+export const Profile = ({
+  displayName,
+  username,
+  num,
+  bio,
+  onPress,
+  navigation,
+}) => {
   return (
     <View
       style={{
@@ -137,7 +162,7 @@ export const Profile = ({ displayName, username, num, bio, onPress }) => {
         alignItems: "stretch",
       }}
     >
-      <ProfileImg width={100} height={100} />
+      <ProfileImg width={100} height={100} navigation={navigation} />
 
       <View
         style={{
