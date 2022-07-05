@@ -177,6 +177,9 @@ export const Profile = ({
       <XsmlLabel text={"@" + username} />
       <NumOfFriends num={num} />
       <XsmlLabel text={bio} />
+      <BigButton text={"signout"} onPress={()=>{
+        navigation.navigate("Sign");
+      usersStore.signout();}}/>
     </View>
   );
 };

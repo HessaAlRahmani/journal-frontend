@@ -4,6 +4,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 //screens
 import MainProfile from "../../profile/MainProfile";
 import ImageBrowserScreen from "../../imagePicker/ImageBrowserScreen";
+import signupstacknav from "../stackNavs/signUpStackNav"
 
 const { Navigator, Screen } = createStackNavigator();
 
@@ -30,6 +31,14 @@ export default function ProfileStackNavigator() {
         component={MainProfile}
         options={{
           title: "Edit Profile",
+        }}
+      />
+
+<Screen
+        name="Sign"
+        component={signupstacknav}
+        options={{
+          //title: "Edit Profile",
         }}
       />
       <Screen
