@@ -1,11 +1,11 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { observer } from "mobx-react-lite";
+import { observer } from "mobx-react";
 import { NavIcon } from "../../constants";
 
 // stack navigators
-import imgPickStackNav from "./stackNavs/imgPickStackNav";
+// import imgPickStackNav from "./stackNavs/imgPickStackNav";
 import profileStackNav from "./stackNavs/profileStackNav";
-import MainMap from "../map/mainmap";
+import MainMap from "../map/MainMap";
 import AgendaScreen from "../imagePicker/Calender";
 
 const { Navigator, Screen } = createBottomTabNavigator();
@@ -56,7 +56,7 @@ function bottomTab() {
         component={MainMap}
         options={
           {
-            //tabBarLabel: "Map",
+       headerShown:false
           }
         }
       />
