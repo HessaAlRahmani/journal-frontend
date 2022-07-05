@@ -1,7 +1,6 @@
 import {
   Text,
   View,
-  SafeAreaView,
   StyleSheet,
   TouchableOpacity,
   TextInput,
@@ -201,11 +200,10 @@ export const Header = () => {
 };
 
 export const InputField = ({
-  text,
-  value,
-  label,
   placeholder,
-  onChangeTexts,
+  label,
+  value,
+  onChangeText,
 }) => {
   return (
     <TextInput
@@ -215,7 +213,7 @@ export const InputField = ({
       label={label}
       value={value}
       autoCapitalize="none"
-      onChangeText={onChangeTexts}
+      onChangeText={onChangeText}
     />
   );
 };

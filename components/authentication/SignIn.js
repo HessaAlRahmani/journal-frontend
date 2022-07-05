@@ -1,7 +1,6 @@
 import {
   Text,
   View,
-  SafeAreaView,
   StyleSheet,
   TouchableOpacity,
   TextInput,
@@ -26,7 +25,7 @@ export default function SignIn({ navigation }) {
   };
 
   return (
-    <SafeAreaView>
+    <View>
       <View style={styles.container}>
         <TextInput
           style={styles.input}
@@ -50,7 +49,7 @@ export default function SignIn({ navigation }) {
         />
       </View>
       <ExtraBigButton onPress={signin} text={"Sign in"} />
-    </SafeAreaView>
+    </View>
   );
 }
 

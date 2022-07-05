@@ -1,4 +1,4 @@
-import { View, SafeAreaView } from "react-native";
+import { View} from "react-native";
 import usersStore from "../../stores/usersStore";
 import { BigButton, Profile, Header, XsmlLabel } from "../../constants";
 import { observer } from "mobx-react";
@@ -6,7 +6,6 @@ import { observer } from "mobx-react";
 function MainProfile({ navigation }) {
   const user = usersStore.user;
   return (
-    <SafeAreaView>
       <View>
         <Header />
         <Profile
@@ -19,7 +18,6 @@ function MainProfile({ navigation }) {
 
         {/* analytics should be here */}
       </View>
-    </SafeAreaView>
   );
 }
 

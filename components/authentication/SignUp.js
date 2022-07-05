@@ -1,4 +1,4 @@
-import { Text, View, SafeAreaView, StyleSheet, TextInput } from "react-native";
+import { Text, View,StyleSheet, TextInput } from "react-native";
 import { useState } from "react";
 import usersStore from "../../stores/usersStore";
 import { ExtraBigButton, SmallButton, InputField } from "../../constants";
@@ -18,7 +18,7 @@ export default function SignUp({ navigation }) {
   };
 
   return (
-    <SafeAreaView>
+    <View >
       <View style={styles.container}>
         <InputField
           placeholder="Enter username"
@@ -52,7 +52,7 @@ export default function SignUp({ navigation }) {
           text={"Sign in!"}
         />
       </View>
-    </SafeAreaView>
+     </View>
   );
 }
 
