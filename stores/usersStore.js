@@ -8,7 +8,16 @@ class UserStore {
   constructor() {
     makeAutoObservable(this);
   }
-  user = null;
+  user=null;
+  users=[];
+  fetchUsers = async () => {
+    try {
+      const response = await instance.get("/users");
+      this.users = response.data;
+    } catch (error) {
+      console.log("userStore -> fetchUsers -> error", error);
+    }
+  };
 
   setUser = async (userToken) => {
     await AsyncStorage.setItem("token", JSON.stringify(userToken));
@@ -100,4 +109,6 @@ class UserStore {
 
 const userStore = new UserStore();
 userStore.checkForToken();
+userStore.fetchUsers();
+
 export default userStore;

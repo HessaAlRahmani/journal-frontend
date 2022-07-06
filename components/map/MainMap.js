@@ -1,28 +1,38 @@
 import { useState,useEffect } from 'react';
-import { StyleSheet, Text, View ,Dimensions} from 'react-native';
+import { StyleSheet, Text, View ,Dimensions, FlatList} from 'react-native';
 import MapView ,{ PROVIDER_GOOGLE ,Marker} from "react-native-maps";
 import * as Location from 'expo-location';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
-import {Button} from 'native-base';
+import {Button, Image} from 'native-base';
 import { MaterialIcons } from '@expo/vector-icons'; 
 import userStore from '../../stores/usersStore';
 import entries from '../../entriesdata';
 import { googleMapsKey } from '../../instance';
+import Modal from "react-native-modal";
+import { FontAwesome5 } from '@expo/vector-icons'; 
 
 
 //check the key 
 export default function MainMap() {
-    Location.setGoogleApiKey(googleMapsKey);
+  Location.setGoogleApiKey(googleMapsKey);
+
+  const [isModalVisible, setModalVisible] = useState(false);
+  const [location, setLocation] = useState(null);
+  const [view,setView]=useState(null);
+  const userfriends=userStore.users.find((user)=>user._id==userStore.user._id).friends;
+
   const r={ region: {
     latitude: 29.267575,
       latitudeDelta: 0.055,
       longitude:47.992789,
       longitudeDelta: 0.005,}
   };
-  const [location, setLocation] = useState(null);
  const [markerloc,SetMarkerloc]=useState({latitude:r.region.latitude,longitude:r.region.longitude});
- const [view,setView]=useState(null);
+
  
+ const toggleModal = () => {
+  setModalVisible(!isModalVisible);
+};
 
  useEffect(() => {
   (async () => {
@@ -35,11 +45,12 @@ export default function MainMap() {
     let location = await Location.getCurrentPositionAsync({});
     setLocation(location.coords);
     console.log("locaaatiooooonnnnn",location.coords)
+    console.log("userr ",userStore.user)
     setView({latitude:location.coords.latitude,longitude:location.coords.longitude,longitudeDelta: 0.005,latitudeDelta: 0.005});
     SetMarkerloc({latitude:location.coords.latitude,longitude:location.coords.longitude})
 
   })();
-}, [location]);
+}, []);
 
  const drag=async(e)=>{
   const lat=e.nativeEvent.coordinate.latitude.toFixed(6);
@@ -47,19 +58,54 @@ export default function MainMap() {
   SetMarkerloc({latitude:lat,longitude:lng});
   alert(Object.entries(markerloc));
   console.log(lat,lng)
-  // search();
-
-  // console.log(resultt); 
-  
  }
 
  const getCurrentlocation=()=>{
     setView({latitude:location.latitude,longitude:location.longitude,longitudeDelta: 0.005,latitudeDelta: 0.005});
     SetMarkerloc({latitude:location.latitude,longitude:location.longitude})
+    // alert("userrrrr  ",userStore.user)
    }
 
-   let myEntries=entries.filter((entry)=>entry.user==userStore.user._id);
-   let myPins=myEntries.map((marker,index)=><Marker key={index} coordinate={{latitude:marker.location.lat,longitude:marker.location.lng}} title={marker.title} description={marker.body}/>)
+  let myPins=entries.filter((entry)=>entry.user==userStore.user._id).map((marker,index)=><Marker key={index} coordinate={{latitude:marker.location.lat,longitude:marker.location.lng}} title={marker.title} description={marker.body}/>)
+  let friendsPublicPins=entries.filter((entry)=>entry.user!=userStore.user._id && entry.status=="public").map((marker,index)=><Marker key={index} coordinate={{latitude:marker.location.lat,longitude:marker.location.lng}} title={marker.title} description={marker.body}/>)
+  let allPins=myPins.concat(friendsPublicPins);
+  
+   let buttons=[{title:"All",img:<FontAwesome5 name="users" size={24} color="black" />},{title:"Me",img: <Image style={{borderRadius:100}}source={{uri:userStore.user.profileImage}} alt="Alternate Text" size="xs" />}]
+   let friendsButtons=[];
+userfriends.forEach((friend) => {let obj={};obj["_id"]=friend._id;obj["title"]=friend.username;obj.img=<Image style={{borderRadius:100}}source={{uri:friend.profileImage}} alt="Alternate Text" size="xs" />;friendsButtons.push(obj)});
+
+//  let allbuttons =buttons;
+ let allbuttons =buttons.concat(friendsButtons);
+  //  ,{title:"Marie24"},{title:"doha"},{title:"HessaR"},{title:"thv"},{title:"jungkook.97"},{title:8},{title:9},{title:10},{title:11},{title:12},{title:13},{title:14},{title:15},{title:16}]
+   const [viewPins,SetViewPins]=useState(allPins);
+   const[filterButton,setFilterButton]=useState(<FontAwesome5 name="users" size={24} color="black" />)
+   const filterMapPins=(title,img,_id)=>{
+      if(title=="All")
+      {
+        SetViewPins(allPins);
+        setView({latitude:location.latitude,longitude:location.longitude,longitudeDelta: 0.6,latitudeDelta: 0.005});
+        setFilterButton(<FontAwesome5 name="users" size={24} color="black" />)
+        console.log(viewPins);
+        toggleModal()
+      }
+      else if(title=="Me")
+      {
+        SetViewPins(myPins);
+        setView({latitude:location.latitude,longitude:location.longitude,longitudeDelta: 0.6,latitudeDelta: 0.005});
+        setFilterButton(img)
+        console.log(viewPins);
+        toggleModal()
+      }
+      else
+      {
+        let friendPins=entries.filter((entry)=>entry.user==_id && entry.status=="public").map((marker,index)=><Marker key={index} coordinate={{latitude:marker.location.lat,longitude:marker.location.lng}} title={marker.title} description={marker.body}/>)
+        SetViewPins(friendPins);
+        setView({latitude:location.latitude,longitude:location.longitude,longitudeDelta: 0.6,latitudeDelta: 0.005});
+        setFilterButton(img)
+        console.log(viewPins);
+        toggleModal()
+      }
+   }
 
   
   return (
@@ -92,15 +138,15 @@ export default function MainMap() {
     style={styles.map}
  region={view}
 >
-
-    {myPins}
+{/* pins to be rendered */}
+    {viewPins}
   <Marker
     // key={index}
     draggable 
     coordinate={markerloc}
     onDragEnd={(e) => drag(e)}
     pinColor={"#9A9AEB"}
-    title="my pin"
+    title="my current"
     description="purple pin borahe"
     // image={{uri: "https://mpng.subpng.com/20180615/zzw/kisspng-gps-navigation-systems-computer-icons-android-icon-5b246d324b4c66.9491847615291139063084.jpg"}}
     // image={require("https://mpng.subpng.com/20180615/zzw/kisspng-gps-navigation-systems-computer-icons-android-icon-5b246d324b4c66.9491847615291139063084.jpg")}
@@ -110,7 +156,29 @@ export default function MainMap() {
   
 
 </MapView>
-<Button onPress={()=>{getCurrentlocation()}} variant={"outline"} bgColor={"white"} style={{borderRadius:100,width:50,height:50,flex:0,position:"absolute",zIndex:5,top:"90%",left:"85%",borderColor:"#ced0d3"}}><MaterialIcons name="my-location" size={20} color="#1a73e8" /></Button>
+<Button onPress={()=>{getCurrentlocation()}} variant={"outline"} bgColor={"white"} style={{borderRadius:100,width:70,height:70,flex:0,position:"absolute",zIndex:5,top:"90%",left:"80%",borderColor:"#ced0d3"}}><MaterialIcons name="my-location" size={25} color="#1a73e8" /></Button>
+<Button onPress={()=>{toggleModal()}} variant={"outline"} bgColor={"white"} style={{borderRadius:100,width:70,height:70,flex:0,position:"absolute",zIndex:5,top:"80%",left:"80%",borderColor:"#ced0d3"}}>{filterButton}</Button>
+<Modal propagateSwipe isVisible={isModalVisible} onBackdropPress={() => setModalVisible(false)} style={{borderTopLeftRadius:50,borderTopRightRadius:50}}>
+<View style={{height:"30%",top:"38%",backgroundColor:"white",borderTopLeftRadius:50,borderTopRightRadius:50,paddingTop:20}}>
+  <FlatList 
+        data={allbuttons}
+        numColumns={4}
+        renderItem={({ item: button }) => (
+          <View style={{ flex: 0.4, flexDirection: "column" }}>
+            <Button onPress={()=>{filterMapPins(button.title,button.img,button._id)}} bgColor={"#D9D9D9"} style={{alignSelf:"center",borderRadius:100,width:70,height:70,margin:10,marginBottom:5}}>{button.img}</Button>
+            <Text style={{alignSelf:"center",fontSize:12}}>{button.title}</Text>
+          </View>
+        )}
+        keyExtractor={(item, index) => index.toString()}
+         style={{paddingLeft:15,paddingRight:15,flex:1,width:"100%",height:"10%",borderTopLeftRadius:50,borderTopRightRadius:50}} >
+         
+          {/* <Button title="Hide modal" onPress={toggleModal}>X</Button> */}
+        </FlatList>
+</View>
+        
+
+      </Modal>
+      
 </View>
   )
 }
