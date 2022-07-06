@@ -1,4 +1,4 @@
-import { makeAutoObservable ,runInAction} from "mobx";
+import { makeAutoObservable, runInAction } from "mobx";
 import { instance } from "../instance";
 import jwt_decode from "jwt-decode";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -7,7 +7,6 @@ import { Platform } from "react-native";
 class UserStore {
   constructor() {
     makeAutoObservable(this);
-
   }
   user=null;
   users=[];
@@ -24,8 +23,7 @@ class UserStore {
     await AsyncStorage.setItem("token", JSON.stringify(userToken));
     instance.defaults.headers.common.Authorization = `Bearer ${userToken}`;
     this.user = jwt_decode(userToken);
-    console.log("setuser",this.user);
-
+    console.log("setuser", this.user);
   };
 
   checkForToken = async () => {
@@ -49,9 +47,10 @@ class UserStore {
 
   signin = async (userData) => {
     try {
+      this.isLoading = true;
       const res = await instance.post("/signin", userData);
-     await this.setUser(res.data.token);
-      console.log("sign in ",this.user)
+      await this.setUser(res.data.token);
+      console.log("sign in ", this.user);
     } catch (error) {
       alert("Incorrect username or password");
       console.error(error);
@@ -62,13 +61,15 @@ class UserStore {
     try {
       delete instance.defaults.headers.common.Authorization;
       await AsyncStorage.removeItem("token");
-      this.user = null;
+      runInAction(() => {
+        this.user = null;
+      });
     } catch (error) {
       console.error(error);
     }
   };
 
-  updateUser = async (pic) => {
+  updateUser = async (updatedUser) => {
     try {
       // const formData = new FormData();
       // formData.append("profileImage", {
@@ -77,7 +78,7 @@ class UserStore {
       //   type: "image/png",
       // });
       //console.log(formData);
-      const res = await instance.put("/updateUser", pic);
+      const res = await instance.put("/updateUser", updatedUser);
     } catch (error) {
       console.error(error);
     }
