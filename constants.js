@@ -4,6 +4,7 @@ import {
   StyleSheet,
   TouchableOpacity,
   TextInput,
+  Dimensions,
 } from "react-native";
 import { Image } from "native-base";
 import { baseURL } from "./instance";
@@ -18,6 +19,7 @@ export const theme = {
   primary: "yellow",
   danger: "#EB7070",
   success: "#2FA83B",
+  windowWidth: Dimensions.get("window").width - 40,
 };
 
 export const NavIcon = ({ name }) => {
@@ -107,82 +109,26 @@ export function Steps({ stepNum }) {
   );
 }
 
-export function ProfileImg({ width, height, navigation }) {
-  const [img, SetImg] = useState("");
-  const openLibrary = async () => {
-    const result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.Images,
-      allowsEditing: true,
-    });
-    if (!result.cancelled) {
-      SetImg(result);
-      console.log(img);
-      usersStore.image(img);
-    }
-  };
-
+export function ProfileImg({ width, height }) {
   return (
-    <TouchableOpacity onPress={openLibrary}>
-      <Image
-        style={{
-          width: width,
-          height: height,
-          backgroundColor: theme.grey,
-          borderRadius: 50,
-          zIndex: 100,
-          borderColor: "white",
-          borderWidth: 4,
-        }}
-        source={{
-          uri: `${baseURL}media/BottomNavIcons/map-colored.png`,
-        }}
-        alt={"profile pic"}
-      />
-    </TouchableOpacity>
+    <Image
+      style={{
+        width: width,
+        height: height,
+        backgroundColor: theme.grey,
+        borderRadius: 50,
+        zIndex: 100,
+        borderColor: "white",
+        borderWidth: 4,
+      }}
+      source={{
+        //this needs to change!
+        uri: `${baseURL}media/BottomNavIcons/map-colored.png`,
+      }}
+      alt={"profile pic"}
+    />
   );
 }
-
-export const Profile = ({
-  displayName,
-  username,
-  num,
-  bio,
-  onPress,
-  navigation,
-}) => {
-  return (
-    <View
-      style={{
-        padding: 10,
-        flex: 1,
-        position: "absolute",
-        marginTop: 70,
-        marginLeft: 10,
-        marginRight: 10,
-        alignItems: "stretch",
-      }}
-    >
-      <ProfileImg width={100} height={100} navigation={navigation} />
-
-      <View
-        style={{
-          flexDirection: "row",
-          alignItems: "center",
-          justifyContent: "space-between",
-        }}
-      >
-        <BoldBigLabel text={displayName} />
-        <SmallButton text={"edit profile"} onPress={onPress} />
-      </View>
-      <XsmlLabel text={"@" + username} />
-      <NumOfFriends num={num} />
-      <XsmlLabel text={bio} />
-      <BigButton text={"signout"} onPress={()=>{
-        navigation.navigate("Sign");
-      usersStore.signout();}}/>
-    </View>
-  );
-};
 
 export const NumOfFriends = ({ num }) => {
   return (
@@ -358,7 +304,6 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.29,
     shadowRadius: 4.65,
-    elevation: 7,
   },
 
   SmallButton: {
@@ -397,7 +342,6 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.29,
     shadowRadius: 4.65,
-    elevation: 7,
   },
 
   BigLabel: {

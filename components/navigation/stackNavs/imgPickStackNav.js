@@ -10,7 +10,7 @@ const { Navigator, Screen } = createStackNavigator();
 export default function SignUpStackNavigator() {
   return (
     <Navigator
-      initialRouteName="Main"
+      initialRouteName="MainImgPicker"
       screenOptions={{
         tabBarActiveTintColor: "black",
         headerShown: true,
@@ -18,7 +18,7 @@ export default function SignUpStackNavigator() {
       }}
     >
       <Screen
-        name="Main"
+        name="MainImgPicker"
         //need to uncomment this at some point
         options={{
           headerShown: false,

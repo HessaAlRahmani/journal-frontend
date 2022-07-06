@@ -3,17 +3,19 @@ import { observer } from "mobx-react";
 import { NavIcon } from "../../constants";
 
 // stack navigators
-// import imgPickStackNav from "./stackNavs/imgPickStackNav";
+import CalendarStack from "./stackNavs/calendarStack";
 import profileStackNav from "./stackNavs/profileStackNav";
 import MainMap from "../map/MainMap";
-import AgendaScreen from "../imagePicker/Calender";
+import JournalStack from "./stackNavs/journalStack";
+import NotificationsStack from "./stackNavs/notificationsStack";
+import mapStack from "./stackNavs/mapStack";
 
 const { Navigator, Screen } = createBottomTabNavigator();
 
 function bottomTab() {
   return (
     <Navigator
-      initialRouteName="Profile"
+      initialRouteName="Journal"
       screenOptions={({ route }) => ({
         tabBarIcon: ({ focused }) => {
           const iconName = route.name.toLowerCase();
@@ -25,45 +27,31 @@ function bottomTab() {
         tabBarLabelStyle: {
           fontWeight: "bold",
           color: "black",
-          paddingBottom: 3,
         },
-        tabBarStyle: { height: 64 },
+        tabBarStyle: {
+          height: 80,
+        },
       })}
     >
       <Screen
         name="Journal"
         //change to journal stack  nav
-        component={profileStackNav}
-        options={
-          {
-            //tabBarLabel: "Journal",
-          }
-        }
+        component={JournalStack}
       />
 
-      <Screen
-        name="Calendar"
-        component={AgendaScreen}
-        options={
-          {
-            //tabBarLabel: "Calendar",
-          }
-        }
-      />
+      <Screen name="Calendar" component={CalendarStack} />
 
       <Screen
         name="Map"
-        component={MainMap}
-        options={
-          {
-       headerShown:false
-          }
-        }
+        component={mapStack}
+        options={{
+          headerShown: false,
+        }}
       />
 
       <Screen
         name="Notifications"
-        component={profileStackNav}
+        component={NotificationsStack}
         options={{
           tabBarLabel: "Notifications",
           //tabBarBadge: 3,
