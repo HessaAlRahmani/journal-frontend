@@ -37,6 +37,9 @@ function bottomTab() {
         name="Journal"
         //change to journal stack  nav
         component={JournalStack}
+        options={{
+          headerShown: false,
+        }}
       />
 
       <Screen name="Calendar" component={CalendarStack} />

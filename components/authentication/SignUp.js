@@ -23,14 +23,14 @@ function SignUp({ navigation }) {
       <View style={styles.container}>
         <InputField
           placeholder="Enter username"
-          label="username"
+          //label="username"
           value={user.username}
           onChangeText={(username) => setUser({ ...user, username })}
         />
 
         <InputField
           placeholder="Enter password"
-          label="password"
+          //label="password"
           secureTextEntry={true}
           value={user.password}
           onChangeText={(password) => setUser({ ...user, password })}

@@ -18,7 +18,7 @@ function MainProfile() {
   const navigation = useNavigation();
   return (
     <View>
-      <Header />
+      <Header height={136} />
       <View style={styles.bigContainer}>
         <ProfileImg width={100} height={100} />
         <View style={styles.smallContainer}>
@@ -26,7 +26,7 @@ function MainProfile() {
           <SmallButton
             text={"edit profile"}
             onPress={() => {
-              console.log(hi);
+              navigation.navigate("EditProfile");
             }}
           />
         </View>
@@ -36,7 +36,6 @@ function MainProfile() {
         <BigButton
           text={"signout"}
           onPress={() => {
-            // navigation.navigate("Sign");
             usersStore.signout();
           }}
         />
@@ -64,17 +63,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    width: theme.windowWidth,
+    width: theme.windowWidth - 40,
   },
 });
-
-{
-  /* <Profile
-        navigation={navigation}
-        displayName={user.displayname}
-        username={user.username}
-        num={user.friends.length}
-        bio={user.bio}
-        onPress={() => navigation.navigate("EditProfile")}
-      /> */
-}
