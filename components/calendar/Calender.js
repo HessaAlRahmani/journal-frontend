@@ -3,6 +3,7 @@ import { Alert, StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import { Agenda } from "react-native-calendars";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { AntDesign } from "@expo/vector-icons";
+import entries from "../../entriesdata";
 
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
@@ -10,9 +11,20 @@ export default class AgendaScreen extends Component {
   constructor(props) {
     super(props);
 
+    const date0 = String(entries[0].date);
+    const date1 = String(entries[1].date);
+    let itemsArr = [
+      { date: entries[0].date, name: entries[0].title },
+      { date: entries[1].date, name: entries[1].title },
+    ];
+    let items = {};
+    itemsArr.forEach((item) => (items[item.date] = [{ name: item.name }]));
     this.state = {
-      items: {},
-
+      items: items,
+      // "entries.date": [{ name: entries.title}],
+      // "": [{ name: entries[0].title }],
+      // "2022-07-05": [{ name: entries[1].title }],
+      // "2022-07-06": [{ name: "Something" }, { name: "Harakat" }],
       data: {
         "2021-03-06": [{ name: "item 1 - any js object" }],
         "2021-03-07": [{ name: "item 2 - any js object", height: 80 }],
@@ -167,8 +179,8 @@ export default class AgendaScreen extends Component {
             }
           }
         />
-
-        <TouchableOpacity
+        {/* plus button */}
+        {/* <TouchableOpacity
           onPress={() => this.props.navigation.navigate("Form")}
           style={{
             backgroundColor: "white",
@@ -184,37 +196,37 @@ export default class AgendaScreen extends Component {
           }}
         >
           <AntDesign name="pluscircle" color="#283747" size={50} />
-        </TouchableOpacity>
+        </TouchableOpacity> */}
       </View>
     );
   }
 
-  loadItems(day) {
-    setTimeout(() => {
-      for (let i = -15; i < 85; i++) {
-        const time = day.timestamp + i * 24 * 60 * 60 * 1000;
-        const strTime = this.timeToString(time);
+  // loadItems(day) {
+  //   setTimeout(() => {
+  //     for (let i = -15; i < 85; i++) {
+  //       const time = day.timestamp + i * 24 * 60 * 60 * 1000;
+  //       const strTime = this.timeToString(time);
 
-        if (!this.state.items[strTime]) {
-          this.state.items[strTime] = [];
-          const numItems = Math.floor(Math.random() * 3 + 1);
-          for (let j = 0; j < numItems; j++) {
-            this.state.items[strTime].push({
-              name: "Item for " + strTime + " #" + j,
-              height: Math.max(50, Math.floor(Math.random() * 150)),
-            });
-          }
-        }
-      }
-      const newItems = {};
-      Object.keys(this.state.items).forEach((key) => {
-        newItems[key] = this.state.items[key];
-      });
-      this.setState({
-        items: newItems,
-      });
-    }, 1000);
-  }
+  //       if (!this.state.items[strTime]) {
+  //         this.state.items[strTime] = [];
+  //         const numItems = Math.floor(Math.random() * 3 + 1);
+  //         for (let j = 0; j < numItems; j++) {
+  //           this.state.items[strTime].push({
+  //             name: "Item for " + strTime + " #" + j,
+  //             height: Math.max(50, Math.floor(Math.random() * 150)),
+  //           });
+  //         }
+  //       }
+  //     }
+  //     const newItems = {};
+  //     Object.keys(this.state.items).forEach((key) => {
+  //       newItems[key] = this.state.items[key];
+  //     });
+  //     this.setState({
+  //       items: newItems,
+  //     });
+  //   }, 1000);
+  // }
 
   loadItems(day) {
     for (let i = -15; i < 85; i++) {
@@ -223,13 +235,13 @@ export default class AgendaScreen extends Component {
       //   console.log(strTime);
       if (!this.state.items[strTime]) {
         this.state.items[strTime] = [];
-        const numItems = Math.floor(Math.random() * 3 + 1);
-        for (let j = 0; j < numItems; j++) {
-          this.state.items[strTime].push({
-            name: "Item for " + strTime + " #" + j,
-            height: Math.max(50, Math.floor(Math.random() * 150)),
-          });
-        }
+        // const numItems = Math.floor(Math.random() * 3 + 1);
+        // for (let j = 0; j < numItems; j++) {
+        //   this.state.items[strTime].push({
+        //     name: "Item for " + strTime + " #" + j,
+        //     height: Math.max(50, Math.floor(Math.random() * 150)),
+        //   });
+        // }
       }
     }
     const newItems = {};
@@ -260,12 +272,12 @@ export default class AgendaScreen extends Component {
   renderEmptyDate() {
     return (
       <TouchableOpacity style={[styles.item, {}]}>
-        <MaterialCommunityIcons
+        {/* <MaterialCommunityIcons
           name="exclamation-thick"
           size={15}
           color="#283747"
-        />
-        <Text style={styles.textStyle}>Wow, Look! Nothing!</Text>
+        /> */}
+        {/* <Text style={styles.textStyle}>Wow, Look! Nothing!</Text> */}
       </TouchableOpacity>
     );
   }
