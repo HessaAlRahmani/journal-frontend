@@ -3,8 +3,8 @@ import { createStackNavigator } from "@react-navigation/stack";
 
 //screens
 import MainProfile from "../../profile/MainProfile";
+import EditProfile from "../../profile/EditProfile";
 import ImageBrowserScreen from "../../imagePicker/ImageBrowserScreen";
-import signupstacknav from "../stackNavs/signUpStackNav"
 
 const { Navigator, Screen } = createStackNavigator();
 
@@ -28,19 +28,12 @@ export default function ProfileStackNavigator() {
       />
       <Screen
         name="EditProfile"
-        component={MainProfile}
+        component={EditProfile}
         options={{
           title: "Edit Profile",
         }}
       />
 
-<Screen
-        name="Sign"
-        component={signupstacknav}
-        options={{
-          //title: "Edit Profile",
-        }}
-      />
       <Screen
         name="ImageBrowser"
         component={ImageBrowserScreen}

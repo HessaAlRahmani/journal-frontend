@@ -3,26 +3,36 @@ import { instance } from "../instance";
 import jwt_decode from "jwt-decode";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Platform } from "react-native";
-
-class UserStore {
+//morgan
+class UsersStore {
   constructor() {
     makeAutoObservable(this);
   }
+
   user = null;
 
   setUser = async (userToken) => {
-    await AsyncStorage.setItem("token", JSON.stringify(userToken));
-    instance.defaults.headers.common.Authorization = `Bearer ${userToken}`;
-    this.user = jwt_decode(userToken);
-    console.log("setuser", this.user);
+    try {
+      await AsyncStorage.setItem("token", JSON.stringify(userToken));
+      instance.defaults.headers.common.Authorization = `Bearer ${userToken}`;
+      runInAction(() => {
+        this.user = jwt_decode(userToken);
+      });
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   checkForToken = async () => {
-    const userToken = await AsyncStorage.getItem("token");
-    if (userToken) {
-      const newUser = jwt_decode(userToken);
-      if (newUser.exp > Date.now()) this.setUser(userToken);
-      else this.signout();
+    try {
+      const userToken = await AsyncStorage.getItem("token");
+      if (userToken) {
+        const newUser = jwt_decode(JSON.parse(userToken));
+        if (newUser.exp > Date.now()) this.setUser(userToken);
+        else this.signout();
+      }
+    } catch (error) {
+      console.error(error);
     }
   };
 
@@ -38,10 +48,8 @@ class UserStore {
 
   signin = async (userData) => {
     try {
-      this.isLoading = true;
       const res = await instance.post("/signin", userData);
       await this.setUser(res.data.token);
-      console.log("sign in ", this.user);
     } catch (error) {
       alert("Incorrect username or password");
       console.error(error);
@@ -62,14 +70,12 @@ class UserStore {
 
   updateUser = async (updatedUser) => {
     try {
-      // const formData = new FormData();
-      // formData.append("profileImage", {
-      //   uri: pic,
-      //   name: "pfp.png",
-      //   type: "image/png",
-      // });
-      //console.log(formData);
       const res = await instance.put("/updateUser", updatedUser);
+      //console.log("here", this.user);
+      runInAction(() => {
+        this.user = res.data;
+      });
+      //render to frontend
     } catch (error) {
       console.error(error);
     }
@@ -98,6 +104,6 @@ class UserStore {
   };
 }
 
-const userStore = new UserStore();
-userStore.checkForToken();
-export default userStore;
+const usersStore = new UsersStore();
+usersStore.checkForToken();
+export default usersStore;
