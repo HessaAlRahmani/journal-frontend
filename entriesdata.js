@@ -30,16 +30,30 @@ const entries =[
     {
         date:"2022-07-03",
         type:"Social",
-        title:"Eid",
+        title:"جمعية",
         body:"3 nn nnnnn nnnn nnnnn tttt",
         feeling:"Happy",
         health:"Healthy",
         weather:"Cloudy",
-        location:{lat:29.295813,lng:47.955680},
+        location:{lat:29.300580,lng:48.020846},
         attachments:["https://dynamic-media-cdn.tripadvisor.com/media/photo-o/15/0e/a8/b1/kuwait-zoo-02-largejpg.jpg?w=1200&h=-1&s=1"],
         friends:["62a205049b14d03cb036ff72"],
         user:"62a205049b14d03cb036ff72",
-        status:"private"
+        status:"public"
+    },
+    {
+        date:"2022-07-06",
+        type:"Social",
+        title:"جمعية",
+        body:"4 nn nnnnn nnnn nnnnn tttt",
+        feeling:"Happy",
+        health:"Healthy",
+        weather:"Cloudy",
+        location:{lat:29.210270,lng:48.098442},
+        attachments:["https://dynamic-media-cdn.tripadvisor.com/media/photo-o/15/0e/a8/b1/kuwait-zoo-02-largejpg.jpg?w=1200&h=-1&s=1"],
+        friends:["62a205049b14d03cb036ff72"],
+        user:"62a205049b14d03cb036ff72",
+        status:"public"
     }
     ];
     

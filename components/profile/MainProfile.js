@@ -15,7 +15,7 @@ function MainProfile() {
           navigation={navigation}
           displayName={user.displayname}
           username={user.username}
-          num={user.friends.length}
+          num={user.friends?.length || 0 }
           bio={user.bio}
           onPress={() => navigation.navigate("EditProfile")}
         />
