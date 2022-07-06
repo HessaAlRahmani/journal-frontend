@@ -7,7 +7,7 @@ import usersStore from "./stores/usersStore";
 import { observer } from "mobx-react";
 
 const App = () => {
-  if (usersStore.user) console.log(usersStore.user.username);
+  //if (usersStore.user) console.log(usersStore.user.username);
   return (
     <NativeBaseProvider>
       <NavigationContainer>

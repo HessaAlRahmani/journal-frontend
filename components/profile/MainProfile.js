@@ -4,23 +4,23 @@ import { Profile, Header } from "../../constants";
 import { observer } from "mobx-react";
 
 function MainProfile({ navigation }) {
+  //while (usersStore.user === null)
+
   const user = usersStore.user;
   return (
-    <SafeAreaView>
-      <View>
-        <Header />
-        <Profile
-          navigation={navigation}
-          displayName={user.displayname}
-          username={user.username}
-          num={user.friends.length}
-          bio={user.bio}
-          onPress={() => navigation.navigate("EditProfile")}
-        />
+    <View>
+      <Header />
+      <Profile
+        navigation={navigation}
+        displayName={user.displayname}
+        username={user.username}
+        num={user.friends.length}
+        bio={user.bio}
+        onPress={() => navigation.navigate("EditProfile")}
+      />
 
-        {/* analytics should be here */}
-      </View>
-    </SafeAreaView>
+      {/* analytics should be here */}
+    </View>
   );
 }
 

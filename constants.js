@@ -4,6 +4,7 @@ import {
   StyleSheet,
   TouchableOpacity,
   TextInput,
+  Dimensions,
 } from "react-native";
 import { Image } from "native-base";
 import { baseURL } from "./instance";
@@ -18,6 +19,7 @@ export const theme = {
   primary: "yellow",
   danger: "#EB7070",
   success: "#2FA83B",
+  windowWidth: Dimensions.get("window").width - 40,
 };
 
 export const NavIcon = ({ name }) => {
@@ -115,7 +117,7 @@ export function ProfileImg({ width, height, navigation }) {
       allowsEditing: true,
     });
     if (!result.cancelled) {
-      SetImg(result);
+      SetImg(result.uri);
       console.log(img);
       usersStore.image(img);
     }
@@ -169,6 +171,7 @@ export const Profile = ({
           flexDirection: "row",
           alignItems: "center",
           justifyContent: "space-between",
+          width: theme.windowWidth,
         }}
       >
         <BoldBigLabel text={displayName} />
@@ -355,7 +358,6 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.29,
     shadowRadius: 4.65,
-    elevation: 7,
   },
 
   SmallButton: {
@@ -394,7 +396,6 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.29,
     shadowRadius: 4.65,
-    elevation: 7,
   },
 
   BigLabel: {

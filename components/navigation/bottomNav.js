@@ -8,12 +8,19 @@ import profileStackNav from "./stackNavs/profileStackNav";
 
 import AgendaScreen from "../imagePicker/Calender";
 
+import usersStore from "../../stores/usersStore";
+
 const { Navigator, Screen } = createBottomTabNavigator();
 
 function bottomTab() {
+  const login = async () => {
+    await usersStore.signout();
+  };
+  login();
+
   return (
     <Navigator
-      initialRouteName="Profile"
+      initialRouteName="Calendar"
       screenOptions={({ route }) => ({
         tabBarIcon: ({ focused }) => {
           const iconName = route.name.toLowerCase();
@@ -25,9 +32,11 @@ function bottomTab() {
         tabBarLabelStyle: {
           fontWeight: "bold",
           color: "black",
-          paddingBottom: 3,
         },
-        tabBarStyle: { height: 64 },
+        tabBarStyle: {
+          height: 80,
+          alignItems: "center",
+        },
       })}
     >
       <Screen
