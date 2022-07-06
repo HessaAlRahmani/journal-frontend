@@ -8,8 +8,16 @@ class UsersStore {
   constructor() {
     makeAutoObservable(this);
   }
-
   user = null;
+  users = [];
+  fetchUsers = async () => {
+    try {
+      const response = await instance.get("/users");
+      this.users = response.data;
+    } catch (error) {
+      console.log("userStore -> fetchUsers -> error", error);
+    }
+  };
 
   setUser = async (userToken) => {
     try {
@@ -104,6 +112,8 @@ class UsersStore {
   };
 }
 
-const usersStore = new UsersStore();
-usersStore.checkForToken();
-export default usersStore;
+const userStore = new UserStore();
+userStore.checkForToken();
+userStore.fetchUsers();
+
+export default userStore;

@@ -31,7 +31,7 @@ function MainProfile() {
           />
         </View>
         <XsmlLabel text={"@" + user.username} />
-        <NumOfFriends num={user.friends.length} />
+        <NumOfFriends num={user.friends?.length || 0 }/>
         <XsmlLabel text={user.bio} />
         <BigButton
           text={"signout"}
