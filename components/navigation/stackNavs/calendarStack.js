@@ -9,14 +9,14 @@ const { Navigator, Screen } = createStackNavigator();
 export default function CalendarStack() {
   return (
     <Navigator
-      initialRouteName="AgendaScreen"
+      initialRouteName="MainAgendaScreen"
       screenOptions={{
         tabBarActiveTintColor: "black",
         headerShown: false,
         headerTitleAlign: "center",
       }}
     >
-      <Screen name="Calendar" component={AgendaScreen} />
+      <Screen name="MainAgendaScreen" component={AgendaScreen} />
     </Navigator>
   );
 }

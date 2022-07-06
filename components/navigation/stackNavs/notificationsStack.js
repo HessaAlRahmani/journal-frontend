@@ -9,14 +9,14 @@ const { Navigator, Screen } = createStackNavigator();
 export default function NotificationsStack() {
   return (
     <Navigator
-      initialRouteName="Notifications"
+      initialRouteName="MainNotifications"
       screenOptions={{
         tabBarActiveTintColor: "black",
         headerShown: false,
         headerTitleAlign: "center",
       }}
     >
-      <Screen name="Notifications" component={Notifications} />
+      <Screen name="MainNotifications" component={Notifications} />
     </Navigator>
   );
 }

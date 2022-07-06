@@ -8,6 +8,7 @@ import profileStackNav from "./stackNavs/profileStackNav";
 import MainMap from "../map/MainMap";
 import JournalStack from "./stackNavs/journalStack";
 import NotificationsStack from "./stackNavs/notificationsStack";
+import mapStack from "./stackNavs/mapStack";
 
 const { Navigator, Screen } = createBottomTabNavigator();
 
@@ -42,7 +43,7 @@ function bottomTab() {
 
       <Screen
         name="Map"
-        component={MainMap}
+        component={mapStack}
         options={{
           headerShown: false,
         }}

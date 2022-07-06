@@ -9,14 +9,14 @@ const { Navigator, Screen } = createStackNavigator();
 export default function JournalStack() {
   return (
     <Navigator
-      initialRouteName="Journal"
+      initialRouteName="MainJournal"
       screenOptions={{
         tabBarActiveTintColor: "black",
         headerShown: false,
         headerTitleAlign: "center",
       }}
     >
-      <Screen name="Journal" component={Journal} />
+      <Screen name="MainJournal" component={Journal} />
     </Navigator>
   );
 }
