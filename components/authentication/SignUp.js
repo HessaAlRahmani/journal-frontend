@@ -15,7 +15,7 @@ function SignUp({ navigation }) {
   const signup = async () => {
     await usersStore.signup(user);
     setUser(initialUser);
-    navigation.navigate("BottomNav");
+    //navigation.navigate("BottomNav");
   };
 
   return (
