@@ -25,7 +25,8 @@ function SignIn({ navigation }) {
       username: "",
       password: "",
     });
-    navigation.navigate("BottomNav");
+
+    if (usersStore.user) navigation.navigate("BottomNav");
   };
 
   return (

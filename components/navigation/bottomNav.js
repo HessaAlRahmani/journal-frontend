@@ -1,26 +1,20 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { observer } from "mobx-react-lite";
+import { observer } from "mobx-react";
 import { NavIcon } from "../../constants";
 
 // stack navigators
-import imgPickStackNav from "./stackNavs/imgPickStackNav";
+import CalendarStack from "./stackNavs/calendarStack";
 import profileStackNav from "./stackNavs/profileStackNav";
-
-import AgendaScreen from "../imagePicker/Calender";
-
-import usersStore from "../../stores/usersStore";
+import MainMap from "../map/MainMap";
+import JournalStack from "./stackNavs/journalStack";
+import NotificationsStack from "./stackNavs/notificationsStack";
 
 const { Navigator, Screen } = createBottomTabNavigator();
 
 function bottomTab() {
-  const login = async () => {
-    await usersStore.signout();
-  };
-  login();
-
   return (
     <Navigator
-      initialRouteName="Calendar"
+      initialRouteName="Journal"
       screenOptions={({ route }) => ({
         tabBarIcon: ({ focused }) => {
           const iconName = route.name.toLowerCase();
@@ -35,44 +29,28 @@ function bottomTab() {
         },
         tabBarStyle: {
           height: 80,
-          alignItems: "center",
         },
       })}
     >
       <Screen
         name="Journal"
         //change to journal stack  nav
-        component={profileStackNav}
-        options={
-          {
-            //tabBarLabel: "Journal",
-          }
-        }
+        component={JournalStack}
       />
 
-      <Screen
-        name="Calendar"
-        component={AgendaScreen}
-        options={
-          {
-            //tabBarLabel: "Calendar",
-          }
-        }
-      />
+      <Screen name="Calendar" component={CalendarStack} />
 
       <Screen
         name="Map"
-        component={profileStackNav}
-        options={
-          {
-            //tabBarLabel: "Map",
-          }
-        }
+        component={MainMap}
+        options={{
+          headerShown: false,
+        }}
       />
 
       <Screen
         name="Notifications"
-        component={profileStackNav}
+        component={NotificationsStack}
         options={{
           tabBarLabel: "Notifications",
           //tabBarBadge: 3,
