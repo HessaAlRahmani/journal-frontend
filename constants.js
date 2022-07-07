@@ -95,9 +95,12 @@ export function Steps({ stepNum }) {
   return (
     <View
       style={{
-        display: "flex",
+        width: theme.windowWidth,
+        position: "absolute",
         flexDirection: "row",
         justifyContent: "center",
+        bottom: 6,
+        alignItems: "center",
       }}
     >
       <Dot id={1} stepNum={stepNum} />
@@ -343,7 +346,6 @@ const styles = StyleSheet.create({
   bigInput: {
     marginRight: 30,
     marginLeft: 30,
-    marginTop: 10,
     marginBottom: 30,
     padding: 7,
 

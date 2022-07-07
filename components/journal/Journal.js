@@ -8,11 +8,9 @@ import { observer } from "mobx-react";
 function JournalList({ navigation }) {
   const today = new Date();
   const todaysDate = today.toISOString().split("T")[0];
-
   const entries = entriesStore.entries
     .filter((entry) => entry.date == todaysDate)
     .map((entry) => <JournalEntry entry={entry} key={entry._id} />);
-
   return (
     <View style={{ flex: 1, paddingTop: 10 }}>
       <ScrollView>

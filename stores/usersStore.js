@@ -4,7 +4,7 @@ import jwt_decode from "jwt-decode";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Platform } from "react-native";
 //morgan
-class UsersStore {
+class UserStore {
   constructor() {
     makeAutoObservable(this);
   }
