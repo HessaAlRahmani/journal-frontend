@@ -76,10 +76,15 @@ class UserStore {
     }
   };
 
-  updateUser = async (updatedUser) => {
+  updateUser = async (updatedUser, imgUri) => {
     try {
-      const res = await instance.put("/updateUser", updatedUser);
-      //console.log("here", this.user);
+      updatedUser.profileImage = imgUri;
+      //console.log(updatedUser.profileImage);
+      const res = await instance.put(
+        `/updateUser/${updatedUser._id}`,
+        updatedUser
+      );
+      console.log("here", res.data);
       runInAction(() => {
         this.user = res.data;
       });
@@ -89,27 +94,27 @@ class UserStore {
     }
   };
 
-  image = async (imgUri) => {
-    const formData = new FormData();
-    formData.append("profileImage", {
-      uri: Platform.OS === "ios" ? imgUri.replace("file://", "") : imgUri,
-      name: new Date() + "pfp",
-      type: "image/jpg",
-    });
+  // image = async (imgUri) => {
+  //   const formData = new FormData();
+  //   formData.append("profileImage", {
+  //     uri: Platform.OS === "ios" ? imgUri.replace("file://", "") : imgUri,
+  //     name: new Date() + "pfp",
+  //     type: "image/jpg",
+  //   });
 
-    //console.log(formData);
-    try {
-      const res = await instance.post("/image", formData, {
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "multipart/form-data",
-          //authorization: "JWT insert token here"
-        },
-      });
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  //   //console.log(formData);
+  //   try {
+  //     const res = await instance.post("/image", formData, {
+  //       headers: {
+  //         Accept: "application/json",
+  //         "Content-Type": "multipart/form-data",
+  //         //authorization: "JWT insert token here"
+  //       },
+  //     });
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
 }
 
 const userStore = new UserStore();

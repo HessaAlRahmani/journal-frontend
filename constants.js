@@ -8,6 +8,9 @@ import {
 } from "react-native";
 import { Image } from "native-base";
 import { baseURL } from "./instance";
+import { Dropdown } from "react-native-element-dropdown";
+import { useState } from "react";
+import userStore from "./stores/usersStore";
 
 export const theme = {
   lightGrey: "#F6F6F6",
@@ -57,7 +60,7 @@ export const SmallButton = ({ onPress, text }) => {
 
 export const RoundButton = ({ navigation }) => {
   const onPress = () => {
-    navigation.navigate("AddEntry");
+    navigation.navigate("AddEntry1");
   };
   return (
     <TouchableOpacity style={styles.roundButton} onPress={onPress}>
@@ -96,11 +99,12 @@ export function Steps({ stepNum }) {
     <View
       style={{
         width: theme.windowWidth,
-        position: "absolute",
-        flexDirection: "row",
         justifyContent: "center",
-        bottom: 6,
         alignItems: "center",
+
+        // position: "absolute",
+        flexDirection: "row",
+        //bottom: 6,
       }}
     >
       <Dot id={1} stepNum={stepNum} />
@@ -112,7 +116,16 @@ export function Steps({ stepNum }) {
   );
 }
 
-export function ProfileImg({ width, height }) {
+// export function OneEmoji({ text, label }) {
+//   return (
+//     <TouchableOpacity style={{ margin: 6 }}>
+//       <Text>{text}</Text>
+//     </TouchableOpacity>
+//   );
+// }
+
+export function ProfileImg({ width, height, pfp }) {
+  //console.log(pfp);
   return (
     <Image
       style={{
@@ -126,7 +139,7 @@ export function ProfileImg({ width, height }) {
       }}
       source={{
         //this needs to change!
-        uri: `${baseURL}media/BottomNavIcons/map-colored.png`,
+        uri: pfp,
       }}
       alt={"profile pic"}
     />
@@ -228,6 +241,38 @@ export const EmojiContainer = () => {
   return <View style={styles.input} />;
 };
 
+export const NewDropDown = ({ text, data, value, onChange }) => {
+  const [isFocus, setIsFocus] = useState(false);
+  return (
+    <View>
+      <SmlLabel text={text} />
+      <Dropdown
+        style={[styles.dropdown, isFocus && { borderColor: "blue" }]}
+        placeholderStyle={styles.placeholderStyle}
+        selectedTextStyle={styles.selectedTextStyle}
+        inputSearchStyle={styles.inputSearchStyle}
+        iconStyle={styles.iconStyle}
+        data={data}
+        search
+        maxHeight={300}
+        labelField="label"
+        valueField="value"
+        placeholder={!isFocus ? "Select item" : "..."}
+        searchPlaceholder="Search..."
+        value={value}
+        onFocus={() => setIsFocus(true)}
+        onBlur={() => setIsFocus(false)}
+        onChange={() => {
+          onChange;
+          setIsFocus(false);
+        }}
+        // renderLeftIcon={() => (
+        // )}
+      />
+    </View>
+  );
+};
+
 const styles = StyleSheet.create({
   roundButton: {
     backgroundColor: theme.grey,
@@ -237,16 +282,17 @@ const styles = StyleSheet.create({
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
-      height: 3,
+      height: 2,
     },
     shadowOpacity: 0.29,
-    shadowRadius: 4.65,
+    shadowRadius: 1,
     alignItems: "center",
     justifyContent: "center",
     alignSelf: "flex-end",
     position: "absolute",
     bottom: 15,
     right: 15,
+    elevation: 7,
   },
 
   plusIcon: {
@@ -269,10 +315,11 @@ const styles = StyleSheet.create({
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
-      height: 3,
+      height: 2,
     },
     shadowOpacity: 0.29,
-    shadowRadius: 4.65,
+    shadowRadius: 1,
+    elevation: 7,
   },
   ExtraBigButtonText: {
     textAlign: "center",
@@ -291,11 +338,11 @@ const styles = StyleSheet.create({
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
-      height: 3,
+      height: 2,
     },
     shadowOpacity: 0.29,
-    shadowRadius: 4.65,
-    //elevation: 7,
+    shadowRadius: 1,
+    elevation: 7,
   },
   BigButtonText: {
     fontSize: 12,
@@ -314,10 +361,11 @@ const styles = StyleSheet.create({
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
-      height: 3,
+      height: 2,
     },
     shadowOpacity: 0.29,
-    shadowRadius: 4.65,
+    shadowRadius: 1,
+    elevation: 7,
   },
 
   SmallButton: {
@@ -331,10 +379,10 @@ const styles = StyleSheet.create({
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
-      height: 3,
+      height: 2,
     },
     shadowOpacity: 0.29,
-    shadowRadius: 4.65,
+    shadowRadius: 1,
     elevation: 7,
   },
   SmallButtonText: {
@@ -355,10 +403,11 @@ const styles = StyleSheet.create({
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
-      height: 3,
+      height: 2,
     },
     shadowOpacity: 0.29,
-    shadowRadius: 4.65,
+    shadowRadius: 1,
+    elevation: 7,
   },
 
   BigLabel: {
@@ -389,5 +438,55 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: theme.darkGrey,
     width: "auto",
+  },
+
+  container: {
+    backgroundColor: "white",
+    padding: 16,
+  },
+  dropdown: {
+    marginRight: 30,
+    marginLeft: 30,
+    marginTop: 10,
+    marginBottom: 30,
+    padding: 7,
+    height: 50,
+    borderRadius: 10,
+    backgroundColor: theme.lightGrey,
+    borderRadius: 10,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.29,
+    shadowRadius: 1,
+    elevation: 7,
+  },
+  icon: {
+    marginRight: 5,
+  },
+  label: {
+    position: "absolute",
+    backgroundColor: "white",
+    left: 22,
+    top: 8,
+    zIndex: 999,
+    paddingHorizontal: 8,
+    fontSize: 14,
+  },
+  placeholderStyle: {
+    fontSize: 16,
+  },
+  selectedTextStyle: {
+    fontSize: 16,
+  },
+  iconStyle: {
+    width: 20,
+    height: 20,
+  },
+  inputSearchStyle: {
+    height: 40,
+    fontSize: 16,
   },
 });

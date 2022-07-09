@@ -12,15 +12,17 @@ import {
 import { observer } from "mobx-react";
 import usersStore from "../../stores/usersStore";
 import { useNavigation } from "@react-navigation/native";
+import { useState } from "react";
 
 function MainProfile() {
   const user = usersStore.user;
+  const [pfp, setPfp] = useState(user.profileImage);
   const navigation = useNavigation();
   return (
     <View>
       <Header height={136} />
       <View style={styles.bigContainer}>
-        <ProfileImg width={100} height={100} />
+        <ProfileImg width={100} height={100} pfp={pfp} />
         <View style={styles.smallContainer}>
           <BoldBigLabel text={user.displayname} />
           <SmallButton
@@ -31,7 +33,7 @@ function MainProfile() {
           />
         </View>
         <XsmlLabel text={"@" + user.username} />
-        <NumOfFriends num={user.friends?.length || 0 }/>
+        <NumOfFriends num={user.friends?.length || 0} />
         <XsmlLabel text={user.bio} />
         <BigButton
           text={"signout"}
