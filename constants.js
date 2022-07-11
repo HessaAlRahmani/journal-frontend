@@ -90,45 +90,43 @@ export const Dot = ({ id, stepNum }) => {
   );
 };
 
-//component call <Steps stepNum={stepNum}/>
 export function Steps({ stepNum }) {
   return (
     <View
       style={{
-        display: "flex",
-        flexDirection: "row",
         justifyContent: "center",
+        alignItems: "center",
+        margin: 16,
+        flexDirection: "row",
       }}
     >
       <Dot id={1} stepNum={stepNum} />
       <Dot id={2} stepNum={stepNum} />
       <Dot id={3} stepNum={stepNum} />
       <Dot id={4} stepNum={stepNum} />
-      <Dot id={5} stepNum={stepNum} />
     </View>
   );
 }
 
-export function ProfileImg({ width, height }) {
-  return (
-    <Image
-      style={{
-        width: width,
-        height: height,
-        backgroundColor: theme.grey,
-        borderRadius: width / 2,
-        zIndex: 100,
-        borderColor: "white",
-        borderWidth: 4,
-      }}
-      source={{
-        //this needs to change!
-        uri: `${baseURL}media/BottomNavIcons/map-colored.png`,
-      }}
-      alt={"profile pic"}
-    />
-  );
-}
+// export function ProfileImg({ width, height, pfp }) {
+//   return (
+//     <Image
+//       style={{
+//         width: width,
+//         height: height,
+//         backgroundColor: theme.grey,
+//         borderRadius: width / 2,
+//         zIndex: 100,
+//         borderColor: "white",
+//         borderWidth: 4,
+//       }}
+//       source={{
+//         uri: pfp,
+//       }}
+//       alt={"profile pic"}
+//     />
+//   );
+// }
 
 export const NumOfFriends = ({ num }) => {
   return (
@@ -221,10 +219,6 @@ export const BigInputField = ({ placeholder, label, value, onChangeText }) => {
   );
 };
 
-export const EmojiContainer = () => {
-  return <View style={styles.input} />;
-};
-
 const styles = StyleSheet.create({
   roundButton: {
     backgroundColor: theme.grey,
@@ -234,16 +228,17 @@ const styles = StyleSheet.create({
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
-      height: 3,
+      height: 2,
     },
     shadowOpacity: 0.29,
-    shadowRadius: 4.65,
+    shadowRadius: 1,
     alignItems: "center",
     justifyContent: "center",
     alignSelf: "flex-end",
     position: "absolute",
     bottom: 15,
     right: 15,
+    elevation: 7,
   },
 
   plusIcon: {
@@ -266,10 +261,11 @@ const styles = StyleSheet.create({
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
-      height: 3,
+      height: 2,
     },
     shadowOpacity: 0.29,
-    shadowRadius: 4.65,
+    shadowRadius: 1,
+    elevation: 7,
   },
   ExtraBigButtonText: {
     textAlign: "center",
@@ -288,11 +284,11 @@ const styles = StyleSheet.create({
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
-      height: 3,
+      height: 2,
     },
     shadowOpacity: 0.29,
-    shadowRadius: 4.65,
-    //elevation: 7,
+    shadowRadius: 1,
+    elevation: 7,
   },
   BigButtonText: {
     fontSize: 12,
@@ -311,10 +307,11 @@ const styles = StyleSheet.create({
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
-      height: 3,
+      height: 2,
     },
     shadowOpacity: 0.29,
-    shadowRadius: 4.65,
+    shadowRadius: 1,
+    elevation: 7,
   },
 
   SmallButton: {
@@ -328,10 +325,10 @@ const styles = StyleSheet.create({
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
-      height: 3,
+      height: 2,
     },
     shadowOpacity: 0.29,
-    shadowRadius: 4.65,
+    shadowRadius: 1,
     elevation: 7,
   },
   SmallButtonText: {
@@ -343,7 +340,6 @@ const styles = StyleSheet.create({
   bigInput: {
     marginRight: 30,
     marginLeft: 30,
-    marginTop: 10,
     marginBottom: 30,
     padding: 7,
 
@@ -353,10 +349,11 @@ const styles = StyleSheet.create({
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
-      height: 3,
+      height: 2,
     },
     shadowOpacity: 0.29,
-    shadowRadius: 4.65,
+    shadowRadius: 1,
+    elevation: 7,
   },
 
   BigLabel: {
@@ -375,6 +372,7 @@ const styles = StyleSheet.create({
   BoldLabel: {
     fontSize: 18,
     fontWeight: "bold",
+    margin: 13,
   },
 
   SmlLabel: {

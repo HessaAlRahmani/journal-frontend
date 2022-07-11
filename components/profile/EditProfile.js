@@ -5,7 +5,9 @@ import {
   StyleSheet,
   ScrollView,
 } from "react-native";
-import { useState } from "react";
+import { Image } from "native-base";
+
+import React, { useState } from "react";
 import {
   theme,
   Header,
@@ -15,29 +17,49 @@ import {
   BigButton,
 } from "../../constants";
 import usersStore from "../../stores/usersStore";
+import * as ImagePicker from "expo-image-picker";
+import * as FileSystem from "expo-file-system";
+import { FileSystemUploadType } from "expo-file-system";
+import { baseURL } from "../../instance";
 
 export default function EditProfile({ navigation }) {
   const user = usersStore.user;
-  const [updatedUser, setUpdatedUser] = useState(user);
+  const [updatedUser, setUpdatedUser] = useState({
+    _id: user._id,
+    bio: user.bio,
+    displayname: user.displayname,
+    headerImg: user.headerImg,
+    //profileImage: user.profileImage,
+  });
+  const [toStore, setToStore] = useState(updatedUser.profileImage);
+  const [pfp, setPfp] = useState(updatedUser.profileImage);
+  let result;
 
-  const [img, SetImg] = useState("");
   const openLibrary = async () => {
-    const result = await ImagePicker.launchImageLibraryAsync({
+    result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      //.All for the other one
       allowsEditing: true,
+      aspect: [1, 1],
     });
     if (!result.cancelled) {
-      SetImg(result.uri);
-      console.log(img);
-      usersStore.image(img);
+      setPfp(result.uri);
+      const file = await FileSystem.uploadAsync(
+        `${baseURL}uploadImage`,
+        result.uri
+      );
+      console.log(file);
+      setToStore(file.body);
+      console.log("uri in openLibrary: ", toStore);
     }
   };
 
-  const handleSubmit = () => {
-    usersStore.updateUser(updatedUser);
+  const handleSubmit = async () => {
+    //console.log("img uri: " + pfp);
+    usersStore.updateUser(updatedUser, toStore);
+    console.log("user after update: ", usersStore.user.profileImage);
     navigation.navigate("MainProfile");
     //toaaaaaaaast
-    //go to profile
   };
 
   return (
@@ -47,7 +69,22 @@ export default function EditProfile({ navigation }) {
           <Header height={200} />
         </TouchableOpacity>
         <TouchableOpacity style={styles.pfp} onPress={openLibrary}>
-          <ProfileImg width={130} height={130} />
+          {/* <ProfileImg width={130} height={130} pfp={pfp} /> */}
+          <Image
+            style={{
+              width: 130,
+              height: 130,
+              backgroundColor: theme.grey,
+              borderRadius: 130 / 2,
+              zIndex: 100,
+              borderColor: "white",
+              borderWidth: 4,
+            }}
+            source={{
+              uri: pfp,
+            }}
+            alt={"profile pic"}
+          />
         </TouchableOpacity>
       </View>
 

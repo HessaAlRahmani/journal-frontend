@@ -8,7 +8,7 @@ import React from "react";
 import { View } from "native-base";
 import { theme } from "../../constants";
 
-export default function JournalEntry({ entry }) {
+export default function JournalItem({ entry }) {
   const viewDetails = () => {
     //go to entry details
     // navigation.navigate("Detail", {

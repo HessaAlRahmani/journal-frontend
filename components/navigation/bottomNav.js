@@ -31,6 +31,7 @@ function bottomTab() {
         tabBarStyle: {
           height: 80,
         },
+        //headerBackTitle: false,
       })}
     >
       <Screen

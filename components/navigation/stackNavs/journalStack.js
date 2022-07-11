@@ -2,8 +2,10 @@ import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 
 //screens
-import Journal from "../../journal/Journal";
+import JournalList from "../../journal/JournalList";
 import AddEntry from "../../journal/AddEntry";
+
+import MyImageBrowser from "../../journal/MyImageBrowser";
 
 const { Navigator, Screen } = createStackNavigator();
 
@@ -15,14 +17,18 @@ export default function JournalStack() {
         tabBarActiveTintColor: "black",
         headerShown: true,
         headerTitleAlign: "center",
+        title: "add a memory",
+        headerBackTitle: false,
+        headerLeft: () => null,
       }}
     >
-      <Screen name="MainJournal" component={Journal} />
       <Screen
-        name="AddEntry"
-        component={AddEntry}
-        screenOptions={{ tabBarLabel: "Add a memory" }}
+        name="MainJournal"
+        component={JournalList}
+        options={{ title: "journal" }}
       />
+      <Screen name="AddEntry" component={AddEntry} />
+      <Screen name="MyImageBrowser" component={MyImageBrowser} />
     </Navigator>
   );
 }

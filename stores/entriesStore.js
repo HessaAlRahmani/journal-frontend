@@ -8,12 +8,11 @@ class EntriesStore {
   }
   entries = [];
   //filtered entries (based on user)
-
   //function to fitler the entries
 
   fetchEntries = async () => {
     try {
-      const response = await instance.get("/journal");
+      const response = await instance.get("journal/");
       runInAction(() => {
         this.entries = response.data;
       });
@@ -25,7 +24,9 @@ class EntriesStore {
   addEntry = async (newEntry) => {
     try {
       newEntry.user = usersStore.user._id;
-      const response = await instance.post("/journal", newEntry);
+      console.log(newEntry);
+
+      const response = await instance.post("journal/", newEntry);
 
       runInAction(() => {
         this.entries.push(response.data);
@@ -37,7 +38,6 @@ class EntriesStore {
 
   updateEntry = async (updatedEntry) => {
     try {
-      //console.log(updatedEntry);
       await instance.put(`/journal/${updatedEntry._id}`, updatedEntry);
       runInAction(() => {
         const index = this.entries.find(
@@ -70,10 +70,6 @@ class EntriesStore {
       console.error("deleting error", error);
     }
   };
-
-  //   getTripById(id) {
-  //     return this.Entries.find((trip) => trip._id === id);
-  //   }
 }
 
 const entriesStore = new EntriesStore();
