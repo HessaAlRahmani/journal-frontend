@@ -5,6 +5,8 @@ import {
   StyleSheet,
   ScrollView,
 } from "react-native";
+import { Image } from "native-base";
+
 import React, { useState } from "react";
 import {
   theme,
@@ -27,8 +29,9 @@ export default function EditProfile({ navigation }) {
     bio: user.bio,
     displayname: user.displayname,
     headerImg: user.headerImg,
-    profileImage: user.profileImage,
+    //profileImage: user.profileImage,
   });
+  const [toStore, setToStore] = useState(updatedUser.profileImage);
   const [pfp, setPfp] = useState(updatedUser.profileImage);
   let result;
 
@@ -40,23 +43,23 @@ export default function EditProfile({ navigation }) {
       aspect: [1, 1],
     });
     if (!result.cancelled) {
+      setPfp(result.uri);
       const file = await FileSystem.uploadAsync(
         `${baseURL}uploadImage`,
         result.uri
       );
-
-      setPfp(file.body);
-      console.log("done", file.body);
+      console.log(file);
+      setToStore(file.body);
+      console.log("uri in openLibrary: ", toStore);
     }
   };
 
   const handleSubmit = async () => {
     //console.log("img uri: " + pfp);
-    usersStore.updateUser(updatedUser, pfp);
-
+    usersStore.updateUser(updatedUser, toStore);
+    console.log("user after update: ", usersStore.user.profileImage);
     navigation.navigate("MainProfile");
     //toaaaaaaaast
-    //go to profile
   };
 
   return (
@@ -66,7 +69,22 @@ export default function EditProfile({ navigation }) {
           <Header height={200} />
         </TouchableOpacity>
         <TouchableOpacity style={styles.pfp} onPress={openLibrary}>
-          <ProfileImg width={130} height={130} pfp={pfp} />
+          {/* <ProfileImg width={130} height={130} pfp={pfp} /> */}
+          <Image
+            style={{
+              width: 130,
+              height: 130,
+              backgroundColor: theme.grey,
+              borderRadius: 130 / 2,
+              zIndex: 100,
+              borderColor: "white",
+              borderWidth: 4,
+            }}
+            source={{
+              uri: pfp,
+            }}
+            alt={"profile pic"}
+          />
         </TouchableOpacity>
       </View>
 

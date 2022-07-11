@@ -8,9 +8,6 @@ import {
 } from "react-native";
 import { Image } from "native-base";
 import { baseURL } from "./instance";
-import { Dropdown } from "react-native-element-dropdown";
-import { useState } from "react";
-import userStore from "./stores/usersStore";
 
 export const theme = {
   lightGrey: "#F6F6F6",
@@ -60,7 +57,7 @@ export const SmallButton = ({ onPress, text }) => {
 
 export const RoundButton = ({ navigation }) => {
   const onPress = () => {
-    navigation.navigate("AddEntry1");
+    navigation.navigate("AddEntry");
   };
   return (
     <TouchableOpacity style={styles.roundButton} onPress={onPress}>
@@ -93,58 +90,43 @@ export const Dot = ({ id, stepNum }) => {
   );
 };
 
-//component call <Steps stepNum={stepNum}/>
 export function Steps({ stepNum }) {
   return (
     <View
       style={{
-        width: theme.windowWidth,
         justifyContent: "center",
         alignItems: "center",
-
-        // position: "absolute",
+        margin: 16,
         flexDirection: "row",
-        //bottom: 6,
       }}
     >
       <Dot id={1} stepNum={stepNum} />
       <Dot id={2} stepNum={stepNum} />
       <Dot id={3} stepNum={stepNum} />
       <Dot id={4} stepNum={stepNum} />
-      <Dot id={5} stepNum={stepNum} />
     </View>
   );
 }
 
-// export function OneEmoji({ text, label }) {
+// export function ProfileImg({ width, height, pfp }) {
 //   return (
-//     <TouchableOpacity style={{ margin: 6 }}>
-//       <Text>{text}</Text>
-//     </TouchableOpacity>
+//     <Image
+//       style={{
+//         width: width,
+//         height: height,
+//         backgroundColor: theme.grey,
+//         borderRadius: width / 2,
+//         zIndex: 100,
+//         borderColor: "white",
+//         borderWidth: 4,
+//       }}
+//       source={{
+//         uri: pfp,
+//       }}
+//       alt={"profile pic"}
+//     />
 //   );
 // }
-
-export function ProfileImg({ width, height, pfp }) {
-  //console.log(pfp);
-  return (
-    <Image
-      style={{
-        width: width,
-        height: height,
-        backgroundColor: theme.grey,
-        borderRadius: width / 2,
-        zIndex: 100,
-        borderColor: "white",
-        borderWidth: 4,
-      }}
-      source={{
-        //this needs to change!
-        uri: pfp,
-      }}
-      alt={"profile pic"}
-    />
-  );
-}
 
 export const NumOfFriends = ({ num }) => {
   return (
@@ -232,42 +214,6 @@ export const BigInputField = ({ placeholder, label, value, onChangeText }) => {
         onChangeText={onChangeText}
         multiline={true}
         maxLength={300}
-      />
-    </View>
-  );
-};
-
-export const EmojiContainer = () => {
-  return <View style={styles.input} />;
-};
-
-export const NewDropDown = ({ text, data, value, onChange }) => {
-  const [isFocus, setIsFocus] = useState(false);
-  return (
-    <View>
-      <SmlLabel text={text} />
-      <Dropdown
-        style={[styles.dropdown, isFocus && { borderColor: "blue" }]}
-        placeholderStyle={styles.placeholderStyle}
-        selectedTextStyle={styles.selectedTextStyle}
-        inputSearchStyle={styles.inputSearchStyle}
-        iconStyle={styles.iconStyle}
-        data={data}
-        search
-        maxHeight={300}
-        labelField="label"
-        valueField="value"
-        placeholder={!isFocus ? "Select item" : "..."}
-        searchPlaceholder="Search..."
-        value={value}
-        onFocus={() => setIsFocus(true)}
-        onBlur={() => setIsFocus(false)}
-        onChange={() => {
-          onChange;
-          setIsFocus(false);
-        }}
-        // renderLeftIcon={() => (
-        // )}
       />
     </View>
   );
@@ -426,6 +372,7 @@ const styles = StyleSheet.create({
   BoldLabel: {
     fontSize: 18,
     fontWeight: "bold",
+    margin: 13,
   },
 
   SmlLabel: {
@@ -438,55 +385,5 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: theme.darkGrey,
     width: "auto",
-  },
-
-  container: {
-    backgroundColor: "white",
-    padding: 16,
-  },
-  dropdown: {
-    marginRight: 30,
-    marginLeft: 30,
-    marginTop: 10,
-    marginBottom: 30,
-    padding: 7,
-    height: 50,
-    borderRadius: 10,
-    backgroundColor: theme.lightGrey,
-    borderRadius: 10,
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.29,
-    shadowRadius: 1,
-    elevation: 7,
-  },
-  icon: {
-    marginRight: 5,
-  },
-  label: {
-    position: "absolute",
-    backgroundColor: "white",
-    left: 22,
-    top: 8,
-    zIndex: 999,
-    paddingHorizontal: 8,
-    fontSize: 14,
-  },
-  placeholderStyle: {
-    fontSize: 16,
-  },
-  selectedTextStyle: {
-    fontSize: 16,
-  },
-  iconStyle: {
-    width: 20,
-    height: 20,
-  },
-  inputSearchStyle: {
-    height: 40,
-    fontSize: 16,
   },
 });

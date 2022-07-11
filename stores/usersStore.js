@@ -79,7 +79,7 @@ class UserStore {
   updateUser = async (updatedUser, imgUri) => {
     try {
       updatedUser.profileImage = imgUri;
-      //console.log(updatedUser.profileImage);
+      console.log("pfp in usersstore: ", updatedUser.profileImage);
       const res = await instance.put(
         `/updateUser/${updatedUser._id}`,
         updatedUser
@@ -87,6 +87,7 @@ class UserStore {
       console.log("here", res.data);
       runInAction(() => {
         this.user = res.data;
+        console.log("in run in action: " + this.user.profileImage);
       });
       //render to frontend
     } catch (error) {

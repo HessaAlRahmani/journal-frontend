@@ -1,8 +1,8 @@
 import { View, ScrollView, Text } from "react-native";
 import React from "react";
-import { RoundButton, theme } from "../../constants";
+import { SmlLabel, RoundButton, theme } from "../../constants";
 import entriesStore from "../../stores/entriesStore";
-import JournalEntry from "./JournalEntry";
+import JournalEntry from "./JournalItem";
 import { observer } from "mobx-react";
 
 function JournalList({ navigation }) {
@@ -24,6 +24,9 @@ function JournalList({ navigation }) {
             marginTop: 0,
           }}
         ></View>
+        {entriesStore.entries.length === 0 && (
+          <SmlLabel text="no entries yet" />
+        )}
         <View>{entries}</View>
       </ScrollView>
       <RoundButton navigation={navigation} />

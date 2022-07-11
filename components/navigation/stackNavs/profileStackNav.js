@@ -4,7 +4,6 @@ import { createStackNavigator } from "@react-navigation/stack";
 //screens
 import MainProfile from "../../profile/MainProfile";
 import EditProfile from "../../profile/EditProfile";
-import ImageBrowserScreen from "../../imagePicker/ImageBrowserScreen";
 
 const { Navigator, Screen } = createStackNavigator();
 
@@ -31,16 +30,6 @@ export default function ProfileStackNavigator() {
         component={EditProfile}
         options={{
           title: "Edit Profile",
-        }}
-      />
-
-      <Screen
-        name="ImageBrowser"
-        component={ImageBrowserScreen}
-        optionscd
-        dev={{
-          title: "Selected 0 files",
-          headerShown: false,
         }}
       />
     </Navigator>

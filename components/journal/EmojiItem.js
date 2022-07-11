@@ -1,10 +1,11 @@
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import { Text, StyleSheet, TouchableOpacity } from "react-native";
 import React from "react";
 
 //emojis store???
-export default function EmojiItem({ emoji }) {
+export default function EmojiItem({ emoji, setNewEntry, newEntry, emojiType }) {
   const onPress = () => {
     console.log("pressed on " + emoji);
+    setNewEntry({ ...newEntry, [emojiType]: emoji });
   };
   return (
     <TouchableOpacity style={styles.emoji} onPress={onPress}>

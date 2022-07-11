@@ -4,7 +4,7 @@ import usersStore from "../../stores/usersStore";
 import { ExtraBigButton, InputField } from "../../constants";
 import { observer } from "mobx-react";
 
-function SignUp({ navigation }) {
+function SignUp() {
   const initialUser = {
     username: "",
     password: "",
@@ -15,7 +15,6 @@ function SignUp({ navigation }) {
   const signup = async () => {
     await usersStore.signup(user);
     setUser(initialUser);
-    //navigation.navigate("BottomNav");
   };
 
   return (
