@@ -118,7 +118,7 @@ class UserStore {
   // };
 }
 
-const userStore = new UsersStore();
+const userStore = new UserStore();
 userStore.checkForToken();
 userStore.fetchUsers();
 
