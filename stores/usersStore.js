@@ -2,14 +2,15 @@ import { makeAutoObservable, runInAction } from "mobx";
 import { instance } from "../instance";
 import jwt_decode from "jwt-decode";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { Platform } from "react-native";
-//morgan
+
 class UserStore {
   constructor() {
     makeAutoObservable(this);
   }
   user = null;
   users = [];
+  token = "";
+
   fetchUsers = async () => {
     try {
       const response = await instance.get("/users");
@@ -22,6 +23,7 @@ class UserStore {
   setUser = async (userToken) => {
     try {
       await AsyncStorage.setItem("token", JSON.stringify(userToken));
+      this.token = userToken;
       instance.defaults.headers.common.Authorization = `Bearer ${userToken}`;
       runInAction(() => {
         this.user = jwt_decode(userToken);
@@ -78,44 +80,19 @@ class UserStore {
 
   updateUser = async (updatedUser, imgUri) => {
     try {
-      updatedUser.profileImage = imgUri;
-      console.log("pfp in usersstore: ", updatedUser.profileImage);
+      if (imgUri) {
+        updatedUser.profileImage = imgUri;
+      }
       const res = await instance.put(
         `/updateUser/${updatedUser._id}`,
         updatedUser
       );
-      console.log("here", res.data);
-      runInAction(() => {
-        this.user = res.data;
-        console.log("in run in action: " + this.user.profileImage);
-      });
-      //render to frontend
+      this.user = res.data;
+      console.log("user after update: " + this.user);
     } catch (error) {
       console.error(error);
     }
   };
-
-  // image = async (imgUri) => {
-  //   const formData = new FormData();
-  //   formData.append("profileImage", {
-  //     uri: Platform.OS === "ios" ? imgUri.replace("file://", "") : imgUri,
-  //     name: new Date() + "pfp",
-  //     type: "image/jpg",
-  //   });
-
-  //   //console.log(formData);
-  //   try {
-  //     const res = await instance.post("/image", formData, {
-  //       headers: {
-  //         Accept: "application/json",
-  //         "Content-Type": "multipart/form-data",
-  //         //authorization: "JWT insert token here"
-  //       },
-  //     });
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // };
 }
 
 const userStore = new UserStore();

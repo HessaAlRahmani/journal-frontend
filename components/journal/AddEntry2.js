@@ -1,8 +1,8 @@
-import { View, ScrollView, StyleSheet } from "react-native";
+import { View, ScrollView, StyleSheet, Button } from "react-native";
 import { theme, SmlLabel } from "../../constants";
 import EmojiItem from "./EmojiItem";
 
-export default function AddEntry2({ navigation, newEntry, setNewEntry }) {
+export default function AddEntry2({ newEntry, setNewEntry }) {
   const feelingsEmoji = [
     "lovely",
     "happy",
@@ -22,10 +22,10 @@ export default function AddEntry2({ navigation, newEntry, setNewEntry }) {
 
   const healthEmoji = [
     "good",
-    "well",
+    "recovering",
     "unwell",
-    "high temp",
-    "really sick",
+    "highTemp",
+    "reallySick",
   ].map((emoji) => (
     <EmojiItem
       key={emoji}
@@ -54,22 +54,20 @@ export default function AddEntry2({ navigation, newEntry, setNewEntry }) {
   ));
 
   return (
-    <ScrollView style={{ flex: 1 }}>
-      <View style={{ marginTop: 20, marginBottom: 20, flex: 1 }}>
-        <View>
-          <SmlLabel text={"Feeling"} />
-          <View style={styles.input}>{feelingsEmoji}</View>
-        </View>
+    <ScrollView style={{ flex: 1, marginTop: 20, marginBottom: 20 }}>
+      <View>
+        <SmlLabel text={"Feeling"} />
+        <View style={styles.input}>{feelingsEmoji}</View>
+      </View>
 
-        <View>
-          <SmlLabel text={"Health"} />
-          <View style={styles.input}>{healthEmoji}</View>
-        </View>
+      <View>
+        <SmlLabel text={"Health"} />
+        <View style={styles.input}>{healthEmoji}</View>
+      </View>
 
-        <View>
-          <SmlLabel text={"Weather"} />
-          <View style={styles.input}>{weatherEmoji}</View>
-        </View>
+      <View>
+        <SmlLabel text={"Weather"} />
+        <View style={styles.input}>{weatherEmoji}</View>
       </View>
     </ScrollView>
   );
@@ -85,7 +83,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
     marginBottom: 30,
     padding: 7,
-    height: 60,
+    height: 70,
     backgroundColor: theme.lightGrey,
     borderRadius: 10,
     shadowColor: "#000",

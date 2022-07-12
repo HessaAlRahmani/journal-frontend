@@ -4,9 +4,7 @@ import { Image } from "native-base";
 import {
   theme,
   Header,
-  ProfileImg,
   BoldBigLabel,
-  SmallButton,
   XsmlLabel,
   NumOfFriends,
   BigButton,
@@ -14,12 +12,12 @@ import {
 import { observer } from "mobx-react";
 import usersStore from "../../stores/usersStore";
 import { useNavigation } from "@react-navigation/native";
-import { useState } from "react";
+import { baseURL } from "../../instance";
 
 function MainProfile() {
   const user = usersStore.user;
-  console.log("in main profile: " + user.profileImage);
   const navigation = useNavigation();
+
   return (
     <View>
       <Header height={136} />
@@ -35,14 +33,13 @@ function MainProfile() {
             borderWidth: 4,
           }}
           source={{
-            uri: user.profileImage,
+            uri: `${baseURL}${user.profileImage}`,
           }}
           alt={"profile pic"}
         />
-        {/* <ProfileImg width={100} height={100} pfp={pfp} /> */}
         <View style={styles.smallContainer}>
           <BoldBigLabel text={user.displayname} />
-          <SmallButton
+          <BigButton
             text={"edit profile"}
             onPress={() => {
               navigation.navigate("EditProfile");
@@ -53,7 +50,7 @@ function MainProfile() {
         <NumOfFriends num={user.friends?.length || 0} />
         <XsmlLabel text={user.bio} />
         <BigButton
-          text={"signout"}
+          text={"Sign out"}
           onPress={() => {
             usersStore.signout();
           }}

@@ -38,14 +38,13 @@ export default function EditProfile({ navigation }) {
   const openLibrary = async () => {
     result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
-      //.All for the other one
       allowsEditing: true,
       aspect: [1, 1],
     });
     if (!result.cancelled) {
       setPfp(result.uri);
       const file = await FileSystem.uploadAsync(
-        `${baseURL}uploadImage`,
+        `${baseURL}/uploadImage`,
         result.uri
       );
       console.log(file);
@@ -69,7 +68,6 @@ export default function EditProfile({ navigation }) {
           <Header height={200} />
         </TouchableOpacity>
         <TouchableOpacity style={styles.pfp} onPress={openLibrary}>
-          {/* <ProfileImg width={130} height={130} pfp={pfp} /> */}
           <Image
             style={{
               width: 130,
@@ -88,22 +86,15 @@ export default function EditProfile({ navigation }) {
         </TouchableOpacity>
       </View>
 
-      {/* <InputField
-        label={"username"}
-        value={updatedUser.username}
-        onChangeText={(username) =>
-          setUpdatedUser({ ...updatedUser, username })
-        }
-      /> */}
       <InputField
-        label={"displayname"}
+        label={"Display Name:"}
         value={updatedUser.displayname}
         onChangeText={(displayname) =>
           setUpdatedUser({ ...updatedUser, displayname })
         }
       />
       <BigInputField
-        label={"bio"}
+        label={"Bio:"}
         value={updatedUser.bio}
         onChangeText={(bio) => setUpdatedUser({ ...updatedUser, bio })}
       />

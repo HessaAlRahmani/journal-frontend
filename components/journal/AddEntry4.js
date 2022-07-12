@@ -1,8 +1,9 @@
-import { View, Text, StyleSheet, ScrollView, Image } from "react-native";
+import { View, StyleSheet, ScrollView, Image } from "react-native";
 import { useState } from "react";
 import { ExtraBigButton, SmlLabel, theme } from "../../constants";
 import { MultiSelect } from "react-native-element-dropdown";
 import { Switch } from "native-base";
+import { baseURL } from "../../instance";
 
 export default function AddEntry4({
   newEntry,
@@ -12,28 +13,26 @@ export default function AddEntry4({
 }) {
   let pics = [];
   let sendPics = [];
+  const [isPriv, setIsPriv] = useState(false);
+  const [selected, setSelected] = useState([]);
+  //use populate here too
+  const data = [
+    { label: "maryam", value: "1" },
+    { label: "aisha", value: "2" },
+    { label: "doha", value: "3" },
+  ];
+
   if (route.params) {
     const { photos } = route.params;
     sendPics = photos;
     pics = photos.map((pic, i) => (
       <Image
         style={{ height: 500, width: 500, borderRadius: 4 }}
-        source={{ uri: pic }}
+        source={{ uri: `${baseURL}${pic}` }}
         key={i}
       />
     ));
   }
-  const [isPriv, setIsPriv] = useState(false);
-
-  const [selected, setSelected] = useState([]);
-  const data = [
-    { label: "maryam", value: "1" },
-    { label: "aisha", value: "2" },
-    { label: "doha", value: "3" },
-  ];
-  // const dataID = data.map((data) => data.value);
-  // const friend = dataID.find((id) => 1 == id);
-  // console.log(friend);
 
   return (
     <View style={{ flex: 1 }}>
@@ -84,7 +83,6 @@ export default function AddEntry4({
           value={selected}
           onChange={(friend) => {
             setSelected(friend);
-            console.log(friend);
           }}
           selectedStyle={styles.selectedStyle}
         />
@@ -102,6 +100,7 @@ export default function AddEntry4({
         <Switch
           onToggle={() => {
             setIsPriv(!isPriv);
+            //change place of this it makes no sense here
             setNewEntry({
               ...newEntry,
               attachments: sendPics,
@@ -138,22 +137,6 @@ const styles = StyleSheet.create({
 
   emptyStay: {
     textAlign: "center",
-  },
-  countBadge: {
-    paddingHorizontal: 8.6,
-    paddingVertical: 5,
-    borderRadius: 50,
-    position: "absolute",
-    right: 3,
-    bottom: 3,
-    justifyContent: "center",
-    backgroundColor: "#0580FF",
-  },
-  countBadgeText: {
-    fontWeight: "bold",
-    alignSelf: "center",
-    padding: "auto",
-    color: "#ffffff",
   },
   placeholderStyle: {
     fontSize: 16,

@@ -27,6 +27,7 @@ function bottomTab() {
         tabBarLabelStyle: {
           fontWeight: "bold",
           color: "black",
+          fontSize: 14,
         },
         tabBarStyle: {
           height: 80,
@@ -36,7 +37,6 @@ function bottomTab() {
     >
       <Screen
         name="Journal"
-        //change to journal stack  nav
         component={JournalStack}
         options={{
           headerShown: false,
