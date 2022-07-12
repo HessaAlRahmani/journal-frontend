@@ -3,22 +3,26 @@ import { Alert, StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import { Agenda } from "react-native-calendars";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { AntDesign } from "@expo/vector-icons";
-import entries from "../../entriesdata";
+// import entries from "../../entriesdata";
+import entriesStore from "../../stores/entriesStore";
 
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default class AgendaScreen extends Component {
   constructor(props) {
     super(props);
-
-    const date0 = String(entries[0].date);
-    const date1 = String(entries[1].date);
-    let itemsArr = [
-      { date: entries[0].date, name: entries[0].title },
-      { date: entries[1].date, name: entries[1].title },
-    ];
+    let entries = entriesStore.entries;
+    // let itemsArr = [
+    //   { date: entries[0].date, name: entries[0].title },
+    //   { date: entries[1].date, name: entries[1].title },
+    // ];
+    let itemsArr = [];
+    for (let i = 0; i < entries.length; i++) {
+      itemsArr.push({ date: entries[i].date, name: entries[i].title });
+    }
     let items = {};
     itemsArr.forEach((item) => (items[item.date] = [{ name: item.name }]));
+    console.log(entries);
     this.state = {
       items: items,
       // "entries.date": [{ name: entries.title}],
