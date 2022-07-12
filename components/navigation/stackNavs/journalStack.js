@@ -17,7 +17,7 @@ export default function JournalStack() {
         tabBarActiveTintColor: "black",
         headerShown: true,
         headerTitleAlign: "center",
-        title: "add a memory",
+        title: "Add a memory",
         headerBackTitle: false,
         headerLeft: () => null,
       }}
@@ -25,7 +25,7 @@ export default function JournalStack() {
       <Screen
         name="MainJournal"
         component={JournalList}
-        options={{ title: "journal" }}
+        options={{ title: "Journal" }}
       />
       <Screen name="AddEntry" component={AddEntry} />
       <Screen name="MyImageBrowser" component={MyImageBrowser} />

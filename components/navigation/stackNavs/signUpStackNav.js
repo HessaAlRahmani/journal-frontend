@@ -36,7 +36,6 @@ export default function SignUpStackNavigator() {
       />
       <Screen
         name="BottomNav"
-        //it will be a stack nav? or a bottom one
         component={bottomNav}
         options={{
           headerShown: false,

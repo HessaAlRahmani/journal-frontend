@@ -6,6 +6,8 @@ import { Dropdown } from "react-native-element-dropdown";
 export default function AddEntry1({ newEntry, setNewEntry }) {
   const [value, setValue] = useState(null);
   const [isFocus, setIsFocus] = useState(false);
+  //needs to be retireved from somewhere!
+  //in entries store? fetch all entries' activities?
   const data = [
     { label: "add a new activity", value: "0" },
     { label: "art", value: "1" },
@@ -54,8 +56,6 @@ export default function AddEntry1({ newEntry, setNewEntry }) {
             }
             setIsFocus(false);
           }}
-          //   renderLeftIcon={() => (
-          //   )}
         />
         {showField && (
           <InputField
@@ -74,6 +74,7 @@ export default function AddEntry1({ newEntry, setNewEntry }) {
 
         <BigInputField
           value={newEntry.body}
+          label={"Activity: "}
           onChangeText={(body) => setNewEntry({ ...newEntry, body })}
         />
       </View>
@@ -83,6 +84,9 @@ export default function AddEntry1({ newEntry, setNewEntry }) {
 
 const styles = StyleSheet.create({
   dropdown: {
+    borderColor: theme.grey,
+    borderWidth: 1,
+    fontSize: 18,
     marginRight: 30,
     marginLeft: 30,
     marginTop: 10,
@@ -103,10 +107,10 @@ const styles = StyleSheet.create({
   },
 
   placeholderStyle: {
-    fontSize: 16,
+    fontSize: 18,
   },
   selectedTextStyle: {
-    fontSize: 16,
+    fontSize: 18,
   },
   iconStyle: {
     width: 20,

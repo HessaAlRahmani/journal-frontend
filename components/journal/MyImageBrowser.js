@@ -24,7 +24,7 @@ export default function MyImageBrowser({ navigation }) {
           const pPhoto = await processImageAsync(photo.uri);
 
           const newpic = await FileSystem.uploadAsync(
-            `${baseURL}uploadImage`,
+            `${baseURL}/uploadImage`,
             pPhoto.uri
           );
           cPhotos.push(newpic.body);
@@ -64,34 +64,6 @@ export default function MyImageBrowser({ navigation }) {
       <Text style={styles.countBadgeText}>{number}</Text>
     </View>
   );
-
-  //   const imagesCallback = (callback) => {
-  //     navigation.setOptions({
-  //       headerRight: () => <ActivityIndicator size="small" color={"#0580FF"} />,
-  //     });
-
-  //
-  //   };
-
-  //   const updateHandler = (count, onSubmit) => {
-  //     navigation.setOptions({
-  //       title: `Selected ${count} files`,
-  //       headerRight: () => {
-  //         if (!count) return null;
-  //         return (
-  //           <TouchableOpacity title={"Done"} onPress={onSubmit}>
-  //             <Text onPress={onSubmit}>Done</Text>
-  //           </TouchableOpacity>
-  //         );
-  //       },
-  //     });
-  //   };
-
-  //   const renderSelectedComponent = (number) => (
-  //     <View style={styles.countBadge}>
-  //       <Text style={styles.countBadgeText}>{number}</Text>
-  //     </View>
-  //   );
 
   return (
     <View style={[styles.flex, styles.container]}>

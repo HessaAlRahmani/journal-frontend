@@ -1,24 +1,40 @@
-import { Text, StyleSheet, TouchableOpacity } from "react-native";
-import React from "react";
+import { View, StyleSheet, TouchableOpacity } from "react-native";
+import { useState } from "react";
+import { Image } from "native-base";
+import { baseURL } from "../../instance";
+import { XsmlLabel } from "../../constants";
 
-//emojis store???
 export default function EmojiItem({ emoji, setNewEntry, newEntry, emojiType }) {
+  const [emojiUri, setEmojiUri] = useState(
+    `${baseURL}/media/emojis/${emojiType}/${emoji}_bnw.png`
+  );
   const onPress = () => {
+    setEmojiUri(`${baseURL}/media/emojis/${emojiType}/${emoji}.png`);
     console.log("pressed on " + emoji);
     setNewEntry({ ...newEntry, [emojiType]: emoji });
   };
+
   return (
     <TouchableOpacity style={styles.emoji} onPress={onPress}>
-      {/* <Image
-        style={styles.plusIcon}
-        source={require("./assets/plus.png")}
-        alt={"plus button"}
-      /> */}
-      <Text>{emoji}</Text>
+      <View>
+        <Image
+          style={styles.pic1}
+          source={{
+            uri: emojiUri,
+          }}
+          alt={`${emoji}`}
+        />
+      </View>
+      <XsmlLabel text={emoji} />
     </TouchableOpacity>
   );
 }
 
 const styles = StyleSheet.create({
-  emoji: { margin: 6 },
+  emoji: { margin: 6, alignItems: "center", justifyContent: "center" },
+  pic1: {
+    width: 30,
+    marginBottom: 4,
+    height: 30,
+  },
 });

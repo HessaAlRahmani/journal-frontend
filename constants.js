@@ -24,7 +24,7 @@ export const NavIcon = ({ name }) => {
     <Image
       style={styles.bottomTab}
       source={{
-        uri: `${baseURL}media/BottomNavIcons/${name}.png`,
+        uri: `${baseURL}/media/BottomNavIcons/${name}.png`,
       }}
       alt={`${name}`}
     />
@@ -33,7 +33,10 @@ export const NavIcon = ({ name }) => {
 
 export const ExtraBigButton = ({ onPress, text }) => {
   return (
-    <TouchableOpacity style={styles.ExtraBigButton} onPress={onPress}>
+    <TouchableOpacity
+      style={[styles.basicShadow, styles.ExtraBigButton]}
+      onPress={onPress}
+    >
       <Text style={styles.ExtraBigButtonText}>{text}</Text>
     </TouchableOpacity>
   );
@@ -41,7 +44,10 @@ export const ExtraBigButton = ({ onPress, text }) => {
 
 export const BigButton = ({ onPress, text }) => {
   return (
-    <TouchableOpacity style={styles.BigButton} onPress={onPress}>
+    <TouchableOpacity
+      style={[styles.basicShadow, styles.BigButton]}
+      onPress={onPress}
+    >
       <Text style={styles.BigButtonText}>{text}</Text>
     </TouchableOpacity>
   );
@@ -49,7 +55,10 @@ export const BigButton = ({ onPress, text }) => {
 
 export const SmallButton = ({ onPress, text }) => {
   return (
-    <TouchableOpacity style={styles.SmallButton} onPress={onPress}>
+    <TouchableOpacity
+      style={[styles.basicShadow, styles.SmallButton]}
+      onPress={onPress}
+    >
       <Text style={styles.SmallButtonText}>{text}</Text>
     </TouchableOpacity>
   );
@@ -60,7 +69,10 @@ export const RoundButton = ({ navigation }) => {
     navigation.navigate("AddEntry");
   };
   return (
-    <TouchableOpacity style={styles.roundButton} onPress={onPress}>
+    <TouchableOpacity
+      style={[styles.basicShadow, styles.roundButton]}
+      onPress={onPress}
+    >
       <Image
         style={styles.plusIcon}
         source={require("./assets/plus.png")}
@@ -142,7 +154,7 @@ export const NumOfFriends = ({ num }) => {
       }}
     >
       <BoldLabel text={num} />
-      <Text> Friends</Text>
+      <SmlLabel text={"Friends"} />
     </View>
   );
 };
@@ -186,7 +198,7 @@ export const InputField = ({
     <View>
       <SmlLabel text={label} />
       <TextInput
-        style={styles.input}
+        style={[styles.input, styles.basicShadow]}
         secureTextEntry={secureTextEntry}
         underlineColorAndroid="transparent"
         placeholder={placeholder}
@@ -205,7 +217,7 @@ export const BigInputField = ({ placeholder, label, value, onChangeText }) => {
       <SmlLabel text={label} />
 
       <TextInput
-        style={styles.bigInput}
+        style={[styles.bigInput, styles.basicShadow]}
         underlineColorAndroid="transparent"
         placeholder={placeholder}
         label={label}
@@ -220,11 +232,7 @@ export const BigInputField = ({ placeholder, label, value, onChangeText }) => {
 };
 
 const styles = StyleSheet.create({
-  roundButton: {
-    backgroundColor: theme.grey,
-    borderRadius: 30,
-    width: 60,
-    height: 60,
+  basicShadow: {
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
@@ -234,13 +242,20 @@ const styles = StyleSheet.create({
     shadowRadius: 1,
     alignItems: "center",
     justifyContent: "center",
+    elevation: 7,
+    borderRadius: 10,
+  },
+
+  roundButton: {
+    backgroundColor: theme.grey,
+    borderRadius: 30,
+    width: 60,
+    height: 60,
     alignSelf: "flex-end",
     position: "absolute",
     bottom: 15,
     right: 15,
-    elevation: 7,
   },
-
   plusIcon: {
     width: 30,
     height: 30,
@@ -252,20 +267,10 @@ const styles = StyleSheet.create({
   },
 
   ExtraBigButton: {
-    justifyContent: "center",
     backgroundColor: theme.grey,
     padding: 10,
     margin: 30,
     height: 50,
-    borderRadius: 10,
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.29,
-    shadowRadius: 1,
-    elevation: 7,
   },
   ExtraBigButtonText: {
     textAlign: "center",
@@ -274,44 +279,27 @@ const styles = StyleSheet.create({
   },
 
   BigButton: {
-    justifyContent: "center",
     backgroundColor: theme.grey,
     padding: 5,
-    margin: 15,
+    margin: 7,
     width: 113,
     height: 28,
     borderRadius: 6,
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.29,
-    shadowRadius: 1,
-    elevation: 7,
   },
   BigButtonText: {
-    fontSize: 12,
+    fontSize: 16,
     textAlign: "center",
   },
 
   input: {
-    marginRight: 30,
-    marginLeft: 30,
+    borderColor: theme.grey,
+    borderWidth: 1,
+    fontSize: 18,
+    margin: 30,
     marginTop: 10,
-    marginBottom: 30,
     padding: 7,
     height: 50,
     backgroundColor: theme.lightGrey,
-    borderRadius: 10,
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.29,
-    shadowRadius: 1,
-    elevation: 7,
   },
 
   SmallButton: {
@@ -322,38 +310,21 @@ const styles = StyleSheet.create({
     width: 79,
     height: 30,
     borderRadius: 6,
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.29,
-    shadowRadius: 1,
-    elevation: 7,
   },
   SmallButtonText: {
-    fontSize: 12,
-    textAlign: "center",
+    fontSize: 18,
     color: "white",
+    textAlign: "center",
   },
 
   bigInput: {
-    marginRight: 30,
-    marginLeft: 30,
-    marginBottom: 30,
+    margin: 30,
+    marginTop: 10,
     padding: 7,
-
+    borderColor: theme.grey,
+    borderWidth: 1,
     height: 160,
     backgroundColor: theme.lightGrey,
-    borderRadius: 10,
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.29,
-    shadowRadius: 1,
-    elevation: 7,
   },
 
   BigLabel: {
@@ -372,17 +343,17 @@ const styles = StyleSheet.create({
   BoldLabel: {
     fontSize: 18,
     fontWeight: "bold",
-    margin: 13,
+    margin: 5,
   },
 
   SmlLabel: {
     marginLeft: 30,
-    fontSize: 16,
-    //fontWeight: "bold",
+    fontSize: 18,
+    fontWeight: "bold",
   },
 
   XsmlLabel: {
-    fontSize: 14,
+    fontSize: 16,
     color: theme.darkGrey,
     width: "auto",
   },
