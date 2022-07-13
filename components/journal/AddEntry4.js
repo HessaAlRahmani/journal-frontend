@@ -20,16 +20,11 @@ export default function AddEntry4({
 
   const [isPriv, setIsPriv] = useState(false);
   const [selected, setSelected] = useState([]);
-  //use populate here too
-  const data = [
-    { label: "maryam", value: "1" },
-    { label: "aisha", value: "2" },
-    { label: "doha", value: "3" },
-  ];
 
   if (route.params) {
     const { photos } = route.params;
     sendPics = photos;
+
     pics = photos.map((pic, i) => (
       <Image
         style={{ height: 500, width: 500, borderRadius: 4 }}
@@ -88,6 +83,11 @@ export default function AddEntry4({
           value={selected}
           onChange={(friend) => {
             setSelected(friend);
+            setNewEntry({
+              ...newEntry,
+              friends: selected,
+              attachments: sendPics,
+            });
           }}
           selectedStyle={styles.selectedStyle}
         />
@@ -105,14 +105,7 @@ export default function AddEntry4({
         <Switch
           onToggle={() => {
             setIsPriv(!isPriv);
-            //change place of this it makes no sense here
-            setNewEntry({
-              ...newEntry,
-              attachments: sendPics,
-              isPriv: isPriv,
-              friends: selected,
-            });
-            console.log(newEntry);
+            setNewEntry({ ...newEntry, isPriv: isPriv });
           }}
           isChecked={!isPriv}
         />

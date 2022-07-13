@@ -1,5 +1,5 @@
 import { View, ScrollView, StyleSheet, Button } from "react-native";
-import { theme, SmlLabel } from "../../constants";
+import { theme, InputLabel } from "../../constants";
 import EmojiItem from "./EmojiItem";
 
 export default function AddEntry2({ newEntry, setNewEntry }) {
@@ -56,17 +56,17 @@ export default function AddEntry2({ newEntry, setNewEntry }) {
   return (
     <ScrollView style={{ flex: 1, marginTop: 20, marginBottom: 20 }}>
       <View>
-        <SmlLabel text={"Feeling"} />
+        <InputLabel text={"Feeling:"} />
         <View style={styles.input}>{feelingsEmoji}</View>
       </View>
 
       <View>
-        <SmlLabel text={"Health"} />
+        <InputLabel text={"Health:"} />
         <View style={styles.input}>{healthEmoji}</View>
       </View>
 
       <View>
-        <SmlLabel text={"Weather"} />
+        <InputLabel text={"Weather:"} />
         <View style={styles.input}>{weatherEmoji}</View>
       </View>
     </ScrollView>
@@ -78,8 +78,8 @@ const styles = StyleSheet.create({
     justifyContent: "space-around",
     flex: 1,
     flexDirection: "row",
-    marginRight: 30,
-    marginLeft: 30,
+    marginRight: 10,
+    marginLeft: 10,
     marginTop: 10,
     marginBottom: 30,
     padding: 7,
