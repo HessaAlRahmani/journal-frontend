@@ -3,6 +3,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 
 //screens
 import MainMap from "../../map/MainMap";
+import PinEntries from "../../map/PinEntries";
 
 const { Navigator, Screen } = createStackNavigator();
 
@@ -12,11 +13,11 @@ export default function JournalStack() {
       initialRouteName="MainMap"
       screenOptions={{
         tabBarActiveTintColor: "black",
-        headerShown: false,
         headerTitleAlign: "center",
       }}
     >
-      <Screen name="MainMap" component={MainMap} />
+      <Screen name="MainMap" component={MainMap} options={{headerShown: false}} />
+      <Screen name="PinEntries"  component={PinEntries} options={{title:"Memories"}}/>
     </Navigator>
   );
 }
