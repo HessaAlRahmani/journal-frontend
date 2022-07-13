@@ -10,11 +10,13 @@ import entries from '../../entriesdata';
 import { googleMapsKey } from '../../instance';
 import Modal from "react-native-modal";
 import { FontAwesome5 } from '@expo/vector-icons'; 
+import { useNavigation } from "@react-navigation/native";
 
 
 //check the key 
 export default function MainMap() {
   Location.setGoogleApiKey(googleMapsKey);
+  const navigation = useNavigation();
 
   const [isModalVisible, setModalVisible] = useState(false);
   const [location, setLocation] = useState(null);
@@ -59,18 +61,44 @@ export default function MainMap() {
   alert(Object.entries(markerloc));
   console.log(lat,lng)
  }
+const makepins=(entries)=>{
+  let unique=[];
+for (let i=0;i<entries.length;i++)
+{
+    let found=unique.find((entrie)=>entrie.lat==entries[i].location.lat && entrie.lng==entries[i].location.lng);
+    if (!found){unique.push(entries[i].location)}
+}
 
+
+let locations=[];
+unique.forEach((location)=>{let obj={};obj["location"]=location;obj["entries"]=[];locations.push(obj)});
+ for (let i=0;i<entries.length;i++)
+ {
+     for(let j=0;j<locations.length;j++)
+     {
+         if(entries[i].location.lat == locations[j].location.lat && entries[i].location.lng == locations[j].location.lng)
+         {
+             locations[j].entries.push(entries[i])
+         }
+     }
+ }
+ console.log("theeeee locaaaatiooonsnssss      "+locations);
+ return locations;
+}
  const getCurrentlocation=()=>{
     setView({latitude:location.latitude,longitude:location.longitude,longitudeDelta: 0.005,latitudeDelta: 0.005});
     SetMarkerloc({latitude:location.latitude,longitude:location.longitude})
     // alert("userrrrr  ",userStore.user)
    }
-
-  let myPins=entries.filter((entry)=>entry.user==userStore.user._id).map((marker,index)=><Marker key={index} coordinate={{latitude:marker.location.lat,longitude:marker.location.lng}} title={marker.title} description={marker.body}/>)
-  let friendsPublicPins=entries.filter((entry)=>entry.user!=userStore.user._id && entry.status=="public").map((marker,index)=><Marker key={index} coordinate={{latitude:marker.location.lat,longitude:marker.location.lng}} title={marker.title} description={marker.body}/>)
-  let allPins=myPins.concat(friendsPublicPins);
-  
-   let buttons=[{title:"All",img:<FontAwesome5 name="users" size={24} color="black" />},{title:"Me",img: <Image style={{borderRadius:100}}source={{uri:userStore.user.profileImage}} alt="Alternate Text" size="xs" />}]
+   let myentries=entries.filter((entry)=>entry.user==userStore.user._id);
+   let myPins=makepins(myentries).map((marker,index)=><Marker key={index} coordinate={{latitude:marker.location.lat,longitude:marker.location.lng}}  title={`${marker.entries.length} Memories`} description={"Click to view all Memories"} onCalloutPress={()=>{navigation.navigate("PinEntries",{entries:marker.entries});}}/>)
+  let friendsEntries=entries.filter((entry)=>entry.user!=userStore.user._id && entry.status=="public");
+  let allEntries=myentries.concat(friendsEntries);
+  let allPins=makepins(allEntries).map((marker,index)=><Marker key={index} coordinate={{latitude:marker.location.lat,longitude:marker.location.lng}}  title={`${marker.entries.length} Memories`} description={"Click to view all Memories"} onCalloutPress={()=>{navigation.navigate("PinEntries",{entries:marker.entries});}}/>)
+  // let myPins=entries.filter((entry)=>entry.user==userStore.user._id).map((marker,index)=><Marker key={index} coordinate={{latitude:marker.location.lat,longitude:marker.location.lng}} title={marker.title} description={marker.body}/>)
+  // let friendsPublicPins=entries.filter((entry)=>entry.user!=userStore.user._id && entry.status=="public").map((marker,index)=><Marker key={index} coordinate={{latitude:marker.location.lat,longitude:marker.location.lng}} title={marker.title} description={marker.body}/>)
+  // let allPins=myPins.concat(friendsPublicPins);
+    let buttons=[{title:"All",img:<FontAwesome5 name="users" size={24} color="black" />},{title:"Me",img: <Image style={{borderRadius:100}}source={{uri:userStore.user.profileImage}} alt="Alternate Text" size="xs" />}]
    let friendsButtons=[];
 userfriends.forEach((friend) => {let obj={};obj["_id"]=friend._id;obj["title"]=friend.username;obj.img=<Image style={{borderRadius:100}}source={{uri:friend.profileImage}} alt="Alternate Text" size="xs" />;friendsButtons.push(obj)});
 
@@ -94,11 +122,13 @@ userfriends.forEach((friend) => {let obj={};obj["_id"]=friend._id;obj["title"]=f
         setView({latitude:location.latitude,longitude:location.longitude,longitudeDelta: 0.6,latitudeDelta: 0.005});
         setFilterButton(img)
         console.log(viewPins);
+        makepins(myentries);
         toggleModal()
       }
       else
       {
-        let friendPins=entries.filter((entry)=>entry.user==_id && entry.status=="public").map((marker,index)=><Marker key={index} coordinate={{latitude:marker.location.lat,longitude:marker.location.lng}} title={marker.title} description={marker.body}/>)
+        let friendEntries=entries.filter((entry)=>entry.user==_id && entry.status=="public");
+        let friendPins=makepins(friendEntries).map((marker,index)=><Marker key={index} coordinate={{latitude:marker.location.lat,longitude:marker.location.lng}}  title={`${marker.entries.length} Memories`} description={"Click to view all Memories"} onCalloutPress={()=>{navigation.navigate("PinEntries",{entries:marker.entries});}}/>)
         SetViewPins(friendPins);
         setView({latitude:location.latitude,longitude:location.longitude,longitudeDelta: 0.6,latitudeDelta: 0.005});
         setFilterButton(img)
