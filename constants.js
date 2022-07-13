@@ -154,7 +154,7 @@ export const NumOfFriends = ({ num }) => {
       }}
     >
       <BoldLabel text={num} />
-      <SmlLabel text={"Friends"} />
+      <BoldLabel text={"Friends"} />
     </View>
   );
 };

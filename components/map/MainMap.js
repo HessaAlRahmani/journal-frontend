@@ -11,6 +11,7 @@ import { googleMapsKey } from '../../instance';
 import Modal from "react-native-modal";
 import { FontAwesome5 } from '@expo/vector-icons'; 
 import { useNavigation } from "@react-navigation/native";
+import { baseURL } from "../../instance";
 
 
 //check the key 
@@ -98,9 +99,9 @@ unique.forEach((location)=>{let obj={};obj["location"]=location;obj["entries"]=[
   // let myPins=entries.filter((entry)=>entry.user==userStore.user._id).map((marker,index)=><Marker key={index} coordinate={{latitude:marker.location.lat,longitude:marker.location.lng}} title={marker.title} description={marker.body}/>)
   // let friendsPublicPins=entries.filter((entry)=>entry.user!=userStore.user._id && entry.status=="public").map((marker,index)=><Marker key={index} coordinate={{latitude:marker.location.lat,longitude:marker.location.lng}} title={marker.title} description={marker.body}/>)
   // let allPins=myPins.concat(friendsPublicPins);
-    let buttons=[{title:"All",img:<FontAwesome5 name="users" size={24} color="black" />},{title:"Me",img: <Image style={{borderRadius:100}}source={{uri:userStore.user.profileImage}} alt="Alternate Text" size="xs" />}]
+    let buttons=[{title:"All",img:<FontAwesome5 name="users" size={24} color="black" />},{title:"Me",img: <Image style={{borderRadius:100}}source={{uri:`${baseURL}${userStore.user.profileImage}`}} alt="Alternate Text" size="xs" />}]
    let friendsButtons=[];
-userfriends.forEach((friend) => {let obj={};obj["_id"]=friend._id;obj["title"]=friend.username;obj.img=<Image style={{borderRadius:100}}source={{uri:friend.profileImage}} alt="Alternate Text" size="xs" />;friendsButtons.push(obj)});
+userfriends.forEach((friend) => {let obj={};obj["_id"]=friend._id;obj["title"]=friend.username;obj.img=<Image style={{borderRadius:100}}source={{uri:`${baseURL}${friend.profileImage}`}} alt="Alternate Text" size="xs" />;friendsButtons.push(obj)});
 
 //  let allbuttons =buttons;
  let allbuttons =buttons.concat(friendsButtons);

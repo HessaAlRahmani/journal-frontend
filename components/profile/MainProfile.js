@@ -12,10 +12,12 @@ import { observer } from "mobx-react";
 import usersStore from "../../stores/usersStore";
 import { useNavigation } from "@react-navigation/native";
 import { baseURL } from "../../instance";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 function MainProfile() {
   const user = usersStore.user;
   const navigation = useNavigation();
+  const userfriends=usersStore.users.find((user)=>user._id==usersStore.user._id).friends;
 
   return (
     <View>
@@ -50,7 +52,10 @@ function MainProfile() {
           />
         </View>
         <XsmlLabel text={"@" + user.username} />
-        <NumOfFriends num={user.friends?.length || 0} />
+        <TouchableOpacity onPress={()=>{navigation.navigate("friendsList",{friends:userfriends})}}>
+          <NumOfFriends num={user.friends?.length || 0} />
+          </TouchableOpacity>
+        
         <XsmlLabel text={user.bio} />
         <BigButton
           text={"Sign out"}
