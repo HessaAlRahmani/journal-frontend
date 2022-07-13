@@ -4,6 +4,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 //screens
 import MainProfile from "../../profile/MainProfile";
 import EditProfile from "../../profile/EditProfile";
+import FriendsList from "../../profile/FriendsList";
 
 const { Navigator, Screen } = createStackNavigator();
 
@@ -32,6 +33,11 @@ export default function ProfileStackNavigator() {
           title: "Edit Profile",
         }}
       />
+      <Screen name="friendsList"
+      component={FriendsList}
+      options={{
+        title: "Friends",
+      }}/>
     </Navigator>
   );
 }

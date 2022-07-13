@@ -154,6 +154,7 @@ export const NumOfFriends = ({ num }) => {
       }}
     >
       <BoldLabel text={num} />
+      <BoldLabel text={"Friends"} />
       <Text style={{ fontSize: RFValue(14), marginLeft: 5 }}>Friends</Text>
     </View>
   );
