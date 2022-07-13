@@ -1,4 +1,5 @@
 import { View, SafeAreaView, StyleSheet } from "react-native";
+import { Image } from "native-base";
 import { useState } from "react";
 import { observer } from "mobx-react";
 import usersStore from "../../stores/usersStore";
@@ -31,6 +32,11 @@ function SignIn({ navigation }) {
 
   return (
     <SafeAreaView>
+      <Image
+        source={require("../../assets/logo.png")}
+        style={{ width: 140, height: 140, alignSelf: "center", marginTop: 50 }}
+        alt="logo"
+      />
       <View style={styles.container}>
         <InputField
           placeholder="Enter username"
@@ -61,7 +67,7 @@ export default observer(SignIn);
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 100,
+    marginTop: 50,
   },
   signUpContainer: {
     flexDirection: "row",

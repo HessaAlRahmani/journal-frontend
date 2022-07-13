@@ -1,6 +1,6 @@
 import { View, ScrollView, StyleSheet } from "react-native";
 import { useState } from "react";
-import { InputField, BigInputField, theme, SmlLabel } from "../../constants";
+import { InputField, BigInputField, theme, InputLabel } from "../../constants";
 import { Dropdown } from "react-native-element-dropdown";
 
 export default function AddEntry1({ newEntry, setNewEntry }) {
@@ -28,7 +28,7 @@ export default function AddEntry1({ newEntry, setNewEntry }) {
             setNewEntry({ ...newEntry, date });
           }}
         />
-        <SmlLabel text="Activity type: " />
+        <InputLabel text="Activity type: " />
         <Dropdown
           style={[styles.dropdown, isFocus && { borderColor: "blue" }]}
           placeholderStyle={styles.placeholderStyle}

@@ -1,7 +1,8 @@
 import { View } from "react-native";
 import { useState } from "react";
-import { Steps, SmallButton, theme } from "../../constants";
+import { Steps, SmallButton } from "../../constants";
 import entriesStore from "../../stores/entriesStore";
+import { useToast } from "native-base";
 
 //components
 import AddEntry1 from "./AddEntry1";
@@ -11,6 +12,7 @@ import AddEntry4 from "./AddEntry4";
 
 export default function AddEntry({ route, navigation }) {
   const [pageNum, setPageNum] = useState(1);
+  const toast = useToast();
   const today = new Date();
   const todaysDate = today.toISOString().split("T")[0];
   const [newEntry, setNewEntry] = useState({
@@ -55,8 +57,8 @@ export default function AddEntry({ route, navigation }) {
           height: 60,
           flexDirection: "row-reverse",
           justifyContent: "space-between",
-          marginLeft: 30,
-          marginRight: 30,
+          marginLeft: 15,
+          marginRight: 15,
         }}
       >
         <SmallButton
@@ -64,9 +66,14 @@ export default function AddEntry({ route, navigation }) {
           onPress={() => {
             setPageNum(pageNum + 1);
             if (pageNum === 4) {
+              console.log(newEntry);
               entriesStore.addEntry(newEntry);
+              toast.show({
+                title: "Entry added successfully",
+                placement: "top",
+                bg: "green.800",
+              });
               navigation.navigate("MainJournal");
-              //toast
             }
           }}
         />
