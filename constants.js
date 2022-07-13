@@ -8,6 +8,7 @@ import {
 } from "react-native";
 import { Image } from "native-base";
 import { baseURL } from "./instance";
+import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 
 export const theme = {
   lightGrey: "#F6F6F6",
@@ -42,10 +43,10 @@ export const ExtraBigButton = ({ onPress, text }) => {
   );
 };
 
-export const BigButton = ({ onPress, text }) => {
+export const BigButton = ({ onPress, text, style }) => {
   return (
     <TouchableOpacity
-      style={[styles.basicShadow, styles.BigButton]}
+      style={[styles.basicShadow, styles.BigButton, style]}
       onPress={onPress}
     >
       <Text style={styles.BigButtonText}>{text}</Text>
@@ -108,7 +109,7 @@ export function Steps({ stepNum }) {
       style={{
         justifyContent: "center",
         alignItems: "center",
-        margin: 16,
+        margin: 5,
         flexDirection: "row",
       }}
     >
@@ -144,7 +145,6 @@ export const NumOfFriends = ({ num }) => {
   return (
     <View
       style={{
-        flex: 1,
         flexDirection: "row",
         alignItems: "center",
         marginTop: 10,
@@ -155,6 +155,7 @@ export const NumOfFriends = ({ num }) => {
     >
       <BoldLabel text={num} />
       <BoldLabel text={"Friends"} />
+      <Text style={{ fontSize: RFValue(14), marginLeft: 5 }}>Friends</Text>
     </View>
   );
 };
@@ -175,6 +176,10 @@ export const SmlLabel = ({ text }) => {
   return <Text style={styles.SmlLabel}>{text}</Text>;
 };
 
+export const InputLabel = ({ text }) => {
+  return <Text style={styles.inputLabel}>{text}</Text>;
+};
+
 export const InputField = ({
   value,
   label,
@@ -184,7 +189,7 @@ export const InputField = ({
 }) => {
   return (
     <View>
-      <SmlLabel text={label} />
+      <InputLabel text={label} />
       <TextInput
         style={[styles.input, styles.basicShadow]}
         secureTextEntry={secureTextEntry}
@@ -202,7 +207,7 @@ export const InputField = ({
 export const BigInputField = ({ placeholder, label, value, onChangeText }) => {
   return (
     <View>
-      <SmlLabel text={label} />
+      <InputLabel text={label} />
 
       <TextInput
         style={[styles.bigInput, styles.basicShadow]}
@@ -263,7 +268,7 @@ const styles = StyleSheet.create({
   ExtraBigButtonText: {
     textAlign: "center",
     fontWeight: "bold",
-    fontSize: 16,
+    fontSize: RFValue(14),
   },
 
   BigButton: {
@@ -284,6 +289,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     fontSize: 18,
     margin: 30,
+    marginBottom: 10,
     marginTop: 10,
     padding: 7,
     height: 50,
@@ -300,7 +306,7 @@ const styles = StyleSheet.create({
     borderRadius: 6,
   },
   SmallButtonText: {
-    fontSize: 18,
+    fontSize: RFValue(10),
     color: "white",
     textAlign: "center",
   },
@@ -308,6 +314,7 @@ const styles = StyleSheet.create({
   bigInput: {
     margin: 30,
     marginTop: 10,
+    marginBottom: 10,
     padding: 7,
     borderColor: theme.grey,
     borderWidth: 1,
@@ -329,14 +336,20 @@ const styles = StyleSheet.create({
   },
 
   BoldLabel: {
-    fontSize: 18,
+    fontSize: RFValue(14),
     fontWeight: "bold",
     margin: 5,
   },
 
   SmlLabel: {
     marginLeft: 30,
-    fontSize: 18,
+    fontSize: RFValue(14),
+  },
+
+  inputLabel: {
+    marginLeft: 30,
+    fontSize: RFValue(14),
+
     fontWeight: "bold",
   },
 
