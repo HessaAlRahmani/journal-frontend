@@ -15,6 +15,8 @@ export default function JournalItem({ entry }) {
   const [isFav, setIsFav] = useState(entry.isFav);
 
   const viewDetails = () => {
+    console.log(`${baseURL}${entry.attachments[0]}`);
+
     //go to entry details
     // navigation.navigate("Detail", {
     //   itemId: trip._id,

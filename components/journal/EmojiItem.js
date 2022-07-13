@@ -10,7 +10,6 @@ export default function EmojiItem({ emoji, setNewEntry, newEntry, emojiType }) {
   );
   const onPress = () => {
     setEmojiUri(`${baseURL}/media/emojis/${emojiType}/${emoji}.png`);
-    console.log("pressed on " + emoji);
     setNewEntry({ ...newEntry, [emojiType]: emoji });
   };
 

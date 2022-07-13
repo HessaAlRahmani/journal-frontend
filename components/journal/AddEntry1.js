@@ -47,7 +47,6 @@ export default function AddEntry1({ newEntry, setNewEntry }) {
           onBlur={() => setIsFocus(false)}
           onChange={(item) => {
             setValue(item.value);
-            console.log(value);
             if (item.label === "add a new activity") {
               setShowField(true);
               setNewEntry({ ...newEntry, activityType: "" });

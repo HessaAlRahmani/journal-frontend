@@ -9,7 +9,7 @@ function JournalList({ navigation }) {
   const today = new Date();
   const todaysDate = today.toISOString().split("T")[0];
 
-  const entries = entriesStore.entries
+  const entries = entriesStore.userEntries
     .filter((entry) => entry.date == todaysDate)
     .map((entry) => <JournalEntry entry={entry} key={entry._id} />);
   return (
@@ -24,7 +24,7 @@ function JournalList({ navigation }) {
             marginTop: 0,
           }}
         ></View>
-        {entriesStore.entries.length === 0 && (
+        {entriesStore.userEntries.length === 0 && (
           <SmlLabel text="no entries yet" />
         )}
         <View>{entries}</View>

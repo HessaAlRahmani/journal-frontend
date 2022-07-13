@@ -16,7 +16,7 @@ class UserStore {
       const response = await instance.get("/users");
       this.users = response.data;
     } catch (error) {
-      console.log("userStore -> fetchUsers -> error", error);
+      console.error("fetching error", error);
     }
   };
 
@@ -78,17 +78,13 @@ class UserStore {
     }
   };
 
-  updateUser = async (updatedUser, imgUri) => {
+  updateUser = async (updatedUser) => {
     try {
-      if (imgUri) {
-        updatedUser.profileImage = imgUri;
-      }
       const res = await instance.put(
         `/updateUser/${updatedUser._id}`,
         updatedUser
       );
       this.user = res.data;
-      console.log("user after update: " + this.user);
     } catch (error) {
       console.error(error);
     }
