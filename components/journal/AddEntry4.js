@@ -4,6 +4,7 @@ import { ExtraBigButton, SmlLabel, theme } from "../../constants";
 import { MultiSelect } from "react-native-element-dropdown";
 import { Switch } from "native-base";
 import { baseURL } from "../../instance";
+import userStore from "../../stores/usersStore";
 
 export default function AddEntry4({
   newEntry,
@@ -13,6 +14,10 @@ export default function AddEntry4({
 }) {
   let pics = [];
   let sendPics = [];
+  const userfriends = userStore.users
+    .find((user) => user._id == userStore.user._id)
+    .friends.map((user) => ({ label: user.username, value: user._id }));
+
   const [isPriv, setIsPriv] = useState(false);
   const [selected, setSelected] = useState([]);
   //use populate here too
@@ -73,11 +78,11 @@ export default function AddEntry4({
           selectedTextStyle={styles.selectedTextStyle}
           inputSearchStyle={styles.inputSearchStyle}
           iconStyle={styles.iconStyle}
-          data={data}
+          data={userfriends}
           search
           maxHeight={300}
           labelField="label"
-          valueField="label"
+          valueField="value"
           placeholder={"Select friends"}
           searchPlaceholder="Search..."
           value={selected}
@@ -107,6 +112,7 @@ export default function AddEntry4({
               isPriv: isPriv,
               friends: selected,
             });
+            console.log(newEntry);
           }}
           isChecked={!isPriv}
         />

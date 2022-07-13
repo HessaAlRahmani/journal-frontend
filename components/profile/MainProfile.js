@@ -3,7 +3,6 @@ import { Image } from "native-base";
 
 import {
   theme,
-  Header,
   BoldBigLabel,
   XsmlLabel,
   NumOfFriends,
@@ -20,7 +19,11 @@ function MainProfile() {
 
   return (
     <View>
-      <Header height={136} />
+      <Image
+        source={{ uri: `${baseURL}${user.headerImg}` }}
+        alt={"header"}
+        style={styles.header}
+      />
       <View style={styles.bigContainer}>
         <Image
           style={{
@@ -80,5 +83,10 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-between",
     width: theme.windowWidth - 40,
+  },
+  header: {
+    height: 136,
+    backgroundColor: theme.darkGrey,
+    width: theme.windowWidth,
   },
 });

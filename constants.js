@@ -175,18 +175,6 @@ export const SmlLabel = ({ text }) => {
   return <Text style={styles.SmlLabel}>{text}</Text>;
 };
 
-export const Header = ({ height }) => {
-  return (
-    <View
-      style={{
-        height: height,
-        backgroundColor: theme.darkGrey,
-        width: theme.windowWidth,
-      }}
-    ></View>
-  );
-};
-
 export const InputField = ({
   value,
   label,

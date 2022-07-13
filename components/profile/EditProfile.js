@@ -1,21 +1,8 @@
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  StyleSheet,
-  ScrollView,
-} from "react-native";
+import { View, TouchableOpacity, StyleSheet, ScrollView } from "react-native";
 import { Image } from "native-base";
 
-import React, { useState } from "react";
-import {
-  theme,
-  Header,
-  ProfileImg,
-  InputField,
-  BigInputField,
-  BigButton,
-} from "../../constants";
+import { useState } from "react";
+import { theme, InputField, BigInputField, BigButton } from "../../constants";
 import usersStore from "../../stores/usersStore";
 import * as ImagePicker from "expo-image-picker";
 import * as FileSystem from "expo-file-system";
@@ -29,34 +16,50 @@ export default function EditProfile({ navigation }) {
     bio: user.bio,
     displayname: user.displayname,
     headerImg: user.headerImg,
-    //profileImage: user.profileImage,
+    profileImage: user.profileImage,
   });
-  const [toStore, setToStore] = useState(updatedUser.profileImage);
-  const [pfp, setPfp] = useState(updatedUser.profileImage);
-  let result;
 
-  const openLibrary = async () => {
-    result = await ImagePicker.launchImageLibraryAsync({
+  const [pfp, setPfp] = useState(`${baseURL}${updatedUser.profileImage}`);
+  const [header, setHeader] = useState(`${baseURL}${updatedUser.headerImg}`);
+  let result1;
+
+  const openLibraryForPfp = async () => {
+    result1 = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
       allowsEditing: true,
       aspect: [1, 1],
     });
-    if (!result.cancelled) {
-      setPfp(result.uri);
+    if (!result1.cancelled) {
+      setPfp(result1.uri);
       const file = await FileSystem.uploadAsync(
         `${baseURL}/uploadImage`,
-        result.uri
+        result1.uri
       );
-      console.log(file);
-      setToStore(file.body);
-      console.log("uri in openLibrary: ", toStore);
+      setUpdatedUser({ ...updatedUser, profileImage: file.body });
+    }
+  };
+
+  let result2;
+  const openLibraryForHeader = async () => {
+    result2 = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      aspect: [11, 4],
+    });
+    if (!result2.cancelled) {
+      setHeader(result2.uri);
+      const file = await FileSystem.uploadAsync(
+        `${baseURL}/uploadImage`,
+        result2.uri
+      );
+
+      setUpdatedUser({ ...updatedUser, headerImg: file.body });
     }
   };
 
   const handleSubmit = async () => {
-    //console.log("img uri: " + pfp);
-    usersStore.updateUser(updatedUser, toStore);
-    console.log("user after update: ", usersStore.user.profileImage);
+    console.log(updatedUser);
+    usersStore.updateUser(updatedUser);
     navigation.navigate("MainProfile");
     //toaaaaaaaast
   };
@@ -64,10 +67,14 @@ export default function EditProfile({ navigation }) {
   return (
     <ScrollView>
       <View style={styles.pics}>
-        <TouchableOpacity style={styles.header}>
-          <Header height={200} />
+        <TouchableOpacity style={styles.header} onPress={openLibraryForHeader}>
+          <Image
+            style={styles.header}
+            source={{ uri: header }}
+            alt={"header"}
+          />
         </TouchableOpacity>
-        <TouchableOpacity style={styles.pfp} onPress={openLibrary}>
+        <TouchableOpacity style={styles.pfp} onPress={openLibraryForPfp}>
           <Image
             style={{
               width: 130,
@@ -78,9 +85,7 @@ export default function EditProfile({ navigation }) {
               borderColor: "white",
               borderWidth: 4,
             }}
-            source={{
-              uri: pfp,
-            }}
+            source={{ uri: pfp }}
             alt={"profile pic"}
           />
         </TouchableOpacity>
@@ -109,7 +114,11 @@ const styles = StyleSheet.create({
     marginBottom: 30,
     alignItems: "center",
   },
-  header: {},
+  header: {
+    height: 200,
+    backgroundColor: theme.darkGrey,
+    width: theme.windowWidth,
+  },
   pfp: {
     position: "absolute",
   },

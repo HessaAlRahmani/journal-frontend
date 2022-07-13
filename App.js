@@ -5,10 +5,12 @@ import SignUpStackNavigator from "./components/navigation/stackNavs/signUpStackN
 import BottomNav from "./components/navigation/bottomNav";
 import usersStore from "./stores/usersStore";
 import { observer } from "mobx-react";
+import entriesStore from "./stores/entriesStore";
 
 const App = () => {
   if (usersStore.user) {
     console.log(usersStore.user.username);
+    entriesStore.fetchUserEntries();
   }
 
   return (

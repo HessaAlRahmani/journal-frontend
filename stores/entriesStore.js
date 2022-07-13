@@ -7,14 +7,26 @@ class EntriesStore {
     makeAutoObservable(this);
   }
   entries = [];
-  //filtered entries (based on user)
-  //function to fitler the entries
+  userEntries = [];
 
   fetchEntries = async () => {
     try {
       const response = await instance.get("/journal/");
       runInAction(() => {
         this.entries = response.data;
+      });
+    } catch (error) {
+      console.error("fetching error", error);
+    }
+  };
+
+  fetchUserEntries = async () => {
+    try {
+      const userId = usersStore.user._id;
+      const response = await instance.get(`/journal/${userId}`);
+
+      runInAction(() => {
+        this.userEntries = response.data;
       });
     } catch (error) {
       console.error("fetching error", error);
@@ -73,5 +85,6 @@ class EntriesStore {
 }
 
 const entriesStore = new EntriesStore();
+if (usersStore.user) entriesStore.fetchUserEntries();
 entriesStore.fetchEntries();
 export default entriesStore;
