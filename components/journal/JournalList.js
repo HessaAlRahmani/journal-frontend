@@ -1,5 +1,4 @@
 import { View, ScrollView, Text } from "react-native";
-import React, { useState } from "react";
 import { SmlLabel, RoundButton, theme } from "../../constants";
 import entriesStore from "../../stores/entriesStore";
 import JournalEntry from "./JournalItem";
@@ -12,8 +11,6 @@ function JournalList({ navigation }) {
   const entries = entriesStore.userEntries
     .filter((entry) => entry.date == todaysDate)
     .map((entry) => <JournalEntry entry={entry} key={entry._id} />);
-
-  const [ent, setEnt] = useState(entries.length === 0);
 
   return (
     <View style={{ flex: 1, paddingTop: 10 }}>
@@ -29,8 +26,11 @@ function JournalList({ navigation }) {
             marginTop: 0,
           }}
         ></View>
-        {ent && <SmlLabel text="no entries yet" />}
-        <View>{entries}</View>
+        {entries.length === 0 ? (
+          <SmlLabel text="no entries yet" />
+        ) : (
+          <View>{entries}</View>
+        )}
       </ScrollView>
       <RoundButton navigation={navigation} />
     </View>
