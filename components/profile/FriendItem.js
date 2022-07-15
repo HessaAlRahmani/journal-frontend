@@ -3,10 +3,16 @@ import React from 'react'
 import { Image } from "native-base";
 import { baseURL } from "../../instance";
 import {BoldLabel,XsmlLabel } from '../../constants';
+import { TouchableOpacity } from 'react-native-gesture-handler';
+import { useNavigation } from '@react-navigation/native';
+import { SmallButton } from '../../constants';
 
 export default function FriendItem({friend}) {
+  const navigation=useNavigation();
   return (
-    <View style={styles.container}>
+    <View style={{display:"flex",flexDirection:"row",backgroundColor:"white",justifyContent:"space-between"}}>
+    <TouchableOpacity onPress={()=>navigation.navigate("friendProfile",{friend:friend})}>
+       <View style={styles.container}>
       {/* <Text>FriendItem</Text> */}
       <View style={{display:"flex",flexDirection:"row"}}>
       <Image
@@ -20,9 +26,18 @@ export default function FriendItem({friend}) {
       <XsmlLabel text={`${friend.displayname}`}/>
 
       </View>
+      
       </View>
+      
      
     </View>
+    </TouchableOpacity>
+    <View style={{justifyContent:"center",right:"15%"}}>
+    <SmallButton text={"remove"}/>
+    </View>
+   
+    </View>
+   
   )
 }
 
