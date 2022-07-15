@@ -30,6 +30,20 @@ export default function AddEntry({ route, navigation }) {
   });
 
   const text = pageNum === 4 ? "Publish" : "Next";
+  const handleNext = () => {
+    setPageNum(pageNum + 1);
+    if (pageNum === 4) {
+      console.log(newEntry);
+      entriesStore.addEntry(newEntry);
+      toast.show({
+        title: "Entry added successfully",
+        placement: "top",
+        bg: "green.800",
+      });
+      navigation.navigate("MainJournal");
+    }
+  };
+
   return (
     <View style={{ flex: 1 }}>
       {pageNum === 1 && (
@@ -57,26 +71,11 @@ export default function AddEntry({ route, navigation }) {
           height: 60,
           flexDirection: "row-reverse",
           justifyContent: "space-between",
-          marginLeft: 15,
-          marginRight: 15,
+          // marginLeft: 10,
+          // marginRight: 10,
         }}
       >
-        <SmallButton
-          text={text}
-          onPress={() => {
-            setPageNum(pageNum + 1);
-            if (pageNum === 4) {
-              console.log(newEntry);
-              entriesStore.addEntry(newEntry);
-              toast.show({
-                title: "Entry added successfully",
-                placement: "top",
-                bg: "green.800",
-              });
-              navigation.navigate("MainJournal");
-            }
-          }}
-        />
+        <SmallButton text={text} onPress={handleNext} />
         {pageNum !== 1 && (
           <SmallButton
             text={"Prev"}

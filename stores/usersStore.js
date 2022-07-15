@@ -89,6 +89,14 @@ class UserStore {
       console.error(error);
     }
   };
+
+  filteredUsers = [];
+  searchFriend = (query) => {
+    this.filteredUsers = this.users.filter((user) =>
+      user.username.toLowerCase().includes(query.toLowerCase())
+    );
+    console.log(this.filteredUsers);
+  };
 }
 
 const userStore = new UserStore();

@@ -51,8 +51,12 @@ export default function MyImageBrowser({ navigation }) {
       headerRight: () => {
         if (!count) return null;
         return (
-          <TouchableOpacity title={"Done"} onPress={onSubmit}>
-            <Text onPress={onSubmit}>Done</Text>
+          <TouchableOpacity
+            title={"Done"}
+            onPress={onSubmit}
+            style={{ marginRight: 10 }}
+          >
+            <Text>Done</Text>
           </TouchableOpacity>
         );
       },

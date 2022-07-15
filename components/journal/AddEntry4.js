@@ -1,6 +1,6 @@
 import { View, StyleSheet, ScrollView, Image } from "react-native";
 import { useState } from "react";
-import { ExtraBigButton, SmlLabel, theme } from "../../constants";
+import { ExtraBigButton, InputLabel, SmlLabel, theme } from "../../constants";
 import { MultiSelect } from "react-native-element-dropdown";
 import { Switch } from "native-base";
 import { baseURL } from "../../instance";
@@ -45,8 +45,8 @@ export default function AddEntry4({
       {route.params && (
         <ScrollView
           style={{
-            marginRight: 30,
-            marginLeft: 30,
+            marginRight: 10,
+            marginLeft: 10,
             marginBottom: 30,
             maxHeight: 500,
             backgroundColor: "white",
@@ -58,12 +58,10 @@ export default function AddEntry4({
         </ScrollView>
       )}
 
-      <SmlLabel text="Tag friends: " />
+      <InputLabel text="Tag friends: " />
       <View
         style={{
-          marginRight: 30,
-          marginLeft: 30,
-          marginTop: 10,
+          margin: 10,
           marginBottom: 30,
         }}
       >
@@ -98,10 +96,10 @@ export default function AddEntry4({
           flexDirection: "row",
           alignItems: "center",
           justifyContent: "space-between",
-          marginRight: 30,
+          marginRight: 10,
         }}
       >
-        <SmlLabel text="Private" />
+        <InputLabel text="Private" />
         <Switch
           onToggle={() => {
             setIsPriv(!isPriv);

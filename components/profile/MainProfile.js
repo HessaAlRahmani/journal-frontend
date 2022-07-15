@@ -44,7 +44,9 @@ const HEALTH = {
 function MainProfile({ navigation }) {
   const user = usersStore.user;
   // const navigation = useNavigation();
-  const userfriends=usersStore.users.find((user)=>user._id==usersStore.user._id).friends;
+  const userfriends = usersStore.users.find(
+    (user) => user._id == usersStore.user._id
+  ).friends;
   const userEntries = entriesStore.userEntries;
 
   const userEntriesFeels = userEntries.map((entry) => entry.feeling);
@@ -74,6 +76,10 @@ function MainProfile({ navigation }) {
 
   //sort by date
 
+  const ShowFriends = () => {
+    navigation.navigate("ViewFriends");
+  };
+
   return (
     //<SafeAreaView>
     <ScrollView>
@@ -100,10 +106,14 @@ function MainProfile({ navigation }) {
           />
         </View>
         <XsmlLabel text={"@" + user.username} />
-        <TouchableOpacity onPress={()=>{navigation.navigate("friendsList",{friends:userfriends})}}>
+        <TouchableOpacity
+          onPress={() => {
+            navigation.navigate("friendsList", { friends: userfriends });
+          }}
+        >
           <NumOfFriends num={user.friends?.length || 0} />
-          </TouchableOpacity>
-        
+        </TouchableOpacity>
+
         <XsmlLabel text={user.bio} />
       </View>
       <MoodsPieChart
