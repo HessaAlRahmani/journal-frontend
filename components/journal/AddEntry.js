@@ -24,7 +24,7 @@ export default function AddEntry({ route, navigation }) {
     health: "",
     weather: "",
     location: {},
-    attachments: [],
+    attachments: {},
     friends: [],
     isPriv: true,
   });
@@ -33,7 +33,6 @@ export default function AddEntry({ route, navigation }) {
   const handleNext = () => {
     setPageNum(pageNum + 1);
     if (pageNum === 4) {
-      console.log(newEntry);
       entriesStore.addEntry(newEntry);
       toast.show({
         title: "Entry added successfully",
@@ -71,8 +70,6 @@ export default function AddEntry({ route, navigation }) {
           height: 60,
           flexDirection: "row-reverse",
           justifyContent: "space-between",
-          // marginLeft: 10,
-          // marginRight: 10,
         }}
       >
         <SmallButton text={text} onPress={handleNext} />
