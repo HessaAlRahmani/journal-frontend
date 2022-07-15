@@ -20,6 +20,7 @@ import usersStore from "../../stores/usersStore";
 import entriesStore from "../../stores/entriesStore";
 import { useNavigation } from "@react-navigation/native";
 import { baseURL } from "../../instance";
+import { TouchableOpacity } from "react-native-gesture-handler";
 import MoodsPieChart from "./MoodsPieChart";
 
 const FEELING = {
@@ -42,6 +43,10 @@ const HEALTH = {
 
 function MainProfile({ navigation }) {
   const user = usersStore.user;
+  // const navigation = useNavigation();
+  const userfriends = usersStore.users.find(
+    (user) => user._id == usersStore.user._id
+  ).friends;
   const userEntries = entriesStore.userEntries;
 
   const userEntriesFeels = userEntries.map((entry) => entry.feeling);
@@ -101,7 +106,14 @@ function MainProfile({ navigation }) {
           />
         </View>
         <XsmlLabel text={"@" + user.username} />
-        <NumOfFriends num={user.friends?.length || 0} onPress={ShowFriends} />
+        <TouchableOpacity
+          onPress={() => {
+            navigation.navigate("friendsList", { friends: userfriends });
+          }}
+        >
+          <NumOfFriends num={user.friends?.length || 0} />
+        </TouchableOpacity>
+
         <XsmlLabel text={user.bio} />
       </View>
       <MoodsPieChart

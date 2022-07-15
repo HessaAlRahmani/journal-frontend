@@ -7,7 +7,7 @@ import { TopIcon } from "../../../constants";
 //screens
 import MainProfile from "../../profile/MainProfile";
 import EditProfile from "../../profile/EditProfile";
-import ViewFriends from "../../profile/ViewFriends";
+import FriendsList from "../../profile/FriendsList";
 import SearchFriend from "../../profile/SearchFriend";
 
 const { Navigator, Screen } = createStackNavigator();
@@ -37,7 +37,7 @@ export default function ProfileStackNavigator({ navigation }) {
           title: "Edit Profile",
         }}
       />
-      <Screen
+      {/* <Screen
         name="ViewFriends"
         component={ViewFriends}
         options={{
@@ -49,12 +49,25 @@ export default function ProfileStackNavigator({ navigation }) {
             />
           ),
         }}
-      />
+      /> */}
       <Screen
         name="SearchFriend"
         component={SearchFriend}
         options={{
           title: "Search friend",
+        }}
+      />
+      <Screen
+        name="friendsList"
+        component={FriendsList}
+        options={{
+          title: "Friends",
+          headerRight: () => (
+            <TopIcon
+              name={"add"}
+              onPress={() => navigation.navigate("SearchFriend")}
+            />
+          ),
         }}
       />
     </Navigator>
