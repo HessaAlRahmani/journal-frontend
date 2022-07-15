@@ -1,10 +1,11 @@
 import { View, StyleSheet, ScrollView, Image } from "react-native";
 import { useState } from "react";
-import { ExtraBigButton, SmlLabel, theme } from "../../constants";
+import { ExtraBigButton, InputLabel, SmlLabel, theme } from "../../constants";
 import { MultiSelect } from "react-native-element-dropdown";
 import { Switch } from "native-base";
 import { baseURL } from "../../instance";
 import userStore from "../../stores/usersStore";
+import entriesStore from "../../stores/entriesStore";
 
 export default function AddEntry4({
   newEntry,
@@ -13,18 +14,15 @@ export default function AddEntry4({
   route,
 }) {
   let pics = [];
-  let sendPics = [];
   const userfriends = userStore.users
     .find((user) => user._id == userStore.user._id)
     .friends.map((user) => ({ label: user.username, value: user._id }));
 
   const [isPriv, setIsPriv] = useState(false);
   const [selected, setSelected] = useState([]);
-
+  const friends = [];
   if (route.params) {
     const { photos } = route.params;
-    sendPics = photos;
-
     pics = photos.map((pic, i) => (
       <Image
         style={{ height: 500, width: 500, borderRadius: 4 }}
@@ -45,8 +43,8 @@ export default function AddEntry4({
       {route.params && (
         <ScrollView
           style={{
-            marginRight: 30,
-            marginLeft: 30,
+            marginRight: 10,
+            marginLeft: 10,
             marginBottom: 30,
             maxHeight: 500,
             backgroundColor: "white",
@@ -58,12 +56,10 @@ export default function AddEntry4({
         </ScrollView>
       )}
 
-      <SmlLabel text="Tag friends: " />
+      <InputLabel text="Tag friends: " />
       <View
         style={{
-          marginRight: 30,
-          marginLeft: 30,
-          marginTop: 10,
+          margin: 10,
           marginBottom: 30,
         }}
       >
@@ -78,16 +74,17 @@ export default function AddEntry4({
           maxHeight={300}
           labelField="label"
           valueField="value"
-          placeholder={"Select friends"}
+          placeholder="Select friends"
           searchPlaceholder="Search..."
           value={selected}
           onChange={(friend) => {
+            if (friends.find((f) => f === friend)) {
+              friends.splice(friends.indexOf(friend), 1);
+            } else {
+              friends.push(friend);
+            }
             setSelected(friend);
-            setNewEntry({
-              ...newEntry,
-              friends: selected,
-              attachments: sendPics,
-            });
+            setNewEntry({ ...newEntry, friends: friends });
           }}
           selectedStyle={styles.selectedStyle}
         />
@@ -98,10 +95,10 @@ export default function AddEntry4({
           flexDirection: "row",
           alignItems: "center",
           justifyContent: "space-between",
-          marginRight: 30,
+          marginRight: 10,
         }}
       >
-        <SmlLabel text="Private" />
+        <InputLabel text="Private" />
         <Switch
           onToggle={() => {
             setIsPriv(!isPriv);

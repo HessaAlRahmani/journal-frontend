@@ -109,7 +109,11 @@ export default function EditProfile({ navigation }) {
         value={updatedUser.bio}
         onChangeText={(bio) => setUpdatedUser({ ...updatedUser, bio })}
       />
-      <BigButton text={"Save changes"} onPress={handleSubmit} />
+      <BigButton
+        text={"Save changes"}
+        onPress={handleSubmit}
+        style={{ alignSelf: "flex-end" }}
+      />
     </ScrollView>
   );
 }

@@ -10,11 +10,13 @@ import { theme } from "../../constants";
 import { baseURL } from "../../instance";
 import { Image } from "native-base";
 import entriesStore from "../../stores/entriesStore";
+import userStore from "../../stores/usersStore";
 
 export default function JournalItem({ entry }) {
   const [isFav, setIsFav] = useState(entry.isFav);
 
   const viewDetails = () => {
+    console.log("here" + entry.attachments);
     //go to entry details
     // navigation.navigate("Detail", {
     //   itemId: trip._id,
@@ -23,7 +25,6 @@ export default function JournalItem({ entry }) {
   };
 
   const usersTagged = entry.friends.map((friend) => (
-    //add onPress => go to friend profile
     <TouchableOpacity>
       <Text style={styles.friend} key={friend._id}>
         @{friend.username}
@@ -42,7 +43,7 @@ export default function JournalItem({ entry }) {
         style={styles.thumb}
         source={{ uri: `${baseURL}${entry.attachments[0]}` }}
       >
-        <TouchableOpacity onPress={handleFav}>
+        <TouchableOpacity onPress={handleFav} style={styles.touchable}>
           <Image
             style={styles.bottomTab}
             source={{
@@ -50,14 +51,13 @@ export default function JournalItem({ entry }) {
                 ? `${baseURL}/media/emojis/favorite.png`
                 : `${baseURL}/media/emojis/notfavorite.png`,
             }}
-            alt={"not favorite"}
+            alt={isFav ? "favorite" : "not favorite"}
           />
         </TouchableOpacity>
       </ImageBackground>
 
       <View style={styles.infoContainer}>
         <Text style={styles.text}>{entry.title}</Text>
-
         <View style={{ flexDirection: "row" }}>{usersTagged}</View>
       </View>
     </TouchableOpacity>
@@ -65,6 +65,11 @@ export default function JournalItem({ entry }) {
 }
 
 const styles = StyleSheet.create({
+  touchable: {
+    width: 35,
+    height: 35,
+    alignSelf: "flex-end",
+  },
   bottomTab: {
     width: 35,
     height: 35,

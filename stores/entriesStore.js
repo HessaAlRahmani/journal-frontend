@@ -8,6 +8,7 @@ class EntriesStore {
   }
   entries = [];
   userEntries = [];
+  pics = [];
 
   fetchEntries = async () => {
     try {
@@ -35,6 +36,7 @@ class EntriesStore {
 
   addEntry = async (newEntry) => {
     try {
+      newEntry.attachments = this.pics;
       newEntry.user = usersStore.user._id;
 
       const response = await instance.post("/journal/", newEntry);
@@ -80,6 +82,10 @@ class EntriesStore {
     } catch (error) {
       console.error("deleting error", error);
     }
+  };
+
+  pics = (entryPics) => {
+    this.pics = entryPics;
   };
 }
 

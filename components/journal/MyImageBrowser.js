@@ -11,8 +11,9 @@ import * as ImageManipulator from "expo-image-manipulator";
 import { ImageBrowser } from "expo-image-picker-multiple";
 import * as FileSystem from "expo-file-system";
 import { baseURL } from "../../instance";
+import entriesStore from "../../stores/entriesStore";
 
-export default function MyImageBrowser({ navigation }) {
+export default function MyImageBrowser({ navigation, route }) {
   const imagesCallback = (callback) => {
     navigation.setOptions({
       headerRight: () => <ActivityIndicator size="small" color={"#0580FF"} />,
@@ -29,7 +30,7 @@ export default function MyImageBrowser({ navigation }) {
           );
           cPhotos.push(newpic.body);
         }
-
+        entriesStore.pics(cPhotos);
         navigation.navigate("AddEntry", { photos: cPhotos });
       })
       .catch((e) => console.log(e));
@@ -51,8 +52,12 @@ export default function MyImageBrowser({ navigation }) {
       headerRight: () => {
         if (!count) return null;
         return (
-          <TouchableOpacity title={"Done"} onPress={onSubmit}>
-            <Text onPress={onSubmit}>Done</Text>
+          <TouchableOpacity
+            title={"Done"}
+            onPress={onSubmit}
+            style={{ marginRight: 10 }}
+          >
+            <Text>Done</Text>
           </TouchableOpacity>
         );
       },
