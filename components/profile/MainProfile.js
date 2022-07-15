@@ -71,6 +71,10 @@ function MainProfile({ navigation }) {
 
   //sort by date
 
+  const ShowFriends = () => {
+    navigation.navigate("ViewFriends");
+  };
+
   return (
     //<SafeAreaView>
     <ScrollView>
@@ -97,7 +101,7 @@ function MainProfile({ navigation }) {
           />
         </View>
         <XsmlLabel text={"@" + user.username} />
-        <NumOfFriends num={user.friends?.length || 0} />
+        <NumOfFriends num={user.friends?.length || 0} onPress={ShowFriends} />
         <XsmlLabel text={user.bio} />
       </View>
       <MoodsPieChart

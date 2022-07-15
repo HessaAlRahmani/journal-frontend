@@ -32,6 +32,19 @@ export const NavIcon = ({ name }) => {
   );
 };
 
+export const TopIcon = ({ name, onPress }) => {
+  return (
+    <TouchableOpacity style={{ marginRight: 10 }} onPress={onPress}>
+      <Image
+        style={styles.bottomTab}
+        source={{
+          uri: `${baseURL}/media/BottomNavIcons/${name}.png`,
+        }}
+        alt={`${name}`}
+      />
+    </TouchableOpacity>
+  );
+};
 export const ExtraBigButton = ({ onPress, text }) => {
   return (
     <TouchableOpacity
@@ -141,21 +154,23 @@ export function Steps({ stepNum }) {
 //   );
 // }
 
-export const NumOfFriends = ({ num }) => {
+export const NumOfFriends = ({ num, onPress }) => {
   return (
-    <View
-      style={{
-        flexDirection: "row",
-        alignItems: "center",
-        marginTop: 10,
-        borderBottomColor: theme.grey,
-        borderBottomWidth: 1,
-        marginBottom: 15,
-      }}
-    >
-      <BoldLabel text={num} />
-      <Text style={{ fontSize: RFValue(14), marginLeft: 5 }}>Friends</Text>
-    </View>
+    <TouchableOpacity onPress={onPress}>
+      <View
+        style={{
+          flexDirection: "row",
+          alignItems: "center",
+          marginTop: 10,
+          borderBottomColor: theme.grey,
+          borderBottomWidth: 1,
+          marginBottom: 15,
+        }}
+      >
+        <BoldLabel text={num} />
+        <Text style={{ fontSize: RFValue(14), marginLeft: 5 }}>Friends</Text>
+      </View>
+    </TouchableOpacity>
   );
 };
 
@@ -236,6 +251,8 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     elevation: 7,
     borderRadius: 10,
+    marginRight: 10,
+    marginLeft: 10,
   },
 
   roundButton: {
@@ -246,7 +263,8 @@ const styles = StyleSheet.create({
     alignSelf: "flex-end",
     position: "absolute",
     bottom: 15,
-    right: 15,
+    right: 10,
+    marginRight: 0,
   },
   plusIcon: {
     width: 30,
@@ -262,6 +280,8 @@ const styles = StyleSheet.create({
     backgroundColor: theme.grey,
     padding: 10,
     margin: 30,
+    marginLeft: 10,
+    marginRight: 10,
     height: 50,
   },
   ExtraBigButtonText: {
@@ -287,9 +307,7 @@ const styles = StyleSheet.create({
     borderColor: theme.grey,
     borderWidth: 1,
     fontSize: 18,
-    margin: 30,
-    marginBottom: 10,
-    marginTop: 10,
+    margin: 10,
     padding: 7,
     height: 50,
     backgroundColor: theme.lightGrey,
@@ -311,13 +329,11 @@ const styles = StyleSheet.create({
   },
 
   bigInput: {
-    margin: 30,
-    marginTop: 10,
-    marginBottom: 10,
+    margin: 10,
     padding: 7,
     borderColor: theme.grey,
     borderWidth: 1,
-    height: 160,
+    height: 130,
     backgroundColor: theme.lightGrey,
   },
 
@@ -346,7 +362,7 @@ const styles = StyleSheet.create({
   },
 
   inputLabel: {
-    marginLeft: 30,
+    marginLeft: 10,
     fontSize: RFValue(14),
 
     fontWeight: "bold",
