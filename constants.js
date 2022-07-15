@@ -156,21 +156,20 @@ export function Steps({ stepNum }) {
 
 export const NumOfFriends = ({ num, onPress }) => {
   return (
-    <TouchableOpacity onPress={onPress}>
-      <View
-        style={{
-          flexDirection: "row",
-          alignItems: "center",
-          marginTop: 10,
-          borderBottomColor: theme.grey,
-          borderBottomWidth: 1,
-          marginBottom: 15,
-        }}
-      >
-        <BoldLabel text={num} />
-        <Text style={{ fontSize: RFValue(14), marginLeft: 5 }}>Friends</Text>
-      </View>
-    </TouchableOpacity>
+    <View
+      style={{
+        flexDirection: "row",
+        alignItems: "center",
+        marginTop: 10,
+        borderBottomColor: theme.grey,
+        borderBottomWidth: 1,
+        marginBottom: 15,
+      }}
+    >
+      <BoldLabel text={num} />
+      <BoldLabel text={"Friends"} />
+      {/* <Text style={{ fontSize: RFValue(14), marginLeft: 5 }}>Friends</Text> */}
+    </View>
   );
 };
 

@@ -116,10 +116,10 @@ function MainProfile({ navigation }) {
 
         <XsmlLabel text={user.bio} />
       </View>
-      <MoodsPieChart
+      {/* <MoodsPieChart
         userEntriesFeels={userEntriesFeels}
         sumADatesFeelingsAndHealth={sumADatesFeelingsAndHealth}
-      />
+      /> */}
       <BigButton
         text={"Sign out"}
         onPress={() => {
@@ -143,6 +143,7 @@ const styles = StyleSheet.create({
     zIndex: 100,
     borderColor: "white",
     borderWidth: 4,
+    
   },
   bigContainer: {
     padding: 10,
@@ -151,6 +152,7 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     marginRight: 10,
     alignItems: "stretch",
+    bottom:"15%"
   },
 
   smallContainer: {

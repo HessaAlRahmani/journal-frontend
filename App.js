@@ -8,6 +8,7 @@ import { observer } from "mobx-react";
 import entriesStore from "./stores/entriesStore";
 
 const App = () => {
+  console.disableYellowBox = true; //to remove all warnings from the app
   if (usersStore.user) {
     console.log(usersStore.user.username);
     entriesStore.fetchUserEntries();
