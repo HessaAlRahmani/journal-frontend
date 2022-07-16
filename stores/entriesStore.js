@@ -8,6 +8,7 @@ class EntriesStore {
   }
   entries = [];
   userEntries = [];
+  pics = [];
 
   fetchEntries = async () => {
     try {
@@ -35,14 +36,18 @@ class EntriesStore {
 
   addEntry = async (newEntry) => {
     try {
+      newEntry.attachments = this.pics;
       newEntry.user = usersStore.user._id;
-      console.log(newEntry);
 
       const response = await instance.post("/journal/", newEntry);
+      this.fetchUserEntries();
+      console.log("back from the shop");
+      this.pics = [];
 
-      runInAction(() => {
-        this.entries.push(response.data);
-      });
+      // runInAction(() => {
+      //   this.entries.push(response.data);
+      //   this.userEntries.push(response.data);
+      // });
     } catch (error) {
       console.error("can't add entry", error);
     }
@@ -64,7 +69,6 @@ class EntriesStore {
 
   fav = async (id, isFav) => {
     try {
-      console.log(isFav);
       const go = { isFav: !isFav };
 
       await instance.put(`/journal/fav/${id}`, go);
@@ -81,6 +85,10 @@ class EntriesStore {
     } catch (error) {
       console.error("deleting error", error);
     }
+  };
+
+  pics = (entryPics) => {
+    this.pics = entryPics;
   };
 }
 

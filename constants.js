@@ -8,6 +8,7 @@ import {
 } from "react-native";
 import { Image } from "native-base";
 import { baseURL } from "./instance";
+import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 
 export const theme = {
   lightGrey: "#F6F6F6",
@@ -31,6 +32,19 @@ export const NavIcon = ({ name }) => {
   );
 };
 
+export const TopIcon = ({ name, onPress }) => {
+  return (
+    <TouchableOpacity style={{ marginRight: 10 }} onPress={onPress}>
+      <Image
+        style={styles.bottomTab}
+        source={{
+          uri: `${baseURL}/media/BottomNavIcons/${name}.png`,
+        }}
+        alt={`${name}`}
+      />
+    </TouchableOpacity>
+  );
+};
 export const ExtraBigButton = ({ onPress, text }) => {
   return (
     <TouchableOpacity
@@ -42,10 +56,10 @@ export const ExtraBigButton = ({ onPress, text }) => {
   );
 };
 
-export const BigButton = ({ onPress, text }) => {
+export const BigButton = ({ onPress, text, style }) => {
   return (
     <TouchableOpacity
-      style={[styles.basicShadow, styles.BigButton]}
+      style={[styles.basicShadow, styles.BigButton, style]}
       onPress={onPress}
     >
       <Text style={styles.BigButtonText}>{text}</Text>
@@ -108,7 +122,7 @@ export function Steps({ stepNum }) {
       style={{
         justifyContent: "center",
         alignItems: "center",
-        margin: 16,
+        margin: 5,
         flexDirection: "row",
       }}
     >
@@ -140,11 +154,10 @@ export function Steps({ stepNum }) {
 //   );
 // }
 
-export const NumOfFriends = ({ num }) => {
+export const NumOfFriends = ({ num, onPress }) => {
   return (
     <View
       style={{
-        flex: 1,
         flexDirection: "row",
         alignItems: "center",
         marginTop: 10,
@@ -154,7 +167,8 @@ export const NumOfFriends = ({ num }) => {
       }}
     >
       <BoldLabel text={num} />
-      <SmlLabel text={"Friends"} />
+      <BoldLabel text={"Friends"} />
+      {/* <Text style={{ fontSize: RFValue(14), marginLeft: 5 }}>Friends</Text> */}
     </View>
   );
 };
@@ -175,6 +189,10 @@ export const SmlLabel = ({ text }) => {
   return <Text style={styles.SmlLabel}>{text}</Text>;
 };
 
+export const InputLabel = ({ text }) => {
+  return <Text style={styles.inputLabel}>{text}</Text>;
+};
+
 export const InputField = ({
   value,
   label,
@@ -185,7 +203,7 @@ export const InputField = ({
 }) => {
   return (
     <View>
-      <SmlLabel text={label} />
+      <InputLabel text={label} />
       <TextInput
         style={[styles.input, styles.basicShadow]}
         secureTextEntry={secureTextEntry}
@@ -204,7 +222,7 @@ export const InputField = ({
 export const BigInputField = ({ placeholder, label, value, onChangeText }) => {
   return (
     <View>
-      <SmlLabel text={label} />
+      <InputLabel text={label} />
 
       <TextInput
         style={[styles.bigInput, styles.basicShadow]}
@@ -234,6 +252,8 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     elevation: 7,
     borderRadius: 10,
+    marginRight: 10,
+    marginLeft: 10,
   },
 
   roundButton: {
@@ -244,7 +264,8 @@ const styles = StyleSheet.create({
     alignSelf: "flex-end",
     position: "absolute",
     bottom: 15,
-    right: 15,
+    right: 10,
+    marginRight: 0,
   },
   plusIcon: {
     width: 30,
@@ -260,12 +281,14 @@ const styles = StyleSheet.create({
     backgroundColor: theme.grey,
     padding: 10,
     margin: 30,
+    marginLeft: 10,
+    marginRight: 10,
     height: 50,
   },
   ExtraBigButtonText: {
     textAlign: "center",
     fontWeight: "bold",
-    fontSize: 16,
+    fontSize: RFValue(14),
   },
 
   BigButton: {
@@ -285,8 +308,7 @@ const styles = StyleSheet.create({
     borderColor: theme.grey,
     borderWidth: 1,
     fontSize: 18,
-    margin: 30,
-    marginTop: 10,
+    margin: 10,
     padding: 7,
     height: 50,
     backgroundColor: theme.lightGrey,
@@ -302,18 +324,17 @@ const styles = StyleSheet.create({
     borderRadius: 6,
   },
   SmallButtonText: {
-    fontSize: 18,
+    fontSize: RFValue(10),
     color: "white",
     textAlign: "center",
   },
 
   bigInput: {
-    margin: 30,
-    marginTop: 10,
+    margin: 10,
     padding: 7,
     borderColor: theme.grey,
     borderWidth: 1,
-    height: 160,
+    height: 130,
     backgroundColor: theme.lightGrey,
   },
 
@@ -331,14 +352,20 @@ const styles = StyleSheet.create({
   },
 
   BoldLabel: {
-    fontSize: 18,
+    fontSize: RFValue(14),
     fontWeight: "bold",
     margin: 5,
   },
 
   SmlLabel: {
     marginLeft: 30,
-    fontSize: 18,
+    fontSize: RFValue(14),
+  },
+
+  inputLabel: {
+    marginLeft: 10,
+    fontSize: RFValue(14),
+
     fontWeight: "bold",
   },
 

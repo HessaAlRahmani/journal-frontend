@@ -1,7 +1,8 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { observer } from "mobx-react";
 import { NavIcon } from "../../constants";
-
+import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
+import { Text } from "react-native";
 // stack navigators
 import CalendarStack from "./stackNavs/calendarStack";
 import profileStackNav from "./stackNavs/profileStackNav";
@@ -27,12 +28,11 @@ function bottomTab() {
         tabBarLabelStyle: {
           fontWeight: "bold",
           color: "black",
-          fontSize: 14,
+          fontSize: RFValue(10),
         },
         tabBarStyle: {
           height: 80,
         },
-        //headerBackTitle: false,
       })}
     >
       <Screen

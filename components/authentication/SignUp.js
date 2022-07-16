@@ -1,4 +1,5 @@
 import { Text, View, SafeAreaView, StyleSheet, TextInput } from "react-native";
+import { Image } from "native-base";
 import { useState } from "react";
 import usersStore from "../../stores/usersStore";
 import { ExtraBigButton, InputField } from "../../constants";
@@ -19,6 +20,11 @@ function SignUp() {
 
   return (
     <SafeAreaView>
+      <Image
+        source={require("../../assets/logo.png")}
+        style={{ width: 140, height: 140, alignSelf: "center", marginTop: 50 }}
+        alt="logo"
+      />
       <View style={styles.container}>
         <InputField
           placeholder="Enter username"
@@ -44,6 +50,6 @@ export default observer(SignUp);
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 100,
+    marginTop: 50,
   },
 });

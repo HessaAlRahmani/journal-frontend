@@ -11,12 +11,15 @@ import { googleMapsKey } from '../../instance';
 import Modal from "react-native-modal";
 import { FontAwesome5 } from '@expo/vector-icons'; 
 import { useNavigation } from "@react-navigation/native";
+import { baseURL } from "../../instance";
+import entriesStore from '../../stores/entriesStore';
 
 
 //check the key 
 export default function MainMap() {
   Location.setGoogleApiKey(googleMapsKey);
   const navigation = useNavigation();
+  const entriess=entriesStore.entries;
 
   const [isModalVisible, setModalVisible] = useState(false);
   const [location, setLocation] = useState(null);
@@ -90,7 +93,7 @@ unique.forEach((location)=>{let obj={};obj["location"]=location;obj["entries"]=[
     SetMarkerloc({latitude:location.latitude,longitude:location.longitude})
     // alert("userrrrr  ",userStore.user)
    }
-   let myentries=entries.filter((entry)=>entry.user==userStore.user._id);
+   let myentries=entriess.filter((entry)=>entry.user==userStore.user._id);
    let myPins=makepins(myentries).map((marker,index)=><Marker key={index} coordinate={{latitude:marker.location.lat,longitude:marker.location.lng}}  title={`${marker.entries.length} Memories`} description={"Click to view all Memories"} onCalloutPress={()=>{navigation.navigate("PinEntries",{entries:marker.entries});}}/>)
   let friendsEntries=entries.filter((entry)=>entry.user!=userStore.user._id && entry.status=="public");
   let allEntries=myentries.concat(friendsEntries);
@@ -98,13 +101,13 @@ unique.forEach((location)=>{let obj={};obj["location"]=location;obj["entries"]=[
   // let myPins=entries.filter((entry)=>entry.user==userStore.user._id).map((marker,index)=><Marker key={index} coordinate={{latitude:marker.location.lat,longitude:marker.location.lng}} title={marker.title} description={marker.body}/>)
   // let friendsPublicPins=entries.filter((entry)=>entry.user!=userStore.user._id && entry.status=="public").map((marker,index)=><Marker key={index} coordinate={{latitude:marker.location.lat,longitude:marker.location.lng}} title={marker.title} description={marker.body}/>)
   // let allPins=myPins.concat(friendsPublicPins);
-    let buttons=[{title:"All",img:<FontAwesome5 name="users" size={24} color="black" />},{title:"Me",img: <Image style={{borderRadius:100}}source={{uri:userStore.user.profileImage}} alt="Alternate Text" size="xs" />}]
+    let buttons=[{title:"All",img:<FontAwesome5 name="users" size={24} color="black" />},{title:"Me",img: <Image style={{borderRadius:100}}source={{uri:`${baseURL}${userStore.user.profileImage}`}} alt="Alternate Text" size="xs" />}]
    let friendsButtons=[];
-userfriends.forEach((friend) => {let obj={};obj["_id"]=friend._id;obj["title"]=friend.username;obj.img=<Image style={{borderRadius:100}}source={{uri:friend.profileImage}} alt="Alternate Text" size="xs" />;friendsButtons.push(obj)});
+userfriends.forEach((friend) => {let obj={};obj["_id"]=friend._id;obj["title"]=friend.username;obj.img=<Image style={{borderRadius:100}}source={{uri:`${baseURL}${friend.profileImage}`}} alt="Alternate Text" size="xs" />;friendsButtons.push(obj)});
 
 //  let allbuttons =buttons;
  let allbuttons =buttons.concat(friendsButtons);
-  //  ,{title:"Marie24"},{title:"doha"},{title:"HessaR"},{title:"thv"},{title:"jungkook.97"},{title:8},{title:9},{title:10},{title:11},{title:12},{title:13},{title:14},{title:15},{title:16}]
+
    const [viewPins,SetViewPins]=useState(allPins);
    const[filterButton,setFilterButton]=useState(<FontAwesome5 name="users" size={24} color="black" />)
    const filterMapPins=(title,img,_id)=>{

@@ -8,8 +8,10 @@ import * as ImagePicker from "expo-image-picker";
 import * as FileSystem from "expo-file-system";
 import { FileSystemUploadType } from "expo-file-system";
 import { baseURL } from "../../instance";
+import { useToast } from "native-base";
 
 export default function EditProfile({ navigation }) {
+  const toast = useToast();
   const user = usersStore.user;
   const [updatedUser, setUpdatedUser] = useState({
     _id: user._id,
@@ -45,6 +47,7 @@ export default function EditProfile({ navigation }) {
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
       allowsEditing: true,
       aspect: [11, 4],
+      quality: 0.6,
     });
     if (!result2.cancelled) {
       setHeader(result2.uri);
@@ -58,10 +61,13 @@ export default function EditProfile({ navigation }) {
   };
 
   const handleSubmit = async () => {
-    console.log(updatedUser);
     usersStore.updateUser(updatedUser);
+    toast.show({
+      title: "Profile updated successfully",
+      placement: "top",
+      bg: "green.800",
+    });
     navigation.navigate("MainProfile");
-    //toaaaaaaaast
   };
 
   return (
@@ -103,7 +109,11 @@ export default function EditProfile({ navigation }) {
         value={updatedUser.bio}
         onChangeText={(bio) => setUpdatedUser({ ...updatedUser, bio })}
       />
-      <BigButton text={"Save changes"} onPress={handleSubmit} />
+      <BigButton
+        text={"Save changes"}
+        onPress={handleSubmit}
+        style={{ alignSelf: "flex-end" }}
+      />
     </ScrollView>
   );
 }
