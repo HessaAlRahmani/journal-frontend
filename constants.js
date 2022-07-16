@@ -181,6 +181,7 @@ export const InputField = ({
   placeholder,
   onChangeText,
   secureTextEntry,
+  editable,
 }) => {
   return (
     <View>
@@ -194,6 +195,7 @@ export const InputField = ({
         value={value}
         autoCapitalize="none"
         onChangeText={onChangeText}
+        editable={editable}
       />
     </View>
   );

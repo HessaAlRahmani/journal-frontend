@@ -89,6 +89,10 @@ class UserStore {
       console.error(error);
     }
   };
+
+  getUserById(id) {
+    return this.users.find((user) => user._id === id);
+  }
 }
 
 const userStore = new UserStore();
