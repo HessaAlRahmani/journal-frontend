@@ -17,16 +17,16 @@ export default function FriendRequest({ navigation, notification }) {
   );
   const user = userStore.user;
   return (
-    <TouchableOpacity
-      onPress={() => navigation.navigate("friendProfile", { friend: friend })}
+    <View
+      style={{
+        display: "flex",
+        flexDirection: "row",
+        backgroundColor: "white",
+        justifyContent: "space-between",
+      }}
     >
-      <View
-        style={{
-          display: "flex",
-          flexDirection: "row",
-          backgroundColor: "white",
-          justifyContent: "space-between",
-        }}
+      <TouchableOpacity
+        onPress={() => navigation.navigate("friendProfile", { friend: friend })}
       >
         <View style={styles.container}>
           <View style={styles.image}>
@@ -37,36 +37,35 @@ export default function FriendRequest({ navigation, notification }) {
             <XsmlLabel text={`Sent you a friend request`} />
           </View>
         </View>
-
-        <View
-          style={{
-            alignItems: "center",
-            right: "3%",
-            top: "5%",
-            display: "flex",
-            flexDirection: "row",
-            justifyContent: "flex-end",
+      </TouchableOpacity>
+      <View
+        style={{
+          alignItems: "center",
+          right: "3%",
+          top: "5%",
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "flex-end",
+        }}
+      >
+        <SmallButton
+          text={"accept"}
+          onPress={() => {
+            notificationsStore.acceptFriend(friend._id, user._id);
+            console.log("user" + user.username + "friend" + friend.username);
+            notificationsStore.deleteNotification(notification._id);
+          }}
+          style={{ width: 60 }}
+        />
+        <TouchableOpacity
+          onPress={() => {
+            notificationsStore.deleteNotification(notification._id);
           }}
         >
-          <SmallButton
-            text={"accept"}
-            onPress={() => {
-              notificationsStore.acceptFriend(friend._id, user._id);
-              console.log("user" + user.username + "friend" + friend.username);
-              notificationsStore.deleteNotification(notification._id);
-            }}
-            style={{ width: 60 }}
-          />
-          <TouchableOpacity
-            onPress={() => {
-              notificationsStore.deleteNotification(notification._id);
-            }}
-          >
-            <Feather name="x" size={19} color={theme.darkGrey} />
-          </TouchableOpacity>
-        </View>
+          <Feather name="x" size={19} color={theme.darkGrey} />
+        </TouchableOpacity>
       </View>
-    </TouchableOpacity>
+    </View>
   );
 }
 
