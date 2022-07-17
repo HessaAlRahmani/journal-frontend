@@ -105,6 +105,7 @@ export default function AddEntry4({
             setNewEntry({ ...newEntry, isPriv: isPriv });
           }}
           isChecked={!isPriv}
+          colorScheme="emerald"
         />
       </View>
     </View>
