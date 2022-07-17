@@ -19,7 +19,7 @@ export default function JournalStack() {
         headerShown: true,
         headerTitleAlign: "center",
         title: "Add a memory",
-        headerBackTitle: false,
+        headerBackTitle: true,
         headerLeft: () => null,
       }}
     >
