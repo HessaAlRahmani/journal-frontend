@@ -6,7 +6,6 @@ import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplet
 import {Button, Image} from 'native-base';
 import { MaterialIcons } from '@expo/vector-icons'; 
 import userStore from '../../stores/usersStore';
-import entries from '../../entriesdata';
 import { googleMapsKey } from '../../instance';
 import Modal from "react-native-modal";
 import { FontAwesome5 } from '@expo/vector-icons'; 
@@ -19,7 +18,7 @@ import entriesStore from '../../stores/entriesStore';
 export default function MainMap() {
   Location.setGoogleApiKey(googleMapsKey);
   const navigation = useNavigation();
-  const entriess=entriesStore.entries;
+  const entries=entriesStore.entries;
 
   const [isModalVisible, setModalVisible] = useState(false);
   const [location, setLocation] = useState(null);
@@ -88,14 +87,32 @@ unique.forEach((location)=>{let obj={};obj["location"]=location;obj["entries"]=[
  console.log("theeeee locaaaatiooonsnssss      "+locations);
  return locations;
 }
+const getFriendsEntries=(userfriends,entries)=>{
+
+  let friendsIds=userfriends.map((friend)=>{return friend._id});
+  let friendsEntries=[];
+
+for (let i=0;i<friendsIds.length;i++)
+{
+    for (let j=0;j<entries.length;j++)
+    {
+        if (friendsIds[i]==entries[j].user && entries[j].isPriv==false)
+        {
+            friendsEntries.push(entries[j])
+        }
+    }
+}
+return friendsEntries;
+
+}
  const getCurrentlocation=()=>{
     setView({latitude:location.latitude,longitude:location.longitude,longitudeDelta: 0.005,latitudeDelta: 0.005});
     SetMarkerloc({latitude:location.latitude,longitude:location.longitude})
     // alert("userrrrr  ",userStore.user)
    }
-   let myentries=entriess.filter((entry)=>entry.user==userStore.user._id);
+   let myentries=entries.filter((entry)=>entry.user==userStore.user._id);
    let myPins=makepins(myentries).map((marker,index)=><Marker key={index} coordinate={{latitude:marker.location.lat,longitude:marker.location.lng}}  title={`${marker.entries.length} Memories`} description={"Click to view all Memories"} onCalloutPress={()=>{navigation.navigate("PinEntries",{entries:marker.entries});}}/>)
-  let friendsEntries=entries.filter((entry)=>entry.user!=userStore.user._id && entry.status=="public");
+  let friendsEntries=getFriendsEntries(userfriends,entries);
   let allEntries=myentries.concat(friendsEntries);
   let allPins=makepins(allEntries).map((marker,index)=><Marker key={index} coordinate={{latitude:marker.location.lat,longitude:marker.location.lng}}  title={`${marker.entries.length} Memories`} description={"Click to view all Memories"} onCalloutPress={()=>{navigation.navigate("PinEntries",{entries:marker.entries});}}/>)
   // let myPins=entries.filter((entry)=>entry.user==userStore.user._id).map((marker,index)=><Marker key={index} coordinate={{latitude:marker.location.lat,longitude:marker.location.lng}} title={marker.title} description={marker.body}/>)
@@ -130,7 +147,7 @@ userfriends.forEach((friend) => {let obj={};obj["_id"]=friend._id;obj["title"]=f
       }
       else
       {
-        let friendEntries=entries.filter((entry)=>entry.user==_id && entry.status=="public");
+        let friendEntries=entries.filter((entry)=>entry.user==_id && entry.isPriv==false);
         let friendPins=makepins(friendEntries).map((marker,index)=><Marker key={index} coordinate={{latitude:marker.location.lat,longitude:marker.location.lng}}  title={`${marker.entries.length} Memories`} description={"Click to view all Memories"} onCalloutPress={()=>{navigation.navigate("PinEntries",{entries:marker.entries});}}/>)
         SetViewPins(friendPins);
         setView({latitude:location.latitude,longitude:location.longitude,longitudeDelta: 0.6,latitudeDelta: 0.005});
@@ -197,7 +214,7 @@ userfriends.forEach((friend) => {let obj={};obj["_id"]=friend._id;obj["title"]=f
         data={allbuttons}
         numColumns={4}
         renderItem={({ item: button }) => (
-          <View style={{ flex: 0.4, flexDirection: "column" }}>
+          <View style={{ flex: 0.25, flexDirection: "column" }}>
             <Button onPress={()=>{filterMapPins(button.title,button.img,button._id)}} bgColor={"#D9D9D9"} style={{alignSelf:"center",borderRadius:100,width:70,height:70,margin:10,marginBottom:5}}>{button.img}</Button>
             <Text style={{alignSelf:"center",fontSize:12}}>{button.title}</Text>
           </View>

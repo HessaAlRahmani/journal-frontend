@@ -3,10 +3,18 @@ import React from "react";
 import { Image } from "native-base";
 import { baseURL } from "../../instance";
 import { theme, BoldLabel } from "../../constants";
+import { AntDesign } from '@expo/vector-icons'; 
+import userStore from "../../stores/usersStore";
+import {observer} from "mobx-react"
+import notificationsStore from "../../stores/notificationsStore";
 
-export default function Friend({ friend }) {
+
+function Friend({ friend }) {
+  let found=userStore.user.friends.find((friendid)=>friendid==friend._id)
+  let user=userStore.user._id;
   return (
-    <TouchableOpacity style={styles.container}>
+    <View style={styles.container}>
+      <View style={{display:"flex",flexDirection:"row",alignItems:"center"}}>
       <Image
         style={styles.pfp}
         source={{
@@ -15,16 +23,23 @@ export default function Friend({ friend }) {
         alt={"profile pic"}
       />
       <BoldLabel text={friend.username} />
+      </View>
       {/* unfriend button? */}
-    </TouchableOpacity>
+      {found || user==friend._id?<></>: <TouchableOpacity onPress={()=>{notificationsStore.newNotification({sender:user,receiver:friend._id,type:"friendRequest"})}} style={{justifyContent:"center",left:"0%"}}><AntDesign name="adduser" size={28} color="black" /></TouchableOpacity>  }
+     
+
+    </View>
   );
 }
 
+export default observer(Friend);
 const styles = StyleSheet.create({
   container: {
     height: 80,
+    display:"flex",
     flexDirection: "row",
     alignItems: "center",
+    justifyContent:"space-between",
     margin: 10,
     padding: 15,
     backgroundColor: theme.grey,

@@ -23,12 +23,13 @@ import {
   import MoodsPieChart from "./MoodsPieChart";
   import { useNavigation } from "@react-navigation/native";
   import JournalEntry from "../journal/JournalItem";
+import userStore from "../../stores/usersStore";
   
   
 export default function FriendProfile({route}) {
     const {friend}=route.params;
     const navigation = useNavigation();
-    const userfriends=friend.friends;
+    const userfriends=userStore.users.find((user)=>user._id==friend._id).friends;
     const entries = entriesStore.entries;
     const friendEntries=entries.filter((entrie)=>entrie.user==friend._id)
     let Memories=friendEntries.map((entry) => <JournalEntry entry={entry} key={entry._id} />)

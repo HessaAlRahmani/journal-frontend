@@ -1,4 +1,4 @@
-import { View, SafeAreaView, StyleSheet } from "react-native";
+import { View, SafeAreaView, StyleSheet ,Dimensions} from "react-native";
 import { Image } from "native-base";
 import { useState } from "react";
 import { observer } from "mobx-react";
@@ -31,7 +31,7 @@ function SignIn({ navigation }) {
   };
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={styles.screen}>
       <Image
         source={require("../../assets/logo.png")}
         style={{ width: 140, height: 140, alignSelf: "center", marginTop: 50 }}
@@ -74,4 +74,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
+  screen:{
+    width:  Dimensions.get("window").width,
+    height: Dimensions.get("window").height,
+  backgroundColor:"white"
+  }
 });

@@ -14,7 +14,7 @@ export const theme = {
   lightGrey: "#F6F6F6",
   grey: "#D9D9D9",
   darkGrey: "#696969",
-  primary: "yellow",
+  primary: "#64B769",
   danger: "#EB7070",
   success: "#2FA83B",
   windowWidth: Dimensions.get("window").width,
@@ -314,7 +314,7 @@ const styles = StyleSheet.create({
 
   SmallButton: {
     justifyContent: "center",
-    backgroundColor: theme.darkGrey,
+    backgroundColor: theme.primary,
     padding: 5,
     margin: 7,
     width: 79,
