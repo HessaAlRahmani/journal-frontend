@@ -8,7 +8,7 @@ import { TopIcon } from "../../../constants";
 import MainProfile from "../../profile/MainProfile";
 import EditProfile from "../../profile/EditProfile";
 import FriendsList from "../../profile/FriendsList";
-import FriendProfile from "../../profile/FriendProfile"
+import FriendProfile from "../../profile/FriendProfile";
 import SearchFriend from "../../profile/SearchFriend";
 
 const { Navigator, Screen } = createStackNavigator();
@@ -38,29 +38,15 @@ export default function ProfileStackNavigator({ navigation }) {
           title: "Edit Profile",
         }}
       />
-      {/* <Screen name="friendsList"
-      component={FriendsList}
-      options={{
-        title: "Friends",
-      }}/> */}
-      <Screen name="friendProfile"
-      component={FriendProfile}
-      options={({ route }) => ({
-        title: `${route.params.friend.username}`,
-      })}/>
-      {/* <Screen
-        name="ViewFriends"
-        component={ViewFriends}
-        options={{
-          title: "Friends",
-          headerRight: () => (
-            <TopIcon
-              name={"add"}
-              onPress={() => navigation.navigate("SearchFriend")}
-            />
-          ),
-        }}
-      /> */}
+
+      <Screen
+        name="friendProfile"
+        component={FriendProfile}
+        options={({ route }) => ({
+          title: `${route.params.friend.username}`,
+        })}
+      />
+
       <Screen
         name="SearchFriend"
         component={SearchFriend}

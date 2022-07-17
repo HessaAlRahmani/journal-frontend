@@ -3,6 +3,8 @@ import { createStackNavigator } from "@react-navigation/stack";
 
 //screens
 import Notifications from "../../notifications/Notifications";
+import ItemDetails from "../../journal/ItemDetails";
+import FriendProfile from "../../profile/FriendProfile";
 
 const { Navigator, Screen } = createStackNavigator();
 
@@ -17,6 +19,14 @@ export default function NotificationsStack() {
       }}
     >
       <Screen name="MainNotifications" component={Notifications} />
+      <Screen name="Details" component={ItemDetails} />
+      <Screen
+        name="friendProfile"
+        component={FriendProfile}
+        options={({ route }) => ({
+          title: `${route.params.friend.username}`,
+        })}
+      />
     </Navigator>
   );
 }

@@ -67,10 +67,10 @@ export const BigButton = ({ onPress, text, style }) => {
   );
 };
 
-export const SmallButton = ({ onPress, text }) => {
+export const SmallButton = ({ onPress, text, style }) => {
   return (
     <TouchableOpacity
-      style={[styles.basicShadow, styles.SmallButton]}
+      style={[styles.basicShadow, styles.SmallButton, style]}
       onPress={onPress}
     >
       <Text style={styles.SmallButtonText}>{text}</Text>
@@ -173,8 +173,8 @@ export const NumOfFriends = ({ num, onPress }) => {
   );
 };
 
-export const BoldBigLabel = ({ text }) => {
-  return <Text style={styles.BoldBigLabel}>{text}</Text>;
+export const BoldBigLabel = ({ text, style }) => {
+  return <Text style={[styles.BoldBigLabel, style]}>{text}</Text>;
 };
 
 export const BoldLabel = ({ text }) => {
