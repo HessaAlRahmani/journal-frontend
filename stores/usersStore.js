@@ -100,6 +100,10 @@ class UserStore {
     );
     console.log(this.filteredUsers);
   };
+  acceptFriend=(userId)=>{
+    this.user= this.users.find((user)=>user._id==userId);
+     
+  }
 }
 
 const userStore = new UserStore();

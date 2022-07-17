@@ -1,21 +1,38 @@
-import { View, StyleSheet, ScrollView } from "react-native";
-import { Image } from "native-base";
-import { theme, BoldBigLabel, XsmlLabel, NumOfFriends } from "../../constants";
-import entriesStore from "../../stores/entriesStore";
-import { baseURL } from "../../instance";
-import { TouchableOpacity } from "react-native-gesture-handler";
-import { useNavigation } from "@react-navigation/native";
-import JournalEntry from "../journal/JournalItem";
-
-export default function FriendProfile({ route }) {
-  const { friend } = route.params;
-  const navigation = useNavigation();
-  const userfriends = friend.friends;
-  const entries = entriesStore.entries;
-  const friendEntries = entries.filter((entrie) => entrie.user == friend._id);
-  let Memories = friendEntries.map((entry) => (
-    <JournalEntry entry={entry} key={entry._id} />
-  ));
+import {
+    View,
+    StyleSheet,
+    Text,
+    Dimensions,
+    ScrollView,
+    SafeAreaView,
+  } from "react-native";
+  import { Image } from "native-base";
+  
+  import {
+    theme,
+    BoldBigLabel,
+    XsmlLabel,
+    NumOfFriends,
+    BigButton,
+  } from "../../constants";
+  import { observer } from "mobx-react";
+  import usersStore from "../../stores/usersStore";
+  import entriesStore from "../../stores/entriesStore";
+  import { baseURL } from "../../instance";
+  import { TouchableOpacity } from "react-native-gesture-handler";
+  import MoodsPieChart from "./MoodsPieChart";
+  import { useNavigation } from "@react-navigation/native";
+  import JournalEntry from "../journal/JournalItem";
+import userStore from "../../stores/usersStore";
+  
+  
+export default function FriendProfile({route}) {
+    const {friend}=route.params;
+    const navigation = useNavigation();
+    const userfriends=userStore.users.find((user)=>user._id==friend._id).friends;
+    const entries = entriesStore.entries;
+    const friendEntries=entries.filter((entrie)=>entrie.user==friend._id)
+    let Memories=friendEntries.map((entry) => <JournalEntry entry={entry} key={entry._id} />)
 
   return (
     <ScrollView>

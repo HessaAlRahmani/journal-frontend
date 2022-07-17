@@ -111,7 +111,7 @@ function MainProfile({ navigation }) {
             navigation.navigate("friendsList", { friends: userfriends });
           }}
         >
-          <NumOfFriends num={user.friends?.length || 0} />
+          <NumOfFriends num={userfriends?.length || 0} />
         </TouchableOpacity>
         <XsmlLabel text={user.bio} />
       </View>
