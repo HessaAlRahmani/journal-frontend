@@ -10,18 +10,18 @@ import { theme } from "../../constants";
 import { baseURL } from "../../instance";
 import { Image } from "native-base";
 import entriesStore from "../../stores/entriesStore";
+import { useNavigation } from "@react-navigation/native";
 import userStore from "../../stores/usersStore";
 
 export default function JournalItem({ entry }) {
   const [isFav, setIsFav] = useState(entry.isFav);
+  const navigation = useNavigation();
 
   const viewDetails = () => {
     console.log("here" + entry.attachments);
     //go to entry details
-    // navigation.navigate("Detail", {
-    //   itemId: trip._id,
-    //   tripp: trip,
-    // });
+    let item = { name: entry.title };
+    navigation.navigate("Details", { item: item });
   };
 
   const usersTagged = entry.friends.map((friend) => (
@@ -38,7 +38,7 @@ export default function JournalItem({ entry }) {
   };
 
   return (
-    <TouchableOpacity style={styles.bigContainer} onPress={viewDetails}>
+    <TouchableOpacity style={styles.bigContainer} onPress={() => viewDetails()}>
       <ImageBackground
         style={styles.thumb}
         source={{ uri: `${baseURL}${entry.attachments[0]}` }}

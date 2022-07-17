@@ -2,15 +2,20 @@ import React, { Component } from "react";
 import { Alert, StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import { Agenda } from "react-native-calendars";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { AntDesign } from "@expo/vector-icons";
+// import { AntDesign } from "@expo/vector-icons";
 // import entries from "../../entriesdata";
+import { useNavigation } from "@react-navigation/native";
 import entriesStore from "../../stores/entriesStore";
+import { withNavigation } from "react-navigation";
 
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default class AgendaScreen extends Component {
-  constructor(props) {
+  constructor(props, { navigation }) {
     super(props);
+
+    // const navigation = useNavigation();
+
     let entries = entriesStore.entries;
     // let itemsArr = [
     //   { date: entries[0].date, name: entries[0].title },
@@ -22,7 +27,10 @@ export default class AgendaScreen extends Component {
     }
     let items = {};
     itemsArr.forEach((item) => (items[item.date] = [{ name: item.name }]));
-    console.log(entries);
+    // console.log(entries);
+    let marked = {};
+    itemsArr.forEach((item) => (marked[item.date] = { marked: true }));
+
     this.state = {
       items: items,
       // "entries.date": [{ name: entries.title}],
@@ -38,7 +46,12 @@ export default class AgendaScreen extends Component {
           { name: "any js object" },
         ],
       },
+      markedDates: marked,
+      navigation: navigation,
     };
+    {
+      // const navigation = useNavigation();
+    }
   }
 
   importData = async () => {
@@ -141,11 +154,12 @@ export default class AgendaScreen extends Component {
           hideKnob={false}
           // By default, agenda dates are marked if they have at least one item, but you can override this if needed
 
-          markedDates={{
-            "2021-01-16": { selected: true, marked: true, startingDay: true },
-            "2021-01-17": { marked: true },
-            "2021-01-18": { disabled: true },
-          }}
+          markedDates={this.state.markedDates}
+          // {{
+          //   "2021-01-16": { selected: true, marked: true, startingDay: true },
+          //   "2021-01-17": { marked: true },
+          //   "2021-01-18": { disabled: true },
+          // }}
           firstDay={1}
           // If disabledByDefault={true} dates flagged as not disabled will be enabled. Default = false
           disabledByDefault={false}
@@ -160,16 +174,16 @@ export default class AgendaScreen extends Component {
           scrollEnabled={true}
           pagingEnabled={true}
           theme={{
-            agendaKnobColor: "#283747",
-            agendaDayTextColor: "#283747",
-            agendaDayNumColor: "#283747",
-            agendaTodayColor: "#283747",
-            agendaKnobColor: "#283747",
-            indicatorColor: "#283747",
-            textSectionTitleColor: "#283747",
-            dotColor: "#283747",
-            selectedDayBackgroundColor: "#283747",
-            arrowColor: "#283747",
+            agendaKnobColor: "#000000",
+            agendaDayTextColor: "#000000",
+            agendaDayNumColor: "#000000",
+            agendaTodayColor: "#000000",
+            agendaKnobColor: "#000000",
+            indicatorColor: "#000000",
+            textSectionTitleColor: "#000000",
+            dotColor: "#000000",
+            selectedDayBackgroundColor: "#000000",
+            arrowColor: "#000000",
             textDayFontSize: 12,
             textMonthFontSize: 20,
             textDayHeaderFontSize: 14,
@@ -262,11 +276,21 @@ export default class AgendaScreen extends Component {
     return date.toISOString().split("T")[0];
   }
 
-  renderItem(item) {
+  renderItem(item, navigation) {
+    let entry = entriesStore.entries.find((e) => e.title == item.name);
+    console.log(entry);
     return (
       <TouchableOpacity
         style={[styles.item, { height: item.height }]}
-        onPress={() => Alert.alert(item.name)}
+        onPress={() =>
+          this.props.navigation.navigate("Details", { item: item })
+        }
+        // onPress={() =>
+        //   navigation.navigate("Details", {
+        //     navigation: navigation,
+        //     entry: entry,
+        //   })
+        // }
       >
         <Text style={styles.textStyle}>{item.name}</Text>
       </TouchableOpacity>
@@ -290,7 +314,7 @@ export default class AgendaScreen extends Component {
     return (
       <TouchableOpacity /*onPress = {() => openCalendar ? setOpenCalendar(false) : setOpenCalendar(true)}*/
       >
-        <MaterialCommunityIcons name="ray-vertex" size={30} color="#283747" />
+        <MaterialCommunityIcons name="ray-vertex" size={30} color="#000000" />
       </TouchableOpacity>
     );
   }
@@ -316,7 +340,7 @@ const styles = StyleSheet.create({
     height: "auto",
   },
   dateStyle: {
-    color: "#283747",
+    color: "#000000",
     fontSize: 18,
     padding: 10,
     margin: 5,
@@ -332,8 +356,8 @@ const styles = StyleSheet.create({
   textStyle: {
     fontSize: 18,
     margin: 5,
-    color: "#283747",
+    color: "#000000",
     fontWeight: "500",
-    color: "#283747",
+    // color: "#283747",
   },
 });

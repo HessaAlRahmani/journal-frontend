@@ -34,78 +34,70 @@ export default function FriendProfile({route}) {
     const friendEntries=entries.filter((entrie)=>entrie.user==friend._id)
     let Memories=friendEntries.map((entry) => <JournalEntry entry={entry} key={entry._id} />)
 
-
-    return (
-      //<SafeAreaView>
-      <ScrollView>
+  return (
+    <ScrollView>
+      <Image
+        source={{ uri: `${baseURL}${friend.headerImg}` }}
+        alt={"header"}
+        style={styles.header}
+      />
+      <View style={styles.bigContainer}>
         <Image
-          source={{ uri: `${baseURL}${friend.headerImg}` }}
-          alt={"header"}
-          style={styles.header}
+          style={styles.pfp}
+          source={{
+            uri: `${baseURL}${friend.profileImage}`,
+          }}
+          alt={"profile pic"}
         />
-        <View style={styles.bigContainer}>
-          <Image
-            style={styles.pfp}
-            source={{
-              uri: `${baseURL}${friend.profileImage}`,
-            }}
-            alt={"profile pic"}
-          />
-          <View style={styles.smallContainer}>
-            <BoldBigLabel text={friend.displayname} />
-    
-          </View>
-          <XsmlLabel text={"@" + friend.username} />
-          <TouchableOpacity onPress={()=>{navigation.navigate("friendsList",{friends:userfriends})}}>
-            <NumOfFriends num={friend.friends?.length || 0} />
-            </TouchableOpacity>
-          
-          <XsmlLabel text={friend.bio} />
-          {Memories}
+        <View style={styles.smallContainer}>
+          <BoldBigLabel text={friend.displayname} />
         </View>
-        {/* <MoodsPieChart
-          userEntriesFeels={userEntriesFeels}
-          sumADatesFeelingsAndHealth={sumADatesFeelingsAndHealth}
-        /> */}
-      
-      </ScrollView>
-      //</SafeAreaView>
-  )
+        <XsmlLabel text={"@" + friend.username} />
+        <TouchableOpacity
+          onPress={() => {
+            navigation.navigate("friendsList", { friends: userfriends });
+          }}
+        >
+          <NumOfFriends num={friend.friends?.length || 0} />
+        </TouchableOpacity>
+
+        <XsmlLabel text={friend.bio} />
+        {Memories}
+      </View>
+    </ScrollView>
+  );
 }
 
-
 const styles = StyleSheet.create({
-    pfp: {
-      width: 100,
-      height: 100,
-      backgroundColor: theme.grey,
-      borderRadius: 100 / 2,
-      zIndex: 100,
-      borderColor: "white",
-      borderWidth: 4,
+  pfp: {
+    width: 100,
+    height: 100,
+    backgroundColor: theme.grey,
+    borderRadius: 100 / 2,
+    zIndex: 100,
+    borderColor: "white",
+    borderWidth: 4,
     //   bottom:"8%"
-      
-    },
-    bigContainer: {
-      padding: 10,
-      flex: 1,
-      // position: "absolute",
-      marginLeft: 10,
-      marginRight: 10,
-      alignItems: "stretch",
-      bottom:"15%"
-    },
-  
-    smallContainer: {
-      flexDirection: "row",
-      alignItems: "center",
-      justifyContent: "space-between",
-      width: theme.windowWidth - 40,
-    },
-    header: {
-      height: 136,
-      backgroundColor: theme.darkGrey,
-      width: theme.windowWidth,
-    },
-  });
-  
+  },
+  bigContainer: {
+    padding: 10,
+    flex: 1,
+    // position: "absolute",
+    marginLeft: 10,
+    marginRight: 10,
+    alignItems: "stretch",
+    bottom: "15%",
+  },
+
+  smallContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    width: theme.windowWidth - 40,
+  },
+  header: {
+    height: 136,
+    backgroundColor: theme.darkGrey,
+    width: theme.windowWidth,
+  },
+});

@@ -113,7 +113,6 @@ function MainProfile({ navigation }) {
         >
           <NumOfFriends num={userfriends?.length || 0} />
         </TouchableOpacity>
-
         <XsmlLabel text={user.bio} />
       </View>
       {/* <MoodsPieChart
@@ -140,19 +139,15 @@ const styles = StyleSheet.create({
     height: 100,
     backgroundColor: theme.grey,
     borderRadius: 100 / 2,
-    zIndex: 100,
+    //zIndex: 100,
     borderColor: "white",
     borderWidth: 4,
-    
   },
   bigContainer: {
     padding: 10,
-    flex: 1,
-    // position: "absolute",
     marginLeft: 10,
     marginRight: 10,
-    alignItems: "stretch",
-    bottom:"15%"
+    bottom: 60,
   },
 
   smallContainer: {

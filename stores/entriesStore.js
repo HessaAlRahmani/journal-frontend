@@ -40,11 +40,14 @@ class EntriesStore {
       newEntry.user = usersStore.user._id;
 
       const response = await instance.post("/journal/", newEntry);
+      this.fetchUserEntries();
+      console.log("back from the shop");
+      this.pics = [];
 
-      runInAction(() => {
-        this.entries.push(response.data);
-        this.userEntries.push(response.data);
-      });
+      // runInAction(() => {
+      //   this.entries.push(response.data);
+      //   this.userEntries.push(response.data);
+      // });
     } catch (error) {
       console.error("can't add entry", error);
     }
