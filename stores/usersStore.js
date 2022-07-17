@@ -100,10 +100,33 @@ class UserStore {
     );
     console.log(this.filteredUsers);
   };
-  acceptFriend=(userId)=>{
-    this.user= this.users.find((user)=>user._id==userId);
-     
-  }
+  acceptFriend = (userId) => {
+    this.user = this.users.find((user) => user._id == userId);
+  };
+  handleRemove = async (exfriend) => {
+    try {
+      const usersfriends = { friends: [] };
+      usersfriends.friends = this.user.friends.filter(
+        (myfriend) => myfriend._id === exfriend._id
+      );
+
+      const friendsfriends = { friends: [] };
+      friendsfriends.friends = exfriend.friends.filter(
+        (myfriend) => myfriend._id === this.user._id
+      );
+      const res1 = await instance.put(
+        `/updateUser/${this.user._id}`,
+        usersfriends
+      );
+      const res2 = await instance.put(
+        `/updateUser/${exfriend._id}`,
+        friendsfriends
+      );
+      this.fetchUsers;
+    } catch (error) {
+      console.error(error);
+    }
+  };
 }
 
 const userStore = new UserStore();

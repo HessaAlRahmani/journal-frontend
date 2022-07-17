@@ -115,10 +115,10 @@ function MainProfile({ navigation }) {
         </TouchableOpacity>
         <XsmlLabel text={user.bio} />
       </View>
-      {/* <MoodsPieChart
+      <MoodsPieChart
         userEntriesFeels={userEntriesFeels}
         sumADatesFeelingsAndHealth={sumADatesFeelingsAndHealth}
-      /> */}
+      />
       <BigButton
         text={"Sign out"}
         onPress={() => {

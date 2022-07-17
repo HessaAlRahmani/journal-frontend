@@ -5,7 +5,7 @@ import userStore from "../../stores/usersStore";
 import { observer } from "mobx-react";
 import FriendRequest from "./FriendRequest";
 import Tag from "./Tag";
-import { BoldBigLabel } from "../../constants";
+import { BoldBigLabel, SmlLabel } from "../../constants";
 
 function Notifications({ navigation }) {
   const user = userStore.user;
@@ -37,10 +37,17 @@ function Notifications({ navigation }) {
     <ScrollView>
       <View style={styles.screen}>
         <BoldBigLabel style={styles.label} text={"Friend requests"} />
-        {friendReqNotifications}
+        {friendReqNotifications.length ? (
+          friendReqNotifications
+        ) : (
+          <SmlLabel text={"no requests"} />
+        )}
         <BoldBigLabel style={styles.label} text={"Friend tags"} />
-
-        {tagNotifications}
+        {friendReqNotifications.length ? (
+          tagNotifications
+        ) : (
+          <SmlLabel text={"no tags yet"} />
+        )}
       </View>
     </ScrollView>
   );
