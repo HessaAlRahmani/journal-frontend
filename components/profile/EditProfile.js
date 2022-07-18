@@ -1,4 +1,4 @@
-import { View, TouchableOpacity, StyleSheet, ScrollView } from "react-native";
+import { View, TouchableOpacity, StyleSheet, ScrollView ,Dimensions} from "react-native";
 import { Image } from "native-base";
 
 import { useState } from "react";
@@ -63,7 +63,7 @@ export default function EditProfile({ navigation }) {
   const handleSubmit = async () => {
     usersStore.updateUser(updatedUser);
     toast.show({
-      title: "Profile updated successfully",
+      title: "Profile Updated Successfully",
       placement: "top",
       bg: "green.800",
     });
@@ -71,7 +71,7 @@ export default function EditProfile({ navigation }) {
   };
 
   return (
-    <ScrollView>
+    <ScrollView style={styles.screen}>
       <View style={styles.pics}>
         <TouchableOpacity style={styles.header} onPress={openLibraryForHeader}>
           <Image
@@ -123,6 +123,11 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     marginBottom: 30,
     alignItems: "center",
+  },
+  screen: {
+    width: Dimensions.get("window").width,
+    height: Dimensions.get("window").height,
+    backgroundColor: "white",
   },
   header: {
     height: 200,

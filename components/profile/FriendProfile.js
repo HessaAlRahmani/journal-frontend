@@ -31,11 +31,11 @@ export default function FriendProfile({route}) {
     const navigation = useNavigation();
     const userfriends=userStore.users.find((user)=>user._id==friend._id).friends;
     const entries = entriesStore.entries;
-    const friendEntries=entries.filter((entrie)=>entrie.user==friend._id)
+    const friendEntries=entries.filter((entry)=>entry.user==friend._id && entry.isPriv==false)
     let Memories=friendEntries.map((entry) => <JournalEntry entry={entry} key={entry._id} />)
 
   return (
-    <ScrollView>
+    <ScrollView style={styles.screen}>
       <Image
         source={{ uri: `${baseURL}${friend.headerImg}` }}
         alt={"header"}
@@ -78,6 +78,11 @@ const styles = StyleSheet.create({
     borderColor: "white",
     borderWidth: 4,
     //   bottom:"8%"
+  },
+  screen: {
+    width: Dimensions.get("window").width,
+    height: Dimensions.get("window").height,
+    backgroundColor: "white",
   },
   bigContainer: {
     padding: 10,

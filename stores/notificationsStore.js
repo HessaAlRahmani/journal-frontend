@@ -19,6 +19,14 @@ class NotificationsStore {
     }
   };
 
+  pending=async(userId,friendId)=>{
+    try{
+      const response=await instance.put(`/notifications/pendingSentFrom/${userId}/to/${friendId}`);
+      userStore.users.find((user)=>user._id==userId).notifications.push(friendId);
+    }
+    catch(error){ console.error(error);}
+  }
+
 
   acceptFriend = async (friendId,userId) => {
     try {
@@ -28,7 +36,8 @@ class NotificationsStore {
       
       runInAction(() => {
      userStore.fetchUsers();
-     userStore.acceptFriend(userId);
+     userStore.user.friends=userStore.users.find((user)=>user._id==userId).friends;
+     userStore.users.find((friend)=>friend._id==friendId).friends.push(userId);
       });
 
     } catch (error) {
@@ -63,6 +72,18 @@ class NotificationsStore {
       console.error("can't delete notification", error);
     }
   };
+  rejectFriend=async(userId,friendId)=>{
+    let rejectedUser=userStore.users.find((user)=>user._id==friendId).notifications.filter((id)=>id!=userId);
+
+    console.log("rejeccccttttt     ",rejectedUser);
+    let updatedUser={notifications:rejectedUser};
+    try{
+        const response=await instance.put(`notifications/rejectFriend/${friendId}`,updatedUser);
+        userStore.users.find((user)=>user._id==friendId).notifications.filter((id)=>id!=userId);
+      }
+    catch(error){console.error("can't reject friend", error);}
+  
+  }
 
 }
 

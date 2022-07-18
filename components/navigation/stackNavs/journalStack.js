@@ -7,6 +7,7 @@ import AddEntry from "../../journal/AddEntry";
 import ItemDetails from "../../journal/ItemDetails";
 
 import MyImageBrowser from "../../journal/MyImageBrowser";
+import JournalMap from "../../journal/JournalMap";
 
 const { Navigator, Screen } = createStackNavigator();
 
@@ -31,6 +32,7 @@ export default function JournalStack() {
       <Screen name="AddEntry" component={AddEntry} />
       <Screen name="MyImageBrowser" component={MyImageBrowser} />
       <Screen name="Details" component={ItemDetails} />
+      <Screen name="map" component={JournalMap}/>
     </Navigator>
   );
 }
