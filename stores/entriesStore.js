@@ -48,8 +48,10 @@ class EntriesStore {
       //   this.entries.push(response.data);
       //   this.userEntries.push(response.data);
       // });
+      return true;
     } catch (error) {
       console.error("can't add entry", error);
+      return false;
     }
   };
 

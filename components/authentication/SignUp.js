@@ -1,4 +1,4 @@
-import { Text, View, SafeAreaView, StyleSheet, TextInput } from "react-native";
+import { Text, View, SafeAreaView, StyleSheet, TextInput,Dimensions } from "react-native";
 import { Image } from "native-base";
 import { useState } from "react";
 import usersStore from "../../stores/usersStore";
@@ -19,7 +19,7 @@ function SignUp() {
   };
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={styles.screen}>
       <Image
         source={require("../../assets/logo.png")}
         style={{ width: 140, height: 140, alignSelf: "center", marginTop: 50 }}
@@ -51,5 +51,10 @@ export default observer(SignUp);
 const styles = StyleSheet.create({
   container: {
     marginTop: 50,
+  },
+  screen: {
+    width: Dimensions.get("window").width,
+    height: Dimensions.get("window").height,
+    backgroundColor: "white",
   },
 });

@@ -1,5 +1,6 @@
 import { useState,useEffect } from 'react';
-import { StyleSheet, Text, View ,Dimensions, FlatList} from 'react-native';
+import * as React from "react";
+import { StyleSheet, Text, View ,Dimensions, FlatList,RefreshControl,ScrollView} from 'react-native';
 import MapView ,{ PROVIDER_GOOGLE ,Marker} from "react-native-maps";
 import * as Location from 'expo-location';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
@@ -14,8 +15,19 @@ import { baseURL } from "../../instance";
 import entriesStore from '../../stores/entriesStore';
 
 
+const wait = (timeout) => {
+  return new Promise(resolve => setTimeout(resolve, timeout));
+}
+
 //check the key 
 export default function MainMap() {
+  const [refreshing, setRefreshing] = React.useState(false);
+  const onRefresh = React.useCallback(() => {
+    setRefreshing(true);
+    wait(2000).then(() => setRefreshing(false));
+  }, []);
+
+
   Location.setGoogleApiKey(googleMapsKey);
   const navigation = useNavigation();
   const entries=entriesStore.entries;
@@ -159,6 +171,12 @@ userfriends.forEach((friend) => {let obj={};obj["_id"]=friend._id;obj["title"]=f
 
   
   return (
+    <ScrollView  refreshControl={
+      <RefreshControl
+        refreshing={refreshing}
+        onRefresh={onRefresh}
+      />
+    }>
     <View style={{flex:1,backgroundColor:"white"}}>
     {/* <View style={{backgroundcolor:"red",width:"90%",height:"30%",position:"absolute",zIndex:10}}></View> */}
 <View style={{alignItems:"center"}}></View>
@@ -206,8 +224,8 @@ userfriends.forEach((friend) => {let obj={};obj["_id"]=friend._id;obj["title"]=f
   
 
 </MapView>
-<Button onPress={()=>{getCurrentlocation()}} variant={"outline"} bgColor={"white"} style={{borderRadius:100,width:70,height:70,flex:0,position:"absolute",zIndex:5,top:"90%",left:"80%",borderColor:"#ced0d3"}}><MaterialIcons name="my-location" size={25} color="#1a73e8" /></Button>
-<Button onPress={()=>{toggleModal()}} variant={"outline"} bgColor={"white"} style={{borderRadius:100,width:70,height:70,flex:0,position:"absolute",zIndex:5,top:"80%",left:"80%",borderColor:"#ced0d3"}}>{filterButton}</Button>
+<Button onPress={()=>{getCurrentlocation()}} variant={"outline"} bgColor={"white"} style={{borderRadius:100,width:70,height:70,flex:0,position:"absolute",zIndex:5,top:"83%",left:"80%",borderColor:"#ced0d3"}}><MaterialIcons name="my-location" size={25} color="#1a73e8" /></Button>
+<Button onPress={()=>{toggleModal()}} variant={"outline"} bgColor={"white"} style={{borderRadius:100,width:70,height:70,flex:0,position:"absolute",zIndex:5,top:"73%",left:"80%",borderColor:"#ced0d3"}}>{filterButton}</Button>
 <Modal propagateSwipe isVisible={isModalVisible} onBackdropPress={() => setModalVisible(false)} style={{borderTopLeftRadius:50,borderTopRightRadius:50}}>
 <View style={{height:"30%",top:"38%",backgroundColor:"white",borderTopLeftRadius:50,borderTopRightRadius:50,paddingTop:20}}>
   <FlatList 
@@ -230,6 +248,7 @@ userfriends.forEach((friend) => {let obj={};obj["_id"]=friend._id;obj["title"]=f
       </Modal>
       
 </View>
+</ScrollView>
   )
 }
 

@@ -82,7 +82,7 @@ function MainProfile({ navigation }) {
 
   return (
     //<SafeAreaView>
-    <ScrollView>
+    <ScrollView style={styles.screen}>
       <Image
         source={{ uri: `${baseURL}${user.headerImg}` }}
         alt={"header"}
@@ -114,8 +114,7 @@ function MainProfile({ navigation }) {
           <NumOfFriends num={userfriends?.length || 0} />
         </TouchableOpacity>
         <XsmlLabel text={user.bio} />
-      </View>
-      <MoodsPieChart
+        <MoodsPieChart
         userEntriesFeels={userEntriesFeels}
         sumADatesFeelingsAndHealth={sumADatesFeelingsAndHealth}
       />
@@ -126,6 +125,9 @@ function MainProfile({ navigation }) {
         }}
         style={{ marginBottom: 20, alignSelf: "center" }}
       />
+      </View>
+      
+      
     </ScrollView>
     //</SafeAreaView>
   );
@@ -148,6 +150,11 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     marginRight: 10,
     bottom: 60,
+  },
+  screen: {
+    width: Dimensions.get("window").width,
+    height: Dimensions.get("window").height,
+    backgroundColor: "white",
   },
 
   smallContainer: {
