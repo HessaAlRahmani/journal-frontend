@@ -34,8 +34,8 @@ const styles = StyleSheet.create({
   },
   videoPreview: {
     width: 390,
-    height: 240,
-    borderRadius: 8,
+    height: 290,
+    borderRadius: 10,
     resizeMode: "cover",
   },
   desc: {
