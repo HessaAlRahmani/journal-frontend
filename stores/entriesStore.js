@@ -1,6 +1,7 @@
 import { makeAutoObservable, runInAction } from "mobx";
 import usersStore from "./usersStore";
 import { instance } from "../instance";
+import { useSyncExternalStore } from "react";
 
 class EntriesStore {
   constructor() {
@@ -8,6 +9,7 @@ class EntriesStore {
   }
   entries = [];
   userEntries = [];
+  filteredUserEntries = [];
   pics = [];
 
   fetchEntries = async () => {
@@ -28,9 +30,26 @@ class EntriesStore {
 
       runInAction(() => {
         this.userEntries = response.data;
+        this.filteredUserEntries = response.data;
       });
     } catch (error) {
       console.error("fetching error", error);
+    }
+  };
+
+  filterUserEntries = (query, value) => {
+    console.log(value);
+    if (value !== "all") {
+      this.filteredUserEntries = this.userEntries.filter((entry) => {
+        return (
+          entry.title.toLowerCase().includes(query.toLowerCase()) &&
+          entry.activityType === value
+        );
+      });
+    } else {
+      this.filteredUserEntries = this.userEntries.filter((entry) => {
+        return entry.title.toLowerCase().includes(query.toLowerCase());
+      });
     }
   };
 

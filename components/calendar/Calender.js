@@ -7,7 +7,7 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import entriesStore from "../../stores/entriesStore";
 import { withNavigation } from "react-navigation";
-
+import { theme } from "../../constants";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default class AgendaScreen extends Component {
@@ -27,7 +27,7 @@ export default class AgendaScreen extends Component {
     }
     let items = {};
     itemsArr.forEach((item) => (items[item.date] = [{ name: item.name }]));
-    // console.log(entries);
+    console.log(items);
     let marked = {};
     itemsArr.forEach((item) => (marked[item.date] = { marked: true }));
 
@@ -181,8 +181,8 @@ export default class AgendaScreen extends Component {
             agendaKnobColor: "#000000",
             indicatorColor: "#000000",
             textSectionTitleColor: "#000000",
-            dotColor: "#000000",
-            selectedDayBackgroundColor: "#000000",
+            dotColor: theme.primary,
+            selectedDayBackgroundColor: theme.primary,
             arrowColor: "#000000",
             textDayFontSize: 12,
             textMonthFontSize: 20,

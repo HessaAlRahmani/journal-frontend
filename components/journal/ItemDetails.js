@@ -15,6 +15,7 @@ import { MaterialIcons } from "@expo/vector-icons";
 import entriesStore from "../../stores/entriesStore";
 import userStore from "../../stores/usersStore";
 import ImageItem from "./EntryImgItem";
+import { useNavigation } from "@react-navigation/native";
 
 import {
   InputField,
@@ -40,18 +41,7 @@ export default function ItemDetails({ route }) {
       </TouchableOpacity>
     );
   });
-  const images0 = [
-    {
-      image:
-        "https://images.unsplash.com/photo-1567226475328-9d6baaf565cf?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=400&q=60",
-      desc: "Silent Waters in the mountains in midst of Himilayas",
-    },
-    {
-      image:
-        "https://images.unsplash.com/photo-1455620611406-966ca6889d80?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1130&q=80",
-      desc: "Red fort in India New Delhi is a magnificient masterpeiece of humans",
-    },
-  ];
+  const navigate = useNavigation();
   const images = entry.attachments.map((img) => {
     return {
       image: `${baseURL}${img}`,
@@ -69,16 +59,16 @@ export default function ItemDetails({ route }) {
           <FlatListSlider
             data={images}
             width={390}
-            height={240}
+            height={300}
             timer={5000}
             component={<ImageItem />}
           />
         </View>
         <View style={{ paddingLeft: 30, paddingTop: 20, paddingRight: 30 }}>
           <BoldBigLabel text={entry.title} />
+          <View style={styles.desc}>
+            <View>{tagged}</View>
 
-          <View>{tagged}</View>
-          <View>
             <TouchableOpacity
             // onPress={() =>
             //   navigation.navigate("", {
@@ -115,9 +105,9 @@ export default function ItemDetails({ route }) {
             {entry.body}
           </Text>
         </View>
-        <View style={styles.input}>
-          {/* <Text>Emojies</Text> */}
+        <View style={styles.emojiContainer}>
           <View style={styles.emoji}>
+            <Text style={styles.emojiLabel}>feeling</Text>
             <Image
               style={styles.pic1}
               source={{
@@ -127,6 +117,7 @@ export default function ItemDetails({ route }) {
             />
           </View>
           <View style={styles.emoji}>
+            <Text style={styles.emojiLabel}>weather</Text>
             <Image
               style={styles.pic1}
               source={{
@@ -136,6 +127,7 @@ export default function ItemDetails({ route }) {
             />
           </View>
           <View style={styles.emoji}>
+            <Text style={styles.emojiLabel}>health</Text>
             <Image
               style={styles.pic1}
               source={{
@@ -173,6 +165,11 @@ const styles = StyleSheet.create({
     height: 250,
   },
 
+  desc: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
+
   input: {
     justifyContent: "space-around",
     flex: 1,
@@ -193,6 +190,22 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.29,
     shadowRadius: 1,
     elevation: 7,
+  },
+
+  emojiContainer: {
+    justifyContent: "space-around",
+    flex: 1,
+    flexDirection: "row",
+    marginRight: 30,
+    marginLeft: 30,
+    marginTop: 10,
+    marginBottom: 10,
+    padding: 7,
+    height: 70,
+  },
+
+  emojiLabel: {
+    marginBottom: 5,
   },
 
   pic1: {
