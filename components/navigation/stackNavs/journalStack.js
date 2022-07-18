@@ -19,9 +19,9 @@ export default function JournalStack() {
         tabBarActiveTintColor: "black",
         headerShown: true,
         headerTitleAlign: "center",
-        title: "Add a memory",
+        title: "Journal",
         headerBackTitle: true,
-        headerLeft: () => null,
+        headerBackTitleVisible: true,
       }}
     >
       <Screen
