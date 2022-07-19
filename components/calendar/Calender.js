@@ -16,7 +16,7 @@ export default class AgendaScreen extends Component {
 
     // const navigation = useNavigation();
 
-    let entries = entriesStore.entries;
+    let entries = entriesStore.userEntries;
     // let itemsArr = [
     //   { date: entries[0].date, name: entries[0].title },
     //   { date: entries[1].date, name: entries[1].title },
@@ -26,8 +26,23 @@ export default class AgendaScreen extends Component {
       itemsArr.push({ date: entries[i].date, name: entries[i].title });
     }
     let items = {};
-    itemsArr.forEach((item) => (items[item.date] = [{ name: item.name }]));
-    console.log(items);
+    let UniqueDates = [
+      ...new Set(
+        entries.map((entry) => {
+          return entry.date;
+        })
+      ),
+    ];
+    for (let i = 0; i < UniqueDates.length; i++) {
+      items[UniqueDates[i]] = [];
+      for (let j = 0; j < entries.length; j++) {
+        if (entries[j].date == UniqueDates[i]) {
+          let obj = {};
+          obj["name"] = entries[j].title;
+          items[UniqueDates[i]].push(obj);
+        }
+      }
+    }
     let marked = {};
     itemsArr.forEach((item) => (marked[item.date] = { marked: true }));
 
