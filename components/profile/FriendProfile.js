@@ -1,4 +1,4 @@
-import { View, StyleSheet, ScrollView } from "react-native";
+import { View, StyleSheet, ScrollView, Dimensions } from "react-native";
 import { Image } from "native-base";
 import { theme, BoldBigLabel, XsmlLabel, NumOfFriends } from "../../constants";
 import entriesStore from "../../stores/entriesStore";
@@ -19,7 +19,7 @@ function FriendProfile({ route }) {
   ));
 
   return (
-    <ScrollView>
+    <ScrollView style={styles.screen}>
       <Image
         source={{ uri: `${baseURL}${friend.headerImg}` }}
         alt={"header"}
@@ -61,6 +61,11 @@ const styles = StyleSheet.create({
     borderRadius: 100 / 2,
     borderColor: "white",
     borderWidth: 4,
+  },
+  screen: {
+    width: Dimensions.get("window").width,
+    height: Dimensions.get("window").height,
+    backgroundColor: "white",
   },
   bigContainer: {
     padding: 10,

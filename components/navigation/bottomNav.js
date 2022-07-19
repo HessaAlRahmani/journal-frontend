@@ -43,7 +43,11 @@ function bottomTab() {
         }}
       />
 
-      <Screen name="Calendar" component={CalendarStack} />
+      <Screen
+        name="Calendar"
+        component={CalendarStack}
+        options={{ headerShown: false }}
+      />
 
       <Screen
         name="Map"

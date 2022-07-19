@@ -15,7 +15,7 @@ export default function MoodsPieChart({
   userEntriesFeels,
   sumADatesFeelingsAndHealth,
 }) {
-  const screenWidth = Dimensions.get("window").width - 30;
+  const screenWidth = Dimensions.get("window").width - 70;
 
   const count = {
     undocumented: 0,
@@ -148,7 +148,7 @@ export default function MoodsPieChart({
         <LineChart
           data={data}
           width={screenWidth}
-          height={200}
+          height={180}
           fromZero={true}
           chartConfig={chartConfig}
           //bezier
@@ -175,7 +175,8 @@ export default function MoodsPieChart({
 
 const styles = StyleSheet.create({
   item: {
-    margin: 12,
+    marginTop: 12,
+    marginBottom: 12,
     borderRadius: 15,
     backgroundColor: theme.grey,
   },

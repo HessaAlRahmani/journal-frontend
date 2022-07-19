@@ -1,12 +1,13 @@
 import { View, Text, StyleSheet } from "react-native";
 import React from "react";
-import { Image } from "native-base";
+import { Image} from "native-base";
 import { baseURL } from "../../instance";
 import { BoldLabel, XsmlLabel } from "../../constants";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { useNavigation } from "@react-navigation/native";
 import { SmallButton } from "../../constants";
 import userStore from "../../stores/usersStore";
+import {theme} from "../../constants";
 
 export default function FriendItem({ friend }) {
   const navigation = useNavigation();
@@ -41,7 +42,7 @@ export default function FriendItem({ friend }) {
         </View>
       </TouchableOpacity>
       <View style={{ justifyContent: "center", right: "15%" }}>
-        <SmallButton onPress={handleRemove} text={"remove"} />
+        <SmallButton onPress={handleRemove} text={"remove"} style={{borderColor:theme.danger,borderWidth: 1,width:60,backgroundColor:"white"}} textStyle={{color:theme.danger}}/>
       </View>
     </View>
   );

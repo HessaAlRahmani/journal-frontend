@@ -1,9 +1,8 @@
-import { View, FlatList } from "react-native";
-import React from "react";
 import FriendItem from "./FriendItem";
 import { SmlLabel } from "../../constants";
 import { observer } from "mobx-react";
 import userStore from "../../stores/usersStore";
+import { View, FlatList, Dimensions, StyleSheet } from "react-native";
 
 function FriendsList({ route }) {
   const { userID } = route.params;
@@ -13,7 +12,7 @@ function FriendsList({ route }) {
   ).friends;
 
   return (
-    <View>
+    <View style={styles.screen}>
       {userfriends.length ? (
         <FlatList
           data={userfriends}
@@ -29,3 +28,15 @@ function FriendsList({ route }) {
 }
 
 export default observer(FriendsList);
+
+const styles = StyleSheet.create({
+  screen: {
+    width: Dimensions.get("window").width,
+    height: Dimensions.get("window").height,
+    backgroundColor: "white",
+  },
+  label: {
+    margin: 10,
+    marginTop: 20,
+  },
+});

@@ -5,14 +5,18 @@ import {
   ImageBackground,
   SafeAreaView,
   ScrollView,
+  Dimensions
 } from "react-native";
 import { useState } from "react";
 import { Container, HStack, View } from "native-base";
+import { FlatListSlider } from "react-native-flatlist-slider";
 import { baseURL } from "../../instance";
 import { Image } from "native-base";
 import { MaterialIcons } from "@expo/vector-icons";
 import entriesStore from "../../stores/entriesStore";
 import userStore from "../../stores/usersStore";
+import ImageItem from "./EntryImgItem";
+import { useNavigation } from "@react-navigation/native";
 
 import {
   InputField,
@@ -22,7 +26,9 @@ import {
   BoldBigLabel,
 } from "../../constants";
 
+
 export default function ItemDetails({ route }) {
+  const navigation=useNavigation();
   const { item } = route.params;
   let entry = entriesStore.entries.find((e) => e.title == item.name);
   let tagged = entry.friends.map((friend) => {
@@ -38,21 +44,38 @@ export default function ItemDetails({ route }) {
       </TouchableOpacity>
     );
   });
+  const navigate = useNavigation();
+  const images = entry.attachments.map((img) => {
+    return {
+      image: `${baseURL}${img}`,
+    };
+  });
   console.log({ entry });
   let date = entry.date;
   return (
-    <SafeAreaView>
+    <SafeAreaView style={styles.screen}>
       <ScrollView>
-        <View style={{ paddingLeft: 30, paddingTop: 20 }}>
+        <View style={{ paddingLeft: 30, paddingTop: 20, paddingBottom: 10 }}>
+          <Text style={{ alignContent: "flex-start" }}>{entry.date}</Text>
+        </View>
+        <View>
+          <FlatListSlider
+            data={images}
+            width={390}
+            height={300}
+            timer={5000}
+            component={<ImageItem />}
+          />
+        </View>
+        <View style={{ paddingLeft: 30, paddingTop: 20, paddingRight: 30 }}>
           <BoldBigLabel text={entry.title} />
-          {/* <Text style={{ alignContent: "flex-start" }}>{entry.date}</Text> */}
-          <View>{tagged}</View>
-          <View>
+          <View style={styles.desc}>
+            <View>{tagged}</View>
+
             <TouchableOpacity
-            // onPress={() =>
-            //   navigation.navigate("", {
-            //   })
-            // }
+            onPress={() =>
+              navigation.navigate("map", {entry:entry})
+            }
             >
               <MaterialIcons name="location-pin" size={24} color="black" />
             </TouchableOpacity>
@@ -60,7 +83,7 @@ export default function ItemDetails({ route }) {
         </View>
         <View style={styles.bigInput}>
           <Text>
-            orem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean
+            {/* orem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean
             commodo ligula eget dolor. Aenean massa. Cum sociis natoque
             penatibus et magnis dis parturient montes, nascetur ridiculus
             mus.Donec quam felis, ultricies nec, pellentesque eu, pretium quis,
@@ -80,12 +103,13 @@ export default function ItemDetails({ route }) {
             Donec vitae sapien ut libero venenatis faucibus. Nullam quis ante.
             Etiam sit amet orci eget eros faucibus tincidunt. Duis leo. Sed
             fringilla mauris sit amet nibh. Donec sodales sagittis magna. Sed
-            consequat, leo eget bibendum sodales, augue velit cursus nunc
+            consequat, leo eget bibendum sodales, augue velit cursus nunc */}
+            {entry.body}
           </Text>
         </View>
-        <View style={styles.input}>
-          {/* <Text>Emojies</Text> */}
+        <View style={styles.emojiContainer}>
           <View style={styles.emoji}>
+            <Text style={styles.emojiLabel}>feeling</Text>
             <Image
               style={styles.pic1}
               source={{
@@ -95,6 +119,7 @@ export default function ItemDetails({ route }) {
             />
           </View>
           <View style={styles.emoji}>
+            <Text style={styles.emojiLabel}>weather</Text>
             <Image
               style={styles.pic1}
               source={{
@@ -104,6 +129,7 @@ export default function ItemDetails({ route }) {
             />
           </View>
           <View style={styles.emoji}>
+            <Text style={styles.emojiLabel}>health</Text>
             <Image
               style={styles.pic1}
               source={{
@@ -113,15 +139,6 @@ export default function ItemDetails({ route }) {
             />
           </View>
         </View>
-        <View style={styles.imgContainer}>
-          <ScrollView horizontal={true}>
-            <HStack>{/* {img viewer swiper silde thing} */}</HStack>
-          </ScrollView>
-        </View>
-
-        <Text>kjdfnlskjd</Text>
-        <Text>lkfmgbgkldjfgnbldkjj</Text>
-        <Text>kldfgnv;slrng;wlsjng;</Text>
       </ScrollView>
     </SafeAreaView>
   );
@@ -144,10 +161,21 @@ const styles = StyleSheet.create({
       width: 0,
       height: 2,
     },
+  
     shadowOpacity: 0.29,
     shadowRadius: 1,
     elevation: 7,
-    height: 300,
+    height: 250,
+  },
+  screen: {
+    width: Dimensions.get("window").width,
+    height: Dimensions.get("window").height,
+    backgroundColor: "white",
+  },
+
+  desc: {
+    flexDirection: "row",
+    justifyContent: "space-between",
   },
 
   input: {
@@ -172,6 +200,22 @@ const styles = StyleSheet.create({
     elevation: 7,
   },
 
+  emojiContainer: {
+    justifyContent: "space-around",
+    flex: 1,
+    flexDirection: "row",
+    marginRight: 30,
+    marginLeft: 30,
+    marginTop: 10,
+    marginBottom: 10,
+    padding: 7,
+    height: 70,
+  },
+
+  emojiLabel: {
+    marginBottom: 5,
+  },
+
   pic1: {
     width: 30,
     marginBottom: 4,
@@ -184,12 +228,10 @@ const styles = StyleSheet.create({
     justifyContent: "space-around",
     flex: 1,
     flexDirection: "row",
+    paddingTop: 5,
     marginRight: 30,
     marginLeft: 30,
-    marginTop: 10,
     marginBottom: 10,
-    padding: 7,
-    height: 120,
     backgroundColor: theme.lightGrey,
     borderRadius: 10,
     shadowColor: "#000",
@@ -207,5 +249,10 @@ const styles = StyleSheet.create({
     marginTop: 5,
     marginBottom: 5,
     marginRight: 5,
+  },
+
+  imglist: {
+    flex: 1,
+    borderRadius: 10,
   },
 });

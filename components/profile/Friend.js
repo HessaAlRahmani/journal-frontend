@@ -1,6 +1,6 @@
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
-import React from "react";
-import { Image } from "native-base";
+import React, { useState } from "react";
+import { Image, useToast } from "native-base";
 import { baseURL } from "../../instance";
 import { theme, XsmlLabel } from "../../constants";
 import { AntDesign } from "@expo/vector-icons";
@@ -9,8 +9,37 @@ import { observer } from "mobx-react";
 import notificationsStore from "../../stores/notificationsStore";
 
 function Friend({ friend }) {
+  const toast = useToast();
   let found = userStore.user.friends.find((friendid) => friendid == friend._id);
   let user = userStore.user._id;
+  let pendingrequest = userStore.users
+    .find((userr) => userr._id == user)
+    .notifications.find((id) => id == friend._id);
+
+  const handleAddFriend = () => {
+    notificationsStore.newNotification({
+      sender: user,
+      receiver: friend._id,
+      type: "friendRequest",
+    });
+    setAddFriendButton(<></>);
+    notificationsStore.pending(user, friend._id);
+    toast.show({
+      title: `Friend Request Sent`,
+      placement: "top",
+      bg: "green.800",
+    });
+  };
+  const [addFriendButton, setAddFriendButton] = useState(
+    <TouchableOpacity
+      onPress={() => {
+        handleAddFriend();
+      }}
+      style={{ justifyContent: "center", left: "0%" }}
+    >
+      <AntDesign name="adduser" size={28} color="black" />
+    </TouchableOpacity>
+  );
 
   return (
     <View style={styles.container}>
@@ -29,23 +58,8 @@ function Friend({ friend }) {
           <XsmlLabel text={`${friend.displayname}`} />
         </View>
       </View>
-      {/* unfriend button? */}
-      {found || user == friend._id ? (
-        <></>
-      ) : (
-        <TouchableOpacity
-          onPress={() => {
-            notificationsStore.newNotification({
-              sender: user,
-              receiver: friend._id,
-              type: "friendRequest",
-            });
-          }}
-          style={{ justifyContent: "center", paddingRight: 20 }}
-        >
-          <AntDesign name="adduser" size={28} color="black" />
-        </TouchableOpacity>
-      )}
+
+      {found || user == friend._id || pendingrequest ? <></> : addFriendButton}
     </View>
   );
 }

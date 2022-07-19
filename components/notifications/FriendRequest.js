@@ -1,10 +1,9 @@
 import { View, Text, StyleSheet } from "react-native";
 import React from "react";
-import { Image } from "native-base";
+import { useToast } from "native-base";
 import { baseURL } from "../../instance";
 import { BoldLabel, XsmlLabel, theme } from "../../constants";
 import { TouchableOpacity } from "react-native-gesture-handler";
-import { useNavigation } from "@react-navigation/native";
 import { SmallButton } from "../../constants";
 import { AntDesign } from "@expo/vector-icons";
 import { Feather } from "@expo/vector-icons";
@@ -12,6 +11,7 @@ import userStore from "../../stores/usersStore";
 import notificationsStore from "../../stores/notificationsStore";
 
 export default function FriendRequest({ navigation, notification }) {
+  const toast = useToast();
   const friend = userStore.users.find(
     (user) => user._id == notification.sender
   );
@@ -38,6 +38,7 @@ export default function FriendRequest({ navigation, notification }) {
           </View>
         </View>
       </TouchableOpacity>
+
       <View
         style={{
           alignItems: "center",
@@ -48,20 +49,26 @@ export default function FriendRequest({ navigation, notification }) {
           justifyContent: "flex-end",
         }}
       >
+        {/* accept friend button */}
         <SmallButton
           text={"accept"}
           onPress={() => {
             notificationsStore.acceptFriend(friend._id, user._id);
-            console.log(
-              "user: " + user.username + "friend: " + friend.username
-            );
+            console.log("user" + user.username + "friend" + friend.username);
             notificationsStore.deleteNotification(notification._id);
+            toast.show({
+              title: ` You Accepted @${friend.username} Friend Request`,
+              placement: "top",
+              bg: "green.800",
+            });
           }}
           style={{ width: 60 }}
         />
+        {/* reject friend button */}
         <TouchableOpacity
           onPress={() => {
             notificationsStore.deleteNotification(notification._id);
+            notificationsStore.rejectFriend(user._id, friend._id);
           }}
         >
           <Feather name="x" size={19} color={theme.darkGrey} />

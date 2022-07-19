@@ -1,6 +1,5 @@
-import { View, StyleSheet, ScrollView } from "react-native";
+import { View, StyleSheet, ScrollView, Dimensions } from "react-native";
 import { Image } from "native-base";
-
 import {
   theme,
   BoldBigLabel,
@@ -35,7 +34,6 @@ const HEALTH = {
 
 function MainProfile({ navigation }) {
   const user = usersStore.user;
-  // const navigation = useNavigation();
   const userfriends = usersStore.users.find(
     (user) => user._id == usersStore.user._id
   ).friends;
@@ -67,7 +65,7 @@ function MainProfile({ navigation }) {
     .slice(0, 7);
 
   return (
-    <ScrollView>
+    <ScrollView style={styles.screen}>
       <Image
         source={{ uri: `${baseURL}${user.headerImg}` }}
         alt={"header"}
@@ -99,18 +97,18 @@ function MainProfile({ navigation }) {
           <NumOfFriends num={userfriends?.length || 0} />
         </TouchableOpacity>
         <XsmlLabel text={user.bio} />
+        <MoodsPieChart
+          userEntriesFeels={userEntriesFeels}
+          sumADatesFeelingsAndHealth={sumADatesFeelingsAndHealth}
+        />
+        <BigButton
+          text={"Sign out"}
+          onPress={() => {
+            usersStore.signout();
+          }}
+          style={{ marginBottom: 20, alignSelf: "center" }}
+        />
       </View>
-      <MoodsPieChart
-        userEntriesFeels={userEntriesFeels}
-        sumADatesFeelingsAndHealth={sumADatesFeelingsAndHealth}
-      />
-      <BigButton
-        text={"Sign out"}
-        onPress={() => {
-          usersStore.signout();
-        }}
-        style={{ marginBottom: 20, alignSelf: "center" }}
-      />
     </ScrollView>
   );
 }
@@ -131,6 +129,11 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     marginRight: 10,
     bottom: 60,
+  },
+  screen: {
+    width: Dimensions.get("window").width,
+    height: Dimensions.get("window").height,
+    backgroundColor: "white",
   },
 
   smallContainer: {

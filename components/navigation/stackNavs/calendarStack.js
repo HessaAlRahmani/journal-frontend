@@ -13,12 +13,21 @@ export default function CalendarStack() {
       initialRouteName="MainAgendaScreen"
       screenOptions={{
         tabBarActiveTintColor: "black",
-        headerShown: false,
+        headerShown: true,
         headerTitleAlign: "center",
+        headerBackTitleVisible: true,
       }}
     >
-      <Screen name="MainAgendaScreen" component={AgendaScreen} />
-      <Screen name="Details" component={ItemDetails} />
+      <Screen
+        name="MainAgendaScreen"
+        component={AgendaScreen}
+        options={{ title: "Calender" }}
+      />
+      <Screen
+        name="Details"
+        component={ItemDetails}
+        options={{ title: "Details" }}
+      />
     </Navigator>
   );
 }
