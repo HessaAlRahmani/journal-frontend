@@ -7,14 +7,13 @@ import {
   RefreshControl,
   Dimensions,
 } from "react-native";
-import { SmlLabel, RoundButton, theme, InputField } from "../../constants";
+import { SmlLabel, RoundButton, theme } from "../../constants";
 import { Octicons } from "@expo/vector-icons";
 import entriesStore from "../../stores/entriesStore";
 import userStore from "../../stores/usersStore";
 import JournalEntry from "./JournalItem";
 import { observer } from "mobx-react";
 import { Dropdown } from "react-native-element-dropdown";
-import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 import { useState } from "react";
 import * as React from "react";
 
@@ -30,8 +29,6 @@ function JournalList({ navigation }) {
     wait(2000).then(() => setRefreshing(false));
   }, []);
 
-  const today = new Date();
-  const todaysDate = today.toISOString().split("T")[0];
   const [value, setValue] = useState("");
   const [isFocus, setIsFocus] = useState(false);
   let data = [{ label: "all", value: "0" }];
@@ -117,23 +114,13 @@ function JournalList({ navigation }) {
               <Octicons
                 style={styles.icon}
                 name="filter"
-                size={20}
+                size={14}
                 color="black"
               />
             )}
           />
         </View>
-        {/* <Text style={{ padding: 5, margin: 10, fontSize: RFValue(14) }}>
-          {today.toDateString()}
-        </Text> */}
-        {/* <View
-          style={{
-            borderTopColor: theme.darkGrey,
-            borderTopWidth: 1,
-            margin: 20,
-            marginTop: 0,
-          }}
-        ></View> */}
+
         {entries.length == 0 ? (
           <SmlLabel text="no entries yet" />
         ) : (
@@ -167,7 +154,6 @@ const styles = StyleSheet.create({
     height: 50,
     borderRadius: 10,
     backgroundColor: theme.lightGrey,
-    borderRadius: 10,
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
@@ -179,7 +165,7 @@ const styles = StyleSheet.create({
   },
 
   placeholderStyle: {
-    fontSize: 16,
+    fontSize: 14,
   },
   selectedTextStyle: {
     fontSize: 18,
@@ -194,18 +180,15 @@ const styles = StyleSheet.create({
   filtering: {
     flexDirection: "row",
     justifyContent: "space-between",
-    marginLeft: 10,
   },
   searchInput: {
     borderColor: theme.grey,
     borderWidth: 1,
     fontSize: 18,
-    // margin: 10,
     marginTop: 10,
     marginBottom: 10,
     marginLeft: 10,
     padding: 7,
-    // minWidth: "60%",
     width: 250,
     height: 50,
     backgroundColor: theme.lightGrey,

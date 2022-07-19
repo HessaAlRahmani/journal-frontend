@@ -10,8 +10,6 @@ import { theme } from "../../constants";
 import { baseURL } from "../../instance";
 import { Image } from "native-base";
 import entriesStore from "../../stores/entriesStore";
-import { useNavigation } from "@react-navigation/native";
-import userStore from "../../stores/usersStore";
 
 export default function JournalItem({ entry, navigation }) {
   const [isFav, setIsFav] = useState(entry.isFav);

@@ -38,7 +38,7 @@ class EntriesStore {
   };
 
   filterUserEntries = (query, value) => {
-    console.log(value);
+    console.log(query);
     if (value !== "all") {
       this.filteredUserEntries = this.userEntries.filter((entry) => {
         return (

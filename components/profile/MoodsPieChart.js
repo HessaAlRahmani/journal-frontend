@@ -58,7 +58,7 @@ export default function MoodsPieChart({
     datasets: [
       {
         data: feelings,
-        color: (opacity = 1) => "#118AB2",
+        color: (opacity = 1) => "#7AA6CC",
       },
       { data: health, color: (opacity = 1) => "#FFD166" },
     ],
@@ -88,7 +88,7 @@ export default function MoodsPieChart({
     {
       name: "Happy",
       freq: count.happy,
-      color: "#118AB2",
+      color: "#7AA6CC",
       legendFontColor: "#7F7F7F",
       legendFontSize: RFValue(11),
     },

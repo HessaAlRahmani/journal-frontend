@@ -1,4 +1,11 @@
-import { Text, View, SafeAreaView, StyleSheet, TextInput,Dimensions } from "react-native";
+import {
+  Text,
+  View,
+  SafeAreaView,
+  StyleSheet,
+  TextInput,
+  Dimensions,
+} from "react-native";
 import { Image } from "native-base";
 import { useState } from "react";
 import usersStore from "../../stores/usersStore";

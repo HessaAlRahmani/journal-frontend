@@ -2,110 +2,65 @@ import {
   Text,
   TouchableOpacity,
   StyleSheet,
-  ImageBackground,
   SafeAreaView,
   ScrollView,
-  Dimensions
+  Dimensions,
 } from "react-native";
-import { useState } from "react";
-import { Container, HStack, View } from "native-base";
+import { View } from "native-base";
 import { FlatListSlider } from "react-native-flatlist-slider";
 import { baseURL } from "../../instance";
 import { Image } from "native-base";
 import { MaterialIcons } from "@expo/vector-icons";
 import entriesStore from "../../stores/entriesStore";
-import userStore from "../../stores/usersStore";
 import ImageItem from "./EntryImgItem";
 import { useNavigation } from "@react-navigation/native";
-
-import {
-  InputField,
-  BigInputField,
-  theme,
-  SmlLabel,
-  BoldBigLabel,
-} from "../../constants";
-
+import { theme, BoldBigLabel } from "../../constants";
 
 export default function ItemDetails({ route }) {
-  const navigation=useNavigation();
+  const navigation = useNavigation();
   const { item } = route.params;
   let entry = entriesStore.entries.find((e) => e.title == item.name);
+
   let tagged = entry.friends.map((friend) => {
     return (
-      <TouchableOpacity
-      // onPress={() =>
-      //   navigation.navigate("", {
-      //     user: user,
-      //   })
-      // }
-      >
+      <TouchableOpacity>
         <Text style={styles.user}>@{friend.displayname}</Text>
       </TouchableOpacity>
     );
   });
-  const navigate = useNavigation();
   const images = entry.attachments.map((img) => {
     return {
       image: `${baseURL}${img}`,
     };
   });
+
   console.log({ entry });
-  let date = entry.date;
   return (
     <SafeAreaView style={styles.screen}>
       <ScrollView>
+        <FlatListSlider
+          data={images}
+          width={390}
+          height={300}
+          timer={5000}
+          component={<ImageItem />}
+        />
         <View style={{ paddingLeft: 30, paddingTop: 20, paddingBottom: 10 }}>
           <Text style={{ alignContent: "flex-start" }}>{entry.date}</Text>
         </View>
-        <View>
-          <FlatListSlider
-            data={images}
-            width={390}
-            height={300}
-            timer={5000}
-            component={<ImageItem />}
-          />
-        </View>
-        <View style={{ paddingLeft: 30, paddingTop: 20, paddingRight: 30 }}>
+        <View style={{ paddingLeft: 30, paddingRight: 30 }}>
           <BoldBigLabel text={entry.title} />
           <View style={styles.desc}>
             <View>{tagged}</View>
-
             <TouchableOpacity
-            onPress={() =>
-              navigation.navigate("map", {entry:entry})
-            }
+              onPress={() => navigation.navigate("map", { entry: entry })}
             >
               <MaterialIcons name="location-pin" size={24} color="black" />
             </TouchableOpacity>
           </View>
         </View>
         <View style={styles.bigInput}>
-          <Text>
-            {/* orem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean
-            commodo ligula eget dolor. Aenean massa. Cum sociis natoque
-            penatibus et magnis dis parturient montes, nascetur ridiculus
-            mus.Donec quam felis, ultricies nec, pellentesque eu, pretium quis,
-            sem. Nulla consequat massa quis enim. Donec pede justo, fringilla
-            vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut,
-            imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede
-            mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum
-            semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula,
-            porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem
-            ante, dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra
-            nulla ut metus varius laoreet. Quisque rutrum. Aenean imperdiet.
-            Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies
-            nisi. Nam eget dui. Etiam rhoncus. Maecenas tempus, tellus eget
-            condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem
-            neque sed ipsum. Nam quam nunc, blandit vel, luctus pulvinar,
-            hendrerit id, lorem. Maecenas nec odio et ante tincidunt tempus.
-            Donec vitae sapien ut libero venenatis faucibus. Nullam quis ante.
-            Etiam sit amet orci eget eros faucibus tincidunt. Duis leo. Sed
-            fringilla mauris sit amet nibh. Donec sodales sagittis magna. Sed
-            consequat, leo eget bibendum sodales, augue velit cursus nunc */}
-            {entry.body}
-          </Text>
+          <Text>{entry.body}</Text>
         </View>
         <View style={styles.emojiContainer}>
           <View style={styles.emoji}>
@@ -161,11 +116,11 @@ const styles = StyleSheet.create({
       width: 0,
       height: 2,
     },
-  
+
     shadowOpacity: 0.29,
     shadowRadius: 1,
     elevation: 7,
-    height: 250,
+    height: 120,
   },
   screen: {
     width: Dimensions.get("window").width,
@@ -233,7 +188,6 @@ const styles = StyleSheet.create({
     marginLeft: 30,
     marginBottom: 10,
     backgroundColor: theme.lightGrey,
-    borderRadius: 10,
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
