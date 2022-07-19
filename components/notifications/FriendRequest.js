@@ -52,7 +52,9 @@ export default function FriendRequest({ navigation, notification }) {
           text={"accept"}
           onPress={() => {
             notificationsStore.acceptFriend(friend._id, user._id);
-            console.log("user" + user.username + "friend" + friend.username);
+            console.log(
+              "user: " + user.username + "friend: " + friend.username
+            );
             notificationsStore.deleteNotification(notification._id);
           }}
           style={{ width: 60 }}

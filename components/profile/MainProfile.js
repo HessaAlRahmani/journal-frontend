@@ -1,11 +1,4 @@
-import {
-  View,
-  StyleSheet,
-  Text,
-  Dimensions,
-  ScrollView,
-  SafeAreaView,
-} from "react-native";
+import { View, StyleSheet, ScrollView } from "react-native";
 import { Image } from "native-base";
 
 import {
@@ -18,13 +11,12 @@ import {
 import { observer } from "mobx-react";
 import usersStore from "../../stores/usersStore";
 import entriesStore from "../../stores/entriesStore";
-import { useNavigation } from "@react-navigation/native";
 import { baseURL } from "../../instance";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import MoodsPieChart from "./MoodsPieChart";
 
 const FEELING = {
-  lovely: 5,
+  amazing: 5,
   happy: 4,
   ok: 3,
   worried: 2,
@@ -74,14 +66,7 @@ function MainProfile({ navigation }) {
     })
     .slice(0, 7);
 
-  //sort by date
-
-  const ShowFriends = () => {
-    navigation.navigate("ViewFriends");
-  };
-
   return (
-    //<SafeAreaView>
     <ScrollView>
       <Image
         source={{ uri: `${baseURL}${user.headerImg}` }}
@@ -108,7 +93,7 @@ function MainProfile({ navigation }) {
         <XsmlLabel text={"@" + user.username} />
         <TouchableOpacity
           onPress={() => {
-            navigation.navigate("friendsList", { friends: userfriends });
+            navigation.navigate("friendsList", { userID: user._id });
           }}
         >
           <NumOfFriends num={userfriends?.length || 0} />
@@ -127,7 +112,6 @@ function MainProfile({ navigation }) {
         style={{ marginBottom: 20, alignSelf: "center" }}
       />
     </ScrollView>
-    //</SafeAreaView>
   );
 }
 
@@ -139,7 +123,6 @@ const styles = StyleSheet.create({
     height: 100,
     backgroundColor: theme.grey,
     borderRadius: 100 / 2,
-    //zIndex: 100,
     borderColor: "white",
     borderWidth: 4,
   },

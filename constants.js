@@ -14,7 +14,7 @@ export const theme = {
   lightGrey: "#F6F6F6",
   grey: "#D9D9D9",
   darkGrey: "#696969",
-  primary: "#64B769",
+  primary: "#feb801",
   danger: "#EB7070",
   success: "#2FA83B",
   windowWidth: Dimensions.get("window").width,
@@ -185,8 +185,8 @@ export const XsmlLabel = ({ text }) => {
   return <Text style={styles.XsmlLabel}>{text}</Text>;
 };
 
-export const SmlLabel = ({ text }) => {
-  return <Text style={styles.SmlLabel}>{text}</Text>;
+export const SmlLabel = ({ text, style }) => {
+  return <Text style={[styles.SmlLabel, style]}>{text}</Text>;
 };
 
 export const InputLabel = ({ text }) => {
@@ -203,7 +203,7 @@ export const InputField = ({
 }) => {
   return (
     <View>
-      <InputLabel text={label} />
+      {label && <InputLabel text={label} />}
       <TextInput
         style={[styles.input, styles.basicShadow]}
         secureTextEntry={secureTextEntry}
@@ -265,7 +265,8 @@ const styles = StyleSheet.create({
     position: "absolute",
     bottom: 15,
     right: 10,
-    marginRight: 0,
+    marginRight: 10,
+    marginBottom: 10,
   },
   plusIcon: {
     width: 30,
@@ -360,12 +361,12 @@ const styles = StyleSheet.create({
   SmlLabel: {
     marginLeft: 30,
     fontSize: RFValue(14),
+    color: theme.darkGrey,
   },
 
   inputLabel: {
     marginLeft: 10,
     fontSize: RFValue(14),
-
     fontWeight: "bold",
   },
 

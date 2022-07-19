@@ -13,19 +13,18 @@ import entriesStore from "../../stores/entriesStore";
 import { useNavigation } from "@react-navigation/native";
 import userStore from "../../stores/usersStore";
 
-export default function JournalItem({ entry }) {
+export default function JournalItem({ entry, navigation }) {
   const [isFav, setIsFav] = useState(entry.isFav);
-  const navigation = useNavigation();
 
   const viewDetails = () => {
-    console.log("here" + entry.attachments);
-    //go to entry details
     let item = { name: entry.title };
     navigation.navigate("Details", { item: item });
   };
 
   const usersTagged = entry.friends.map((friend) => (
-    <TouchableOpacity>
+    <TouchableOpacity
+      onPress={() => navigation.navigate("friendProfile", { friend: friend })}
+    >
       <Text style={styles.friend} key={friend._id}>
         @{friend.username}
       </Text>

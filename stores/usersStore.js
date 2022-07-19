@@ -85,6 +85,7 @@ class UserStore {
         updatedUser
       );
       this.user = res.data;
+      console.log(this.user);
     } catch (error) {
       console.error(error);
     }
@@ -98,17 +99,23 @@ class UserStore {
     this.filteredUsers = this.users.filter((user) =>
       user.username.toLowerCase().includes(query.toLowerCase())
     );
-    console.log(this.filteredUsers);
   };
+
   acceptFriend = (userId) => {
     this.user = this.users.find((user) => user._id == userId);
   };
+
   handleRemove = async (exfriend) => {
     try {
       const usersfriends = { friends: [] };
       usersfriends.friends = this.user.friends.filter(
         (myfriend) => myfriend._id === exfriend._id
       );
+
+      runInAction(() => {
+        this.user.friends = usersfriends;
+        console.log(this.user.friends);
+      });
 
       const friendsfriends = { friends: [] };
       friendsfriends.friends = exfriend.friends.filter(

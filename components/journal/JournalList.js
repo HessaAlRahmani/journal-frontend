@@ -10,7 +10,9 @@ function JournalList({ navigation }) {
   const todaysDate = today.toISOString().split("T")[0];
   const entries = entriesStore.userEntries
     .filter((entry) => entry.date == todaysDate)
-    .map((entry) => <JournalEntry entry={entry} key={entry._id} />);
+    .map((entry) => (
+      <JournalEntry entry={entry} key={entry._id} navigation={navigation} />
+    ));
 
   return (
     <View style={{ flex: 1, paddingTop: 10 }}>
