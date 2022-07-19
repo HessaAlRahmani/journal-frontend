@@ -1,4 +1,12 @@
-import { View, ScrollView, Text, StyleSheet, TextInput } from "react-native";
+import {
+  View,
+  ScrollView,
+  Text,
+  StyleSheet,
+  TextInput,
+  RefreshControl,
+  Dimensions,
+} from "react-native";
 import { SmlLabel, RoundButton, theme, InputField } from "../../constants";
 import { Octicons } from "@expo/vector-icons";
 import entriesStore from "../../stores/entriesStore";
@@ -8,9 +16,20 @@ import { observer } from "mobx-react";
 import { Dropdown } from "react-native-element-dropdown";
 import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 import { useState } from "react";
+import * as React from "react";
+
+const wait = (timeout) => {
+  return new Promise((resolve) => setTimeout(resolve, timeout));
+};
 
 function JournalList({ navigation }) {
   const [query, setQuery] = useState("");
+  const [refreshing, setRefreshing] = React.useState(false);
+  const onRefresh = React.useCallback(() => {
+    setRefreshing(true);
+    wait(2000).then(() => setRefreshing(false));
+  }, []);
+
   const today = new Date();
   const todaysDate = today.toISOString().split("T")[0];
   const [value, setValue] = useState("");
@@ -60,7 +79,11 @@ function JournalList({ navigation }) {
 
   return (
     <View style={{ flex: 1, paddingTop: 10 }}>
-      <ScrollView>
+      <ScrollView
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }
+      >
         <View style={styles.filtering}>
           <TextInput
             style={[styles.searchInput, styles.basicShadow]}
@@ -125,6 +148,13 @@ function JournalList({ navigation }) {
 export default observer(JournalList);
 
 const styles = StyleSheet.create({
+  screen: {
+    width: Dimensions.get("window").width,
+    height: Dimensions.get("window").height,
+    backgroundColor: "white",
+    flex: 1,
+    paddingTop: 10,
+  },
   dropdown: {
     borderColor: theme.grey,
     borderWidth: 1,

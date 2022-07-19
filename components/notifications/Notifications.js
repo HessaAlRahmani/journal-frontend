@@ -1,5 +1,5 @@
-import { View, Text, StyleSheet, Dimensions, ScrollView } from "react-native";
-import React from "react";
+import { View, Text, StyleSheet, Dimensions, ScrollView ,RefreshControl} from "react-native";
+import * as React from "react";
 import notificationsStore from "../../stores/notificationsStore";
 import userStore from "../../stores/usersStore";
 import { observer } from "mobx-react";
@@ -7,7 +7,18 @@ import FriendRequest from "./FriendRequest";
 import Tag from "./Tag";
 import { BoldBigLabel, SmlLabel } from "../../constants";
 
+const wait = (timeout) => {
+  return new Promise(resolve => setTimeout(resolve, timeout));
+}
+
 function Notifications({ navigation }) {
+  const [refreshing, setRefreshing] = React.useState(false);
+  const onRefresh = React.useCallback(() => {
+    setRefreshing(true);
+    wait(2000).then(() => setRefreshing(false));
+  }, []);
+
+
   const user = userStore.user;
   const myNotifications = notificationsStore.notifications.filter(
     (notification) => notification.receiver == user._id
@@ -34,7 +45,12 @@ function Notifications({ navigation }) {
     ));
 
   return (
-    <ScrollView>
+    <ScrollView  refreshControl={
+      <RefreshControl
+        refreshing={refreshing}
+        onRefresh={onRefresh}
+      />
+    }>
       <View style={styles.screen}>
         <BoldBigLabel style={styles.label} text={"Friend requests"} />
         {friendReqNotifications.length ? (

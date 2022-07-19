@@ -1,4 +1,4 @@
-import { View, Text, ScrollView } from "react-native";
+import { View, Text, ScrollView ,Dimensions,StyleSheet} from "react-native";
 import { useState } from "react";
 import { InputField } from "../../constants";
 import userStore from "../../stores/usersStore";
@@ -15,7 +15,7 @@ function SearchFriend() {
   }
 
   return (
-    <View>
+    <View style={styles.screen}>
       <InputField
         value={search}
         placeholder="Search for a friend!"
@@ -33,3 +33,11 @@ function SearchFriend() {
   );
 }
 export default observer(SearchFriend);
+
+const styles = StyleSheet.create({
+  screen: {
+    width: Dimensions.get("window").width,
+    height: Dimensions.get("window").height,
+    backgroundColor: "white",
+  },
+});

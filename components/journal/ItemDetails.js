@@ -5,6 +5,7 @@ import {
   ImageBackground,
   SafeAreaView,
   ScrollView,
+  Dimensions
 } from "react-native";
 import { useState } from "react";
 import { Container, HStack, View } from "native-base";
@@ -25,7 +26,9 @@ import {
   BoldBigLabel,
 } from "../../constants";
 
+
 export default function ItemDetails({ route }) {
+  const navigation=useNavigation();
   const { item } = route.params;
   let entry = entriesStore.entries.find((e) => e.title == item.name);
   let tagged = entry.friends.map((friend) => {
@@ -50,7 +53,7 @@ export default function ItemDetails({ route }) {
   console.log({ entry });
   let date = entry.date;
   return (
-    <SafeAreaView>
+    <SafeAreaView style={styles.screen}>
       <ScrollView>
         <View style={{ paddingLeft: 30, paddingTop: 20, paddingBottom: 10 }}>
           <Text style={{ alignContent: "flex-start" }}>{entry.date}</Text>
@@ -70,10 +73,9 @@ export default function ItemDetails({ route }) {
             <View>{tagged}</View>
 
             <TouchableOpacity
-            // onPress={() =>
-            //   navigation.navigate("", {
-            //   })
-            // }
+            onPress={() =>
+              navigation.navigate("map", {entry:entry})
+            }
             >
               <MaterialIcons name="location-pin" size={24} color="black" />
             </TouchableOpacity>
@@ -159,10 +161,16 @@ const styles = StyleSheet.create({
       width: 0,
       height: 2,
     },
+  
     shadowOpacity: 0.29,
     shadowRadius: 1,
     elevation: 7,
     height: 250,
+  },
+  screen: {
+    width: Dimensions.get("window").width,
+    height: Dimensions.get("window").height,
+    backgroundColor: "white",
   },
 
   desc: {

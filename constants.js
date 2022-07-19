@@ -67,13 +67,13 @@ export const BigButton = ({ onPress, text, style }) => {
   );
 };
 
-export const SmallButton = ({ onPress, text, style }) => {
+export const SmallButton = ({ onPress, text, style ,textStyle}) => {
   return (
     <TouchableOpacity
       style={[styles.basicShadow, styles.SmallButton, style]}
       onPress={onPress}
     >
-      <Text style={styles.SmallButtonText}>{text}</Text>
+      <Text style={[styles.SmallButtonText,textStyle]}>{text}</Text>
     </TouchableOpacity>
   );
 };
@@ -325,7 +325,7 @@ const styles = StyleSheet.create({
   },
   SmallButtonText: {
     fontSize: RFValue(10),
-    color: "white",
+    color:"white",
     textAlign: "center",
   },
 

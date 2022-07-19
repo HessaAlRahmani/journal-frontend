@@ -49,7 +49,7 @@ export default function NewEntryMap({newEntry, setNewEntry }) {
     console.log("userr ",userStore.user)
     setView({latitude:location.coords.latitude,longitude:location.coords.longitude,longitudeDelta: 0.005,latitudeDelta: 0.005});
     SetMarkerloc({latitude:location.coords.latitude,longitude:location.coords.longitude});
-    setNewEntry({...newEntry,location:{lat:markerloc.latitude,lng:markerloc.longitude}});
+    setNewEntry({...newEntry,location:{lat:location.coords.latitude,lng:location.coords.longitude}});
 
   })();
 }, []);
@@ -58,7 +58,7 @@ export default function NewEntryMap({newEntry, setNewEntry }) {
   const lat=e.nativeEvent.coordinate.latitude.toFixed(6);
   const lng=e.nativeEvent.coordinate.longitude.toFixed(6);
   SetMarkerloc({latitude:lat,longitude:lng});
-  setNewEntry({...newEntry,location:{lat:markerloc.latitude,lng:markerloc.longitude}});
+  setNewEntry({...newEntry,location:{lat:lat,lng:lng}});
   alert(Object.entries(markerloc));
   console.log(lat,lng)
  }
@@ -66,7 +66,7 @@ export default function NewEntryMap({newEntry, setNewEntry }) {
  const getCurrentlocation=()=>{
     setView({latitude:location.latitude,longitude:location.longitude,longitudeDelta: 0.005,latitudeDelta: 0.005});
     SetMarkerloc({latitude:location.latitude,longitude:location.longitude});
-    setNewEntry({...newEntry,location:{lat:markerloc.latitude,lng:markerloc.longitude}});
+    setNewEntry({...newEntry,location:{lat:location.latitude,lng:location.longitude}});
     // alert("userrrrr  ",userStore.user)
    }
  
@@ -83,7 +83,7 @@ export default function NewEntryMap({newEntry, setNewEntry }) {
       console.log(data, details);
       setView({latitude:details.geometry.location.lat,longitude:details.geometry.location.lng,longitudeDelta: 0.005,latitudeDelta: 0.0005})
       SetMarkerloc({latitude:details.geometry.location.lat,longitude:details.geometry.location.lng});
-      setNewEntry({...newEntry,location:{lat:markerloc.latitude,lng:markerloc.longitude}});
+      setNewEntry({...newEntry,location:{lat:details.geometry.location.lat,lng:details.geometry.location.lng}});
      
     }}
     query={{

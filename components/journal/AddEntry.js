@@ -1,4 +1,4 @@
-import { View } from "react-native";
+import { View ,Dimensions} from "react-native";
 import { useState } from "react";
 import { Steps, SmallButton } from "../../constants";
 import entriesStore from "../../stores/entriesStore";
@@ -33,18 +33,28 @@ export default function AddEntry({ route, navigation }) {
   const handleNext = () => {
     setPageNum(pageNum + 1);
     if (pageNum === 4) {
-      entriesStore.addEntry(newEntry);
+     const res =entriesStore.addEntry(newEntry);
+     if (res){ 
+       toast.show({
+      title: "Memory Added Successfully",
+      placement: "top",
+      bg: "green.800",
+    });
+  }
+    else{
       toast.show({
-        title: "Entry added successfully",
+        title: " Failed to Add Memory , Try Later !",
         placement: "top",
-        bg: "green.800",
+        bg: "red.800",
       });
+    }
+    
       navigation.navigate("MainJournal");
     }
   };
 
   return (
-    <View style={{ flex: 1 }}>
+    <View style={{ flex: 1 , width: Dimensions.get("window").width,height: Dimensions.get("window").height,backgroundColor: "white",}}>
       {pageNum === 1 && (
         <AddEntry1 newEntry={newEntry} setNewEntry={setNewEntry} />
       )}

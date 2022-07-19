@@ -6,6 +6,9 @@ import { Switch } from "native-base";
 import { baseURL } from "../../instance";
 import userStore from "../../stores/usersStore";
 import entriesStore from "../../stores/entriesStore";
+import { FlatListSlider } from "react-native-flatlist-slider";
+import ImageItem from "../journal/EntryImgItem";
+
 
 export default function AddEntry4({
   newEntry,
@@ -21,17 +24,18 @@ export default function AddEntry4({
   const [isPriv, setIsPriv] = useState(false);
   const [selected, setSelected] = useState([]);
   const friends = [];
+let images;
   if (route.params) {
     const { photos } = route.params;
-    pics = photos.map((pic, i) => (
-      <Image
-        style={{ height: 500, width: 500, borderRadius: 4 }}
-        source={{ uri: `${baseURL}${pic}` }}
-        key={i}
-      />
-    ));
+    images = photos.map((img) => {
+      return {
+        image: `${baseURL}${img}`,
+      };
+    });
   }
+  
 
+  console.log(pics[0]);
   return (
     <View style={{ flex: 1 }}>
       <ExtraBigButton
@@ -41,19 +45,15 @@ export default function AddEntry4({
         }}
       />
       {route.params && (
-        <ScrollView
-          style={{
-            marginRight: 10,
-            marginLeft: 10,
-            marginBottom: 30,
-            maxHeight: 500,
-            backgroundColor: "white",
-            borderRadius: 12,
-          }}
-          horizontal
-        >
-          {pics}
-        </ScrollView>
+         <View>
+         <FlatListSlider
+           data={images}
+           width={390}
+           height={240}
+           timer={5000}
+           component={<ImageItem />}
+         />
+       </View>
       )}
 
       <InputLabel text="Tag friends: " />
