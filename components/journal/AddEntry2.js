@@ -4,7 +4,7 @@ import EmojiItem from "./EmojiItem";
 
 export default function AddEntry2({ newEntry, setNewEntry }) {
   const feelingsEmoji = [
-    "lovely",
+    "amazing",
     "happy",
     "ok",
     "worried",

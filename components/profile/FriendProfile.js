@@ -1,38 +1,22 @@
-import {
-    View,
-    StyleSheet,
-    Text,
-    Dimensions,
-    ScrollView,
-    SafeAreaView,
-  } from "react-native";
-  import { Image } from "native-base";
-  
-  import {
-    theme,
-    BoldBigLabel,
-    XsmlLabel,
-    NumOfFriends,
-    BigButton,
-  } from "../../constants";
-  import { observer } from "mobx-react";
-  import usersStore from "../../stores/usersStore";
-  import entriesStore from "../../stores/entriesStore";
-  import { baseURL } from "../../instance";
-  import { TouchableOpacity } from "react-native-gesture-handler";
-  import MoodsPieChart from "./MoodsPieChart";
-  import { useNavigation } from "@react-navigation/native";
-  import JournalEntry from "../journal/JournalItem";
+import { View, StyleSheet, ScrollView, Dimensions } from "react-native";
+import { Image } from "native-base";
+import { theme, BoldBigLabel, XsmlLabel, NumOfFriends } from "../../constants";
+import entriesStore from "../../stores/entriesStore";
+import { baseURL } from "../../instance";
+import { TouchableOpacity } from "react-native-gesture-handler";
+import { useNavigation } from "@react-navigation/native";
+import JournalEntry from "../journal/JournalItem";
 import userStore from "../../stores/usersStore";
-  
-  
-export default function FriendProfile({route}) {
-    const {friend}=route.params;
-    const navigation = useNavigation();
-    const userfriends=userStore.users.find((user)=>user._id==friend._id).friends;
-    const entries = entriesStore.entries;
-    const friendEntries=entries.filter((entry)=>entry.user==friend._id && entry.isPriv==false)
-    let Memories=friendEntries.map((entry) => <JournalEntry entry={entry} key={entry._id} />)
+import { observer } from "mobx-react";
+
+function FriendProfile({ route }) {
+  const { friend } = route.params;
+  const navigation = useNavigation();
+  const entries = entriesStore.entries;
+  const friendEntries = entries.filter((entrie) => entrie.user == friend._id);
+  let Memories = friendEntries.map((entry) => (
+    <JournalEntry entry={entry} key={entry._id} />
+  ));
 
   return (
     <ScrollView style={styles.screen}>
@@ -55,7 +39,7 @@ export default function FriendProfile({route}) {
         <XsmlLabel text={"@" + friend.username} />
         <TouchableOpacity
           onPress={() => {
-            navigation.navigate("friendsList", { friends: userfriends });
+            navigation.navigate("friendsList", { userID: friend._id });
           }}
         >
           <NumOfFriends num={friend.friends?.length || 0} />
@@ -67,6 +51,7 @@ export default function FriendProfile({route}) {
     </ScrollView>
   );
 }
+export default observer(FriendProfile);
 
 const styles = StyleSheet.create({
   pfp: {
@@ -74,10 +59,8 @@ const styles = StyleSheet.create({
     height: 100,
     backgroundColor: theme.grey,
     borderRadius: 100 / 2,
-    zIndex: 100,
     borderColor: "white",
     borderWidth: 4,
-    //   bottom:"8%"
   },
   screen: {
     width: Dimensions.get("window").width,
@@ -86,12 +69,9 @@ const styles = StyleSheet.create({
   },
   bigContainer: {
     padding: 10,
-    flex: 1,
-    // position: "absolute",
     marginLeft: 10,
     marginRight: 10,
-    alignItems: "stretch",
-    bottom: "15%",
+    bottom: 60,
   },
 
   smallContainer: {

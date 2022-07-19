@@ -45,7 +45,7 @@ function JournalList({ navigation }) {
   }
 
   const entries = entriesStore.filteredUserEntries.map((entry) => (
-    <JournalEntry entry={entry} key={entry._id} />
+    <JournalEntry entry={entry} key={entry._id} navigation={navigation} />
   ));
 
   const handleSearch = (newText, label) => {

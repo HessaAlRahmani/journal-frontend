@@ -30,6 +30,7 @@ export default function EditProfile({ navigation }) {
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
       allowsEditing: true,
       aspect: [1, 1],
+      quality: 0.6,
     });
     if (!result1.cancelled) {
       setPfp(result1.uri);

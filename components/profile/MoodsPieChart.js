@@ -23,7 +23,7 @@ export default function MoodsPieChart({
     ok: 0,
     sad: 0,
     worried: 0,
-    lovely: 0,
+    amazing: 0,
     angry: 0,
   };
 
@@ -48,7 +48,7 @@ export default function MoodsPieChart({
   );
 
   function* yLabel() {
-    yield* ["angry", "sad", "worried", "ok", "happy", "lovely"];
+    yield* ["angry", "sad", "worried", "ok", "happy", "amazing"];
   }
   const yLabelIterator = yLabel();
 
@@ -58,9 +58,9 @@ export default function MoodsPieChart({
     datasets: [
       {
         data: feelings,
-        color: (opacity = 1) => `rgba(134, 65, 244, 1)`,
+        color: (opacity = 1) => "#118AB2",
       },
-      { data: health, color: (opacity = 1) => "black" },
+      { data: health, color: (opacity = 1) => "#FFD166" },
     ],
     legend: ["feeling", "health"], // optional
   };
@@ -79,9 +79,9 @@ export default function MoodsPieChart({
 
   const data2 = [
     {
-      name: "Lovely",
-      freq: count.lovely,
-      color: "#073B4C",
+      name: "Amazing",
+      freq: count.amazing,
+      color: "#003d80",
       legendFontColor: "#7F7F7F",
       legendFontSize: RFValue(11),
     },
@@ -124,7 +124,7 @@ export default function MoodsPieChart({
     {
       name: "Undocumented",
       freq: count.undocumented,
-      color: "#a097d2",
+      color: "#64589D",
       legendFontColor: "#7F7F7F",
       legendFontSize: RFValue(11),
     },
@@ -175,7 +175,8 @@ export default function MoodsPieChart({
 
 const styles = StyleSheet.create({
   item: {
-    margin: 12,
+    marginTop: 12,
+    marginBottom: 12,
     borderRadius: 15,
     backgroundColor: theme.grey,
   },
