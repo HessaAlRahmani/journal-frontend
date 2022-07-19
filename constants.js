@@ -14,7 +14,7 @@ export const theme = {
   lightGrey: "#F6F6F6",
   grey: "#D9D9D9",
   darkGrey: "#696969",
-  primary: "#feb801",
+  primary: "#7AA6CC",
   danger: "#EB7070",
   success: "#2FA83B",
   windowWidth: Dimensions.get("window").width,
@@ -67,13 +67,13 @@ export const BigButton = ({ onPress, text, style }) => {
   );
 };
 
-export const SmallButton = ({ onPress, text, style ,textStyle}) => {
+export const SmallButton = ({ onPress, text, style, textStyle }) => {
   return (
     <TouchableOpacity
       style={[styles.basicShadow, styles.SmallButton, style]}
       onPress={onPress}
     >
-      <Text style={[styles.SmallButtonText,textStyle]}>{text}</Text>
+      <Text style={[styles.SmallButtonText, textStyle]}>{text}</Text>
     </TouchableOpacity>
   );
 };
@@ -257,7 +257,7 @@ const styles = StyleSheet.create({
   },
 
   roundButton: {
-    backgroundColor: theme.grey,
+    backgroundColor: theme.primary,
     borderRadius: 30,
     width: 60,
     height: 60,
@@ -279,7 +279,7 @@ const styles = StyleSheet.create({
   },
 
   ExtraBigButton: {
-    backgroundColor: theme.grey,
+    backgroundColor: theme.primary,
     padding: 10,
     margin: 30,
     marginLeft: 10,
@@ -290,10 +290,11 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontWeight: "bold",
     fontSize: RFValue(14),
+    color: "white",
   },
 
   BigButton: {
-    backgroundColor: theme.grey,
+    backgroundColor: theme.primary,
     padding: 5,
     margin: 7,
     width: 113,
@@ -303,6 +304,7 @@ const styles = StyleSheet.create({
   BigButtonText: {
     fontSize: 16,
     textAlign: "center",
+    color: "white",
   },
 
   input: {
@@ -326,8 +328,9 @@ const styles = StyleSheet.create({
   },
   SmallButtonText: {
     fontSize: RFValue(10),
-    color:"white",
+    color: "white",
     textAlign: "center",
+    color: "white",
   },
 
   bigInput: {

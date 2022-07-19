@@ -35,7 +35,7 @@ function Friend({ friend }) {
       onPress={() => {
         handleAddFriend();
       }}
-      style={{ justifyContent: "center", left: "0%" }}
+      style={{ justifyContent: "center", marginRight: 20 }}
     >
       <AntDesign name="adduser" size={28} color="black" />
     </TouchableOpacity>
