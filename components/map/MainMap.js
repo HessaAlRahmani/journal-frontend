@@ -91,7 +91,7 @@ export default function MainMap() {
     const lat = e.nativeEvent.coordinate.latitude.toFixed(6);
     const lng = e.nativeEvent.coordinate.longitude.toFixed(6);
     SetMarkerloc({ latitude: lat, longitude: lng });
-    alert(Object.entries(markerloc));
+    // alert(Object.entries(markerloc));
     console.log(lat, lng);
   };
   const makepins = (entries) => {
@@ -342,8 +342,8 @@ export default function MainMap() {
             coordinate={markerloc}
             onDragEnd={(e) => drag(e)}
             pinColor={"#7AA6CC"}
-            title="my current"
-            description="purple pin borahe"
+            title="my current location"
+
             // image={{uri: "https://mpng.subpng.com/20180615/zzw/kisspng-gps-navigation-systems-computer-icons-android-icon-5b246d324b4c66.9491847615291139063084.jpg"}}
             // image={require("https://mpng.subpng.com/20180615/zzw/kisspng-gps-navigation-systems-computer-icons-android-icon-5b246d324b4c66.9491847615291139063084.jpg")}
           />

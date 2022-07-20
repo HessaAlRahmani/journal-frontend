@@ -107,20 +107,20 @@ class UserStore {
 
   handleRemove = async (exfriend) => {
     try {
+      console.log("friend",this.user.friends[0]);
       const usersfriends = { friends: [] };
       usersfriends.friends = this.user.friends.filter(
-        (myfriend) => myfriend._id != exfriend._id
+        (myfriend) => myfriend != exfriend._id
       );
-
-      runInAction(() => {
-        this.user.friends = usersfriends;
-        console.log(this.user.friends);
-      });
+      
+console.log("friendsss   ",usersfriends.friends);
+    
 
       const friendsfriends = { friends: [] };
       friendsfriends.friends = exfriend.friends.filter(
-        (myfriend) => myfriend._id != this.user._id
+        (myfriend) => myfriend != this.user._id
       );
+
       const res1 = await instance.put(
         `/updateUser/${this.user._id}`,
         usersfriends
@@ -129,7 +129,16 @@ class UserStore {
         `/updateUser/${exfriend._id}`,
         friendsfriends
       );
-      this.fetchUsers;
+      runInAction(() => {
+        this.users.find((user)=>user._id==this.user._id).friends = usersfriends.friends;
+        this.users.find((user)=> exfriend._id==user._id).friends = friendsfriends.friends;
+        console.log("hessa  friendsss",this.users.find((user)=>user._id==this.user._id).friends);
+        console.log("nora  friendsss", this.users.find((user)=> exfriend._id==user._id).friends);
+        this.fetchUsers();
+
+        console.log(this.user.friends);
+      });
+  
     } catch (error) {
       console.error(error);
     }
