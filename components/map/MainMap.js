@@ -21,13 +21,14 @@ import { FontAwesome5 } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import { baseURL } from "../../instance";
 import entriesStore from "../../stores/entriesStore";
+import {observer} from "mobx-react";
 
 const wait = (timeout) => {
   return new Promise((resolve) => setTimeout(resolve, timeout));
 };
 
 //check the key
-export default function MainMap() {
+function MainMap() {
   const [refreshing, setRefreshing] = React.useState(false);
   const onRefresh = React.useCallback(() => {
     setRefreshing(true);
@@ -450,6 +451,8 @@ export default function MainMap() {
   );
 }
 
+
+export default observer(MainMap);
 const styles = StyleSheet.create({
   container: {
     flex: 1,

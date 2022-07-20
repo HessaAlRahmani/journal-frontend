@@ -43,7 +43,7 @@ function Notifications({ navigation }) {
         navigation={navigation}
       />
     ));
-
+    tagNotifications.reverse();
   return (
     <ScrollView  refreshControl={
       <RefreshControl
@@ -59,7 +59,7 @@ function Notifications({ navigation }) {
           <SmlLabel text={"no requests"} />
         )}
         <BoldBigLabel style={styles.label} text={"Friend tags"} />
-        {friendReqNotifications.length ? (
+        {tagNotifications.length ? (
           tagNotifications
         ) : (
           <SmlLabel text={"no tags yet"} />

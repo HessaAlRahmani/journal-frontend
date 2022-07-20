@@ -62,7 +62,7 @@ function bottomTab() {
         component={NotificationsStack}
         options={{
           tabBarLabel: "Notifications",
-          //tabBarBadge: 3,
+          headerShown: false,
         }}
       />
 
