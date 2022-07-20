@@ -35,7 +35,6 @@ let images;
   }
   
 
-  console.log(pics[0]);
   return (
     <View style={{ flex: 1 }}>
       <ExtraBigButton
@@ -78,13 +77,15 @@ let images;
           searchPlaceholder="Search..."
           value={selected}
           onChange={(friend) => {
-            if (friends.find((f) => f === friend)) {
-              friends.splice(friends.indexOf(friend), 1);
+            if (newEntry.friends.find((f) => f === friend)) {
+              friends.splice(newEntry.friends.indexOf(friend), 1);
             } else {
               friends.push(friend);
+             
             }
             setSelected(friend);
-            setNewEntry({ ...newEntry, friends: friends });
+            console.log("friends array  ",friends[0])
+            setNewEntry({ ...newEntry, friends: friends[0] });
           }}
           selectedStyle={styles.selectedStyle}
         />

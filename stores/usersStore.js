@@ -109,7 +109,7 @@ class UserStore {
     try {
       const usersfriends = { friends: [] };
       usersfriends.friends = this.user.friends.filter(
-        (myfriend) => myfriend._id === exfriend._id
+        (myfriend) => myfriend._id != exfriend._id
       );
 
       runInAction(() => {
@@ -119,7 +119,7 @@ class UserStore {
 
       const friendsfriends = { friends: [] };
       friendsfriends.friends = exfriend.friends.filter(
-        (myfriend) => myfriend._id === this.user._id
+        (myfriend) => myfriend._id != this.user._id
       );
       const res1 = await instance.put(
         `/updateUser/${this.user._id}`,

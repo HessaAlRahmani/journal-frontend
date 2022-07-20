@@ -37,23 +37,33 @@ class EntriesStore {
     }
   };
 
-  filterUserEntries = (query, value) => {
+  filterUserEntries = (query,value) => {
     console.log(query);
-    if (value !== "all") {
-      this.filteredUserEntries = this.userEntries.filter((entry) => {
-        return (
-          entry.title.toLowerCase().includes(query.toLowerCase()) &&
-          entry.activityType === value
-        );
-      });
-    } else {
-      this.filteredUserEntries = this.userEntries.filter((entry) => {
+    console.log("value", value);
+    // if (value !== "all") {
+    //   this.filteredUserEntries = this.userEntries.filter((entry) => {
+    //     return (
+    //       entry.title.toLowerCase().includes(query.toLowerCase()) &&
+    //       entry.activityType == value
+    //     );
+    //   });
+    // } else {
+      if(value!="all")
+      {
+        this.filteredUserEntries = this.userEntries.filter((entry) => {
+          return entry.title.toLowerCase().includes(query.toLowerCase()) && entry.activityType==value;
+        });
+      }
+      else if (value=="all"){  
+        this.filteredUserEntries = this.userEntries.filter((entry) => {
         return entry.title.toLowerCase().includes(query.toLowerCase());
-      });
+      });}
+    
     }
-  };
+  // };
 
   addEntry = async (newEntry) => {
+    console.log("new entry       ",newEntry);
     try {
       newEntry.attachments = this.pics;
       newEntry.user = usersStore.user._id;
