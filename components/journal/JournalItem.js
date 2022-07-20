@@ -45,8 +45,8 @@ export default function JournalItem({ entry, navigation }) {
             style={styles.bottomTab}
             source={{
               uri: isFav
-                ? `${baseURL}/media/emojis/favorite.png`
-                : `${baseURL}/media/emojis/notfavorite.png`,
+                ? `${baseURL}/media/emojis/favorite1.png`
+                : `${baseURL}/media/emojis/notfavorite1.png`,
             }}
             alt={isFav ? "favorite" : "not favorite"}
           />

@@ -29,7 +29,8 @@ function JournalList({ navigation }) {
     wait(2000).then(() => setRefreshing(false));
   }, []);
 
-  const [value, setValue] = useState("");
+  const [value, setValue] = useState("0");
+  const [label, setLabel] = useState("all");
   const [isFocus, setIsFocus] = useState(false);
   let data = [{ label: "all", value: "0" }];
 
@@ -86,7 +87,7 @@ function JournalList({ navigation }) {
             style={[styles.searchInput, styles.basicShadow]}
             placeholder={"Search All Memories"}
             value={query}
-            onChangeText={(newText) => handleSearch(newText, value)}
+            onChangeText={(newText) => handleSearch(newText, label)}
           />
           <Dropdown
             style={[styles.dropdown, isFocus && { borderColor: "blue" }]}
@@ -107,6 +108,7 @@ function JournalList({ navigation }) {
             onBlur={() => setIsFocus(false)}
             onChange={(item) => {
               setValue(item.value);
+              setLabel(item.label);
               setIsFocus(false);
               handleSearch(query, item.label);
             }}

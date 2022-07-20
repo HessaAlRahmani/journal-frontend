@@ -97,10 +97,10 @@ function MainProfile({ navigation }) {
           <NumOfFriends num={userfriends?.length || 0} />
         </TouchableOpacity>
         <XsmlLabel text={user.bio} />
-        <MoodsPieChart
+        {/* <MoodsPieChart
           userEntriesFeels={userEntriesFeels}
           sumADatesFeelingsAndHealth={sumADatesFeelingsAndHealth}
-        />
+        /> */}
         <BigButton
           text={"Sign out"}
           onPress={() => {
