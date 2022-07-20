@@ -33,6 +33,7 @@ class NotificationsStore {
       const response = await instance.put(
         `notifications/acceptFriendSentfrom/${userId}/to/${friendId}`
       );
+      this.rejectFriend(userId,friendId);
       
       runInAction(() => {
      userStore.fetchUsers();
@@ -83,6 +84,16 @@ class NotificationsStore {
       }
     catch(error){console.error("can't reject friend", error);}
   
+  }
+  openNotification=async(notificationId)=>{
+    try{
+    let  updatedNotification={open:true};
+    const response=await instance.put(`notifications/openNotification/${notificationId}`,updatedNotification);
+    notificationsStore.notifications.find((notification)=>notification._id==notificationId).open=true;
+
+    }
+    catch(error){console.error("can't update notification", error);}
+
   }
 
 }

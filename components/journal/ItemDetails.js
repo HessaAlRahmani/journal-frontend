@@ -18,7 +18,7 @@ import { theme, BoldBigLabel } from "../../constants";
 
 export default function ItemDetails({ route }) {
   const navigation = useNavigation();
-  const { item } = route.params;
+  const { item ,noti} = route.params;
   let entry = entriesStore.entries.find((e) => e.title == item.name);
 
   let tagged = entry.friends.map((friend) => {
@@ -35,6 +35,7 @@ export default function ItemDetails({ route }) {
   });
 
   console.log({ entry });
+  console.log("notiiifiiicaaation     ",noti);
   return (
     <SafeAreaView style={styles.screen}>
       <ScrollView>

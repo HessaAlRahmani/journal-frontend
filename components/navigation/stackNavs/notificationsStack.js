@@ -14,11 +14,15 @@ export default function NotificationsStack() {
       initialRouteName="MainNotifications"
       screenOptions={{
         tabBarActiveTintColor: "black",
-        headerShown: false,
+        // headerShown: false,
         headerTitleAlign: "center",
       }}
     >
-      <Screen name="MainNotifications" component={Notifications} />
+      <Screen name="MainNotifications"
+       component={Notifications} 
+       options={() => ({
+        title: `Notifications`,
+      })}/>
       <Screen name="Details" component={ItemDetails} />
       <Screen
         name="friendProfile"
